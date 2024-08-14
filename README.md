@@ -34,6 +34,7 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 
 ## Links importantes
 
-- [Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum](Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum)
+- Drive: https://drive.google.com/drive/folders/1yEfDaWxUJ_-fbT_BbgbsGRfBqipIegl3
+- Clickup: https://app.clickup.com/9013396177/v/o/s/90131631844
 
 ## Entregas
