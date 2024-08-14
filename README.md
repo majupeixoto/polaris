@@ -1,6 +1,11 @@
-# Projeto 3° período
+<p align="center">
+  <img
+    src="https://img.shields.io/badge/Status-Em%20desenvolvimento-green?style=flat-square"
+    alt="Status"
+  />
+</p>
 
-*Projeto em construção*
+# Projeto 3° período
 
 ## Descrição do Projeto
 
