@@ -109,6 +109,5 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 ## Links importantes
 
 - Drive: https://drive.google.com/drive/folders/1yEfDaWxUJ_-fbT_BbgbsGRfBqipIegl3
-- Clickup: https://app.clickup.com/9013396177/v/o/s/90131631844
-
+- Notion: https://www.notion.so/eebd26032b394945911ba7efdb9ec031
 ## Entregas
