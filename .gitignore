@@ -1,0 +1,26 @@
+# o que colocar no .gitignore do projeto
+
+_pycache_/
+_pycache_
+
+venv
+venv/
+.venv
+venv.bak/
+staticfiles
+
+# Backup files #
+*.bak
+
+# Python #
+*.py[cod]
+*$py.class
+
+# VS Code
+.vscode/
+.vscode/* 
+!.vscode/settings.json 
+!.vscode/tasks.json 
+!.vscode/launch.json 
+!.vscode/extensions.json 
+.history
