@@ -109,5 +109,5 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 
 ## Links importantes
 
-- Entregas SR1
+- [Entregas SR1](https://github.com/majupeixoto/polaris/blob/main/SR1.md)
 - Entregas SR2
