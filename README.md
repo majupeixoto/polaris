@@ -9,18 +9,19 @@
 
 ## Descrição do Projeto
 
-Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+Nossa plataforma é uma aplicação web com design adaptável que conecta a comunidade acadêmica para descobrir pessoas e iniciativas a partir de interesses similares. Desenvolvida em Python com o framework Django, a aplicação oferece diversas funcionalidades aos usuários, de modo que os organizadores podem buscar e reservar espaços de acordo com suas necessidades e os proprietários podem listar seus espaços disponíveis.
+Este projeto é parte da disciplina Projetos 3.
 
-### Objetivo de Lorem ipsum
+### Objetivo de Desenvolvimento Sustentável
 
-Este projeto contribui para o **Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum**, promovendo Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum.
+Este projeto contribui para o **Objetivo de Desenvolvimento Sustentável 4: Educação de Qualidade**, ao criar uma plataforma que conecta a comunidade acadêmica e facilita o acesso a oportunidades de aprendizado e colaboração. Isso promove a troca de conhecimento entre alunos e professores, fomentando uma educação mais inclusiva, acessível e de qualidade.
 
 ### Tecnologias Utilizadas
 
-- **Framework de Desenvolvimento** = Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-- **Organização** = Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-- **Banco de Dados** = Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-- **Hospedagem na Lorem ipsum** = Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+- **Framework de Desenvolvimento** = O desenvolvimento é realizado com Django, mas deixamos de usar Generic Views e Django Forms para maior controle e customização.
+- **Organização** = uso do Notion/Jira para organização da equipe e aplicação de princípios de desenvolvimento de software.
+- **Banco de Dados** = Utilizamos SQLite/PostgreSQL para persistência de dados, garantindo segurança e escalabilidade conforme necessário.
+- **Hospedagem na Azure** = O produto final será hospedado na plataforma Azure, garantindo confiabilidade e escalabilidade.
 
 ## Como Contribuir
 
@@ -108,6 +109,5 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 
 ## Links importantes
 
-- Drive: https://drive.google.com/drive/folders/1yEfDaWxUJ_-fbT_BbgbsGRfBqipIegl3
-- Notion: https://www.notion.so/eebd26032b394945911ba7efdb9ec031
-## Entregas
+- Entregas SR1
+- Entregas SR2
