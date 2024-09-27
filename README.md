@@ -39,7 +39,7 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 - [Paulo Ricardo](https://github.com/paulo-rago) - prcr@cesar.school 📩
 - [Thaís Aguiar](https://github.com/aguiarth) - thcba@cesar.school 📩
 
-<table>
+  <table>
   <tr>
     <td align="center">
       <a href="https://github.com/lilymtbr">
