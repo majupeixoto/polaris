@@ -39,7 +39,7 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
 - [Paulo Ricardo](https://github.com/paulo-rago) - prcr@cesar.school 📩
 - [Thaís Aguiar](https://github.com/aguiarth) - thcba@cesar.school 📩
 
-  <table>
+<table>
   <tr>
     <td align="center">
       <a href="https://github.com/lilymtbr">
@@ -49,7 +49,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
     <td align="center">
       <a href="https://github.com/lua-mf">
         <img src="https://avatars.githubusercontent.com/lua-mf" width="100px;" alt="Foto de Luana"/><br>
@@ -58,7 +57,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
     <td align="center">
       <a href="https://github.com/luzianes">
         <img src="https://avatars.githubusercontent.com/luzianes" width="100px;" alt="Foto de Luziane"/><br>
@@ -67,7 +65,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
     <td align="center">
       <a href="https://github.com/majupeixoto">
         <img src="https://avatars.githubusercontent.com/majupeixoto" width="100px;" alt="Foto de Maria Júlia"/><br>
@@ -76,7 +73,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
     <td align="center">
       <a href="https://github.com/MatheusVelame">
         <img src="https://avatars.githubusercontent.com/MatheusVelame" width="100px;" alt="Foto de Matheus"/><br>
@@ -85,7 +81,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
     <td align="center">
       <a href="https://github.com/paulo-rago">
         <img src="https://avatars.githubusercontent.com/paulo-rago" width="100px;" alt="Foto de Paulo"/><br>
@@ -94,7 +89,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-
     <td align="center">
       <a href="https://github.com/aguiarth">
         <img src="https://avatars.githubusercontent.com/aguiarth" width="100px;" alt="Foto de Thaís"/><br>
@@ -103,7 +97,6 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
         </sub>
       </a>
     </td>
-    
   </tr>
 </table>
 
