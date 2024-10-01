@@ -16,6 +16,7 @@ def cadastro_usuario(request):
         email = request.POST['email']
         telefone = request.POST['telefone']
         password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
         curso = request.POST['curso']
         perfil_tipo = request.POST.get('trocar_perfil')
         
@@ -25,6 +26,8 @@ def cadastro_usuario(request):
             messages.error(request, 'Username já existe!')
         elif User.objects.filter(email=email).exists():
             messages.error(request, 'Email já cadastrado!')
+        elif (password != confirm_password):
+            messages.error(request, 'As senhas não se coincidem!')
         else:
             # Cria o usuário e o perfil
             user = User.objects.create_user(username=username, email=email, password=password)
