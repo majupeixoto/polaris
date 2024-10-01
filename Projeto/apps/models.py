@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import EmailValidator
 from django.utils import timezone
 from datetime import datetime
 
@@ -12,13 +13,12 @@ from datetime import datetime
 class Perfil(models.Model):
     nome = models.CharField(max_length=255)
     username = models.CharField(max_length=30, unique=True)
-    email = models.CharField(max_length=50, unique=True)
-    telefone = models.CharField(max_length=11)
-
-    trocar_perfil = models.BooleanField()  # Campo booleano para distinguir entre alunos e funcionários
+    email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
+    telefone = models.CharField(max_length=11)  # Para padronizar, pode-se usar django-phonenumber-field
+    trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
 
     def __str__(self):
-        return (self.nome, self.email)
+        return self.nome
     
 class Evento(models.Model):
     TIPO_CHOICES = [
@@ -44,3 +44,16 @@ class Evento(models.Model):
         horas = int(self.carga_horaria)
         minutos = int((self.carga_horaria - horas) * 60)
         return f"{horas:02d} hora(s) e {minutos:02d} minuto(s)"
+
+class GrupoEstudo(models.Model):
+    titulo = models.CharField(max_length=100)
+    tema = models.CharField(max_length=100)
+    numero_integrantes = models.IntegerField()
+    descricao = models.TextField()
+    professor_orientador = models.CharField(max_length=100)
+    carga_horaria_semanal = models.DecimalField(max_digits=4, decimal_places=2)
+    dias_reuniao = models.CharField(max_length=100)  # Ex: "Segunda, Quarta"
+    hora_reuniao = models.TimeField()
+
+    def __str__(self):
+        return self.titulo
