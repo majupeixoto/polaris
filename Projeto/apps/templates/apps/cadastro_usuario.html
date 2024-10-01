@@ -1,0 +1,48 @@
+{% extends 'global/base.html' %}
+{% load static %}
+{% block content %}
+<div class="center">
+    <form class="login" method="post">
+        {% csrf_token %}
+        <h1>Cadastro</h1>
+        <div class="box-user">
+            <input type="text" placeholder="Nome de usuário" id="username" name="username" value="{{ request.POST.username }}" required>
+        </div>
+                
+        <div class="box-user">
+            <input type="text" placeholder="Nome" id="name" name="name" value="{{ request.POST.name }}" required>
+        </div>
+                
+        <div class="box-user">
+            <input type="email" placeholder="Email" id="email" name="email" value="{{ request.POST.email }}" required>
+        </div>
+        
+        <div class="box-user">
+            <input type="text" placeholder="Telefone" id="telefone" name="telefone" value="{{ request.POST.telefone }}" required>
+        </div>
+                
+        <div class="box-user">
+            <input type="password" placeholder="Senha" id="password" name="password" required>
+        </div>
+
+        <div class="box-user">
+            <label for="trocar_perfil">Você é funcionário?</label>
+            <input type="checkbox" id="trocar_perfil" name="trocar_perfil">
+        </div>
+                
+        {% if messages %}
+            <ul class="error-messages">
+                {% for message in messages %}
+                    <li class="erro">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <div>
+            <p>Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui.</a></p>
+        </div>
+        
+        <button type="submit" class="btn_login">Registrar</button>
+    </form>
+</div>
+{% endblock %}

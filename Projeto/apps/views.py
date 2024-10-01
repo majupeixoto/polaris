@@ -1,10 +1,34 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Perfil, Evento
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
+
+def cadastro_usuario(request):
+    if request.method == 'POST':
+        nome = request.POST.get('name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+        password = request.POST.get('password')
+        perfil_tipo = request.POST.get('trocar_perfil')
+
+        # Verificação de erros simples
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username já existe!')
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, 'Email já cadastrado!')
+        else:
+            # Cria o usuário e o perfil
+            user = User.objects.create_user(username=username, email=email, password=password)
+            perfil = Perfil.objects.create(nome=nome, username=username, email=email, telefone=telefone, trocar_perfil=perfil_tipo == 'on')
+            messages.success(request, 'Cadastro realizado com sucesso!')
+            return redirect('login')
+    
+    return render(request, 'apps/cadastro_usuario.html')
 
 def login_view(request):
     if request.method == 'POST':

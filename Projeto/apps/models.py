@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import EmailValidator
 from django.utils import timezone
 from datetime import datetime
 
@@ -12,13 +13,12 @@ from datetime import datetime
 class Perfil(models.Model):
     nome = models.CharField(max_length=255)
     username = models.CharField(max_length=30, unique=True)
-    email = models.CharField(max_length=50, unique=True)
-    telefone = models.CharField(max_length=11)
-
-    trocar_perfil = models.BooleanField()  # Campo booleano para distinguir entre alunos e funcionários
+    email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
+    telefone = models.CharField(max_length=11)  # Para padronizar, pode-se usar django-phonenumber-field
+    trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
 
     def __str__(self):
-        return (self.nome, self.email)
+        return self.nome
     
 class Evento(models.Model):
     TIPO_CHOICES = [
