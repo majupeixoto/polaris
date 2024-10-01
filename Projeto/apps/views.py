@@ -10,11 +10,12 @@ from django.http import HttpResponse
 
 def cadastro_usuario(request):
     if request.method == 'POST':
-        nome = request.POST.get('name')
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        telefone = request.POST.get('telefone')
-        password = request.POST.get('password')
+        nome = request.POST['name']
+        username = request.POST['username']
+        email = request.POST['email']
+        telefone = request.POST['telefone']
+        password = request.POST['password']
+        curso = request.POST['curso']
         perfil_tipo = request.POST.get('trocar_perfil')
 
         # Verificação de erros simples
@@ -25,7 +26,12 @@ def cadastro_usuario(request):
         else:
             # Cria o usuário e o perfil
             user = User.objects.create_user(username=username, email=email, password=password)
-            perfil = Perfil.objects.create(nome=nome, username=username, email=email, telefone=telefone, trocar_perfil=perfil_tipo == 'on')
+            perfil = Perfil.objects.create(nome=nome, 
+                                           username=username, 
+                                           email=email, 
+                                           telefone=telefone,
+                                           curso=curso, 
+                                           trocar_perfil=perfil_tipo == 'on')
             messages.success(request, 'Cadastro realizado com sucesso!')
             return redirect('')
     
