@@ -27,7 +27,7 @@ def cadastro_usuario(request):
             user = User.objects.create_user(username=username, email=email, password=password)
             perfil = Perfil.objects.create(nome=nome, username=username, email=email, telefone=telefone, trocar_perfil=perfil_tipo == 'on')
             messages.success(request, 'Cadastro realizado com sucesso!')
-            return redirect('login')
+            return redirect('')
     
     return render(request, 'apps/cadastro_usuario.html')
 
