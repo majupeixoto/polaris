@@ -26,14 +26,13 @@ class Evento(models.Model):
         ('presencial', 'Presencial'),
     ]
     
-    tipo_evento = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     inicio_evento = models.DateTimeField()
     fim_evento = models.DateTimeField()
     vagas = models.IntegerField()
-    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
-    carga_horaria = models.DecimalField(max_digits=5, decimal_places=2)
+    carga_horaria = models.DecimalField(max_digits=5, decimal_places=2)  # Ex: 2.5 para 2 horas e 30 minutos
     local = models.CharField(max_length=200)
 
     def __str__(self):
@@ -44,6 +43,15 @@ class Evento(models.Model):
         horas = int(self.carga_horaria)
         minutos = int((self.carga_horaria - horas) * 60)
         return f"{horas:02d} hora(s) e {minutos:02d} minuto(s)"
+    
+    # Método para verificar se o evento é online
+    def is_online(self):
+        return self.tipo == 'online'
+
+    # Método para verificar a duração total do evento
+    def duracao_evento(self):
+        return self.fim_evento - self.inicio_evento
+
 
 class GrupoEstudo(models.Model):
     titulo = models.CharField(max_length=100)
