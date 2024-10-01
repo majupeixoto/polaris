@@ -3,15 +3,31 @@
 <title>{% block title %}{{ evento.titulo }}{% endblock %}</title>
 
 {% block content %}
-    <body>
-        <h1>{{ evento.titulo }}</h1>
-        <p><strong>Tipo de Evento:</strong> {{ evento.tipo_evento }}</p>
-        <p><strong>Descrição:</strong> {{ evento.descricao }}</p>
-        <p><strong>Início:</strong> {{ evento.inicio_evento }}</p>
-        <p><strong>Fim:</strong> {{ evento.fim_evento }}</p>
-        <p><strong>Vagas Disponíveis:</strong> {{ evento.vagas }}</p>
-        <p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
-        <p><strong>Carga Horária:</strong> {{ evento.carga_horaria_formatada }}</p>
-        <p><strong>Local:</strong> {{ evento.local }}</p>
-    </body>
-    {% endblock %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1 class="card-title">{{ evento.titulo }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Tipo de Evento:</strong> {{ evento.tipo_evento }}</p>
+                            <p><strong>Descrição:</strong> {{ evento.descricao }}</p>
+                            <p><strong>Início:</strong> {{ evento.inicio_evento }}</p>
+                            <p><strong>Fim:</strong> {{ evento.fim_evento }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Vagas Disponíveis:</strong> {{ evento.vagas }}</p>
+                            <p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
+                            <p><strong>Carga Horária:</strong> {{ evento.carga_horaria_formatada }}</p>
+                            <p><strong>Local:</strong> {{ evento.local }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
