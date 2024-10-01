@@ -19,3 +19,28 @@ class Perfil(models.Model):
 
     def __str__(self):
         return (self.nome, self.email)
+    
+class Evento(models.Model):
+    TIPO_CHOICES = [
+        ('online', 'Online'),
+        ('presencial', 'Presencial'),
+    ]
+    
+    tipo_evento = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    inicio_evento = models.DateTimeField()
+    fim_evento = models.DateTimeField()
+    vagas = models.IntegerField()
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
+    carga_horaria = models.DecimalField(max_digits=5, decimal_places=2)
+    local = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.titulo
+
+    # Método para formatar carga horária como horas e minutos
+    def carga_horaria_formatada(self):
+        horas = int(self.carga_horaria)
+        minutos = int((self.carga_horaria - horas) * 60)
+        return f"{horas:02d} hora(s) e {minutos:02d} minuto(s)"
