@@ -9,6 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def cadastro_usuario(request):
+
     if request.method == 'POST':
         nome = request.POST['name']
         username = request.POST['username']
@@ -17,6 +18,7 @@ def cadastro_usuario(request):
         password = request.POST['password']
         curso = request.POST['curso']
         perfil_tipo = request.POST.get('trocar_perfil')
+        
 
         # Verificação de erros simples
         if User.objects.filter(username=username).exists():
@@ -32,6 +34,7 @@ def cadastro_usuario(request):
                                            telefone=telefone,
                                            curso=curso, 
                                            trocar_perfil=perfil_tipo == 'on')
+
             messages.success(request, 'Cadastro realizado com sucesso!')
             return redirect('')
     

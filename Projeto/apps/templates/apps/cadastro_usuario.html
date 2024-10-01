@@ -20,6 +20,17 @@
         <div class="box-user">
             <input type="text" placeholder="Telefone" id="telefone" name="telefone" value="{{ request.POST.telefone }}" required>
         </div>
+
+        <div>
+            <select name="curso" id="curso" required>
+                <option value="" disabled selected>Selecione um curso</option>
+                <option value="design">Design</option>
+                <option value="ciencias da computacao">Ciências da Computação</option>
+                <option value="sistemas de informacao">Sistemas de Informação</option>
+                <option value="analise e desenvolvimento de sistemas">Análise e Desenvolvimento de Sistemas</option>
+                <option value="gestao de tecnologia da informacao">Gestão de Tecnologia da Informação</option>
+            </select>
+        </div>
                 
         <div class="box-user">
             <input type="password" placeholder="Senha" id="password" name="password" required>
