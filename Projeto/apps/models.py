@@ -11,6 +11,14 @@ from datetime import datetime
 # python manage.py runserver
 
 class Perfil(models.Model):
+    opcoes = [
+        ('design', 'Design'),
+        ('ciencias da computacao', 'Ciências da Computação'),
+        ('sistemas de informacao', 'Sistemas de Informação'),
+        ('analise e desenvolvimento de sistemas', 'Análise e Desenvolvimento de Sistemas'),
+        ('gestao de tecnologia da informacao', 'Gestão de Tecnologia da Informação')
+    ]
+    curso = models.CharField(max_length=50, choices=opcoes, null=True)
     nome = models.CharField(max_length=255)
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
