@@ -39,7 +39,7 @@ def cadastro_usuario(request):
                                            trocar_perfil=perfil_tipo == 'on')
 
             messages.success(request, 'Cadastro realizado com sucesso!')
-            return redirect('')
+            return redirect('login')
     
     return render(request, 'apps/cadastro_usuario.html')
 
