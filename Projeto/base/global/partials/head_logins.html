@@ -1,19 +1,20 @@
 {% load static %}
 <<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}Login{% endblock %}</title>
-
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Aqui é onde você permite que os templates filhos sobrescrevam o CSS -->
     {% block extra_head %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-pEwdBdSLJxv2RM4wOB9EnLOowP72jqZXrfytGcvYl5zTlZ03n8czkEnQN4NTAmgk"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- CSS padrão caso o bloco não seja sobrescrito -->
+    <link rel="stylesheet" href="{% static 'global/css/style.css' %}">
     {% endblock %}
-
 </head>
 <body>
