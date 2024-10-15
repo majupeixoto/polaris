@@ -2,60 +2,92 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center">Cadastrar Evento</h1>
+    <h1 class="text-center">Cadastrar novo evento</h1>
     
     <form method="post">
         {% csrf_token %}
         <div class="row">
-            <!-- Coluna 1 -->
-            <div class="col-md-6">
+            <!-- Coluna 1 (esquerda) -->
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="tipo">Tipo de Evento:</label>
-                    {{ form.tipo }}
-                </div>
-                
-                <div class="form-group">
-                    <label for="titulo">Título:</label>
+                    <label for="titulo"><strong>*Título do evento:</strong></label>
                     {{ form.titulo }}
                 </div>
-                
                 <div class="form-group">
-                    <label for="descricao">Descrição do Evento:</label>
+                    <label for="local"><strong>*Local do evento (Campus, prédio...):</strong></label>
+                    {{ form.local }}
+                </div>
+                <div class="form-group">
+                    <label for="descricao"><strong>*Descrição do evento:</strong></label>
                     {{ form.descricao }}
                 </div>
-                
-                <div class="form-group">
-                    <label for="inicio_evento">Início do Evento:</label>
-                    {{ form.inicio_evento }}
+            </div>
+
+            <!-- Coluna 2 (central) -->
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inicio_evento"><strong>*Data:</strong></label>
+                            {{ form.inicio_evento }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fim_evento">Data de término:</label>
+                            {{ form.fim_evento }}
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="fim_evento">Fim do Evento:</label>
-                    {{ form.fim_evento }}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="horario_de_inicio"><strong>*Horário de início:</strong></label>
+                            {{ form.horario_de_inicio }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="horario_de_termino">Horário de término:</label>
+                            {{ form.horario_de_termino }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campo para o palestrante/host -->
+                <div class="form-group mt-3">
+                    <label for="palestrante">Que pessoa guiará o evento (palestrante, host)?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoNome" value="nome">
+                        <label class="form-check-label" for="opcaoNome">Informar nome</label>
+                        {{ form.palestrante }}
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoIndefinido" value="indefinido">
+                        <label class="form-check-label" for="opcaoIndefinido">
+                            Indefinido / não informar
+                        </label>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Coluna 2 -->
-            <div class="col-md-6">
+
+            <!-- Coluna 3 (direita) -->
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="vagas">Número de Vagas:</label>
-                    {{ form.vagas }}
+                    <label><strong>*Que instituição/grupo estudantil organizará o evento?</strong></label>
+                    {{ form.instituicao }}
                 </div>
-                
                 <div class="form-group">
-                    <label for="carga_horaria">Carga Horária (em horas, por exemplo 2.5 para 2 horas e 30 minutos):</label>
-                    {{ form.carga_horaria }}
-                </div>
-                
-                <div class="form-group">
-                    <label for="local">Local:</label>
-                    {{ form.local }}
+                    <label for="participantes">Participantes convidados:</label>
+                    {{ form.participantes }}
+                    <button type="button" class="btn btn-secondary">+</button>
                 </div>
             </div>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-3">Cadastrar Evento</button>
+            <button type="submit" class="btn btn-primary mt-3">Publicar evento</button>
         </div>
     </form>
 </div>

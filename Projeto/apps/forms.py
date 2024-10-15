@@ -20,11 +20,13 @@ class GrupoEstudoForm(forms.ModelForm):
 class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
-        fields = ['tipo', 'titulo', 'descricao', 'inicio_evento', 'fim_evento', 'vagas', 'carga_horaria', 'local']
+        fields = ['tipo', 'titulo', 'descricao', 'inicio_evento', 'fim_evento', 'vagas', 'local', 'horario_de_inicio', 'horario_de_termino']  # Inclui os novos campos
+        
         widgets = {
-            'inicio_evento': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
-            'fim_evento': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
-            'carga_horaria': forms.NumberInput(attrs={'class': 'form-control', 'step': 0.01}),  # Formato decimal para horas
+            'inicio_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),  # Widget apenas para data
+            'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),  # Widget apenas para data
+            'horario_de_inicio': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),  # Widget para horário de início
+            'horario_de_termino': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),  # Widget para horário de término
             'tipo': forms.Select(attrs={'class': 'form-control'}),
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),

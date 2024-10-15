@@ -37,28 +37,26 @@ class Evento(models.Model):
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
-    inicio_evento = models.DateTimeField()
-    fim_evento = models.DateTimeField()
+    inicio_evento = models.DateField(default=timezone.now)
+    fim_evento = models.DateField(default=timezone.now)
     vagas = models.IntegerField()
-    carga_horaria = models.DecimalField(max_digits=5, decimal_places=2)  # Ex: 2.5 para 2 horas e 30 minutos
+    horario_de_inicio = models.TimeField(default=timezone.now)
+    horario_de_termino = models.TimeField(default=timezone.now)
     local = models.CharField(max_length=200)
 
     def __str__(self):
         return self.titulo
-
-    # Método para formatar carga horária como horas e minutos
-    def carga_horaria_formatada(self):
-        horas = int(self.carga_horaria)
-        minutos = int((self.carga_horaria - horas) * 60)
-        return f"{horas:02d} hora(s) e {minutos:02d} minuto(s)"
     
     # Método para verificar se o evento é online
     def is_online(self):
         return self.tipo == 'online'
 
-    # Método para verificar a duração total do evento
+    # Método para calcular a duração do evento considerando horas e minutos
     def duracao_evento(self):
-        return self.fim_evento - self.inicio_evento
+        from datetime import datetime, timedelta
+        data_inicio = datetime.combine(self.inicio_evento, self.horario_de_inicio)
+        data_fim = datetime.combine(self.fim_evento, self.horario_de_termino)
+        return data_fim - data_inicio
 
 
 class GrupoEstudo(models.Model):
