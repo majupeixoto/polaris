@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+  }
+  
+  .navbar-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1; /* Coloca a navbar superior abaixo da lateral */
+  }
+  
+  .navbar-top .menu a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .navbar-top .menu a:hover {
+    color: #007bff;
+  }
+  
+  .navbar-top .profile {
+    font-weight: bold;
+  }
+  
+  .navbar-side {
+    position: fixed;
+    top: 0; /* Altera para cobrir a navbar superior */
+    left: 0;
+    width: 130px;
+    height: 100%; /* A navbar lateral agora ocupa toda a altura */
+    background-color: #f8f9fa; /* Removido o caractere extra `#` */
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 2; /* Maior que a navbar superior para sobrepor */
+  }
+  
+  .navbar-side a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .navbar-side a:hover {
+    background-color: #ddd;
+    color: #007bff;
+  }
+  
+  .content {
+    margin-top: 60px;
+    margin-left: 150px; /* Compensar a largura da navbar lateral */
+    padding: 20px;
+  }
+  
