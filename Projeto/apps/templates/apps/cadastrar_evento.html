@@ -59,37 +59,44 @@
                 <div class="form-group mt-3">
                     <label for="palestrante">Que pessoa guiará o evento (palestrante, host)?</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoNome" value="nome">
-                        <label class="form-check-label" for="opcaoNome">Informar nome</label>
-                        {{ form.palestrante }}
+                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoNome" value="nome" onclick="togglePalestranteInput()">
+                        <input type="text" name="palestrante" id="palestrante-input" class="form-control d-inline-block" placeholder="Digite o nome..." />
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoIndefinido" value="indefinido">
-                        <label class="form-check-label" for="opcaoIndefinido">
-                            Indefinido / não informar
-                        </label>
+                        <input class="form-check-input" type="radio" name="opcao_palestrante" id="opcaoIndefinido" value="indefinido" onclick="togglePalestranteInput()">
+                        <label class="form-check-label" for="opcaoIndefinido">Indefinido / não informar</label>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vagas">Vagas:</label>
+                    {{ form.vagas }}
                 </div>
             </div>
 
             <!-- Coluna 3 (direita) -->
             <div class="col-md-4">
                 <div class="form-group">
-                    <label><strong>*Que instituição/grupo estudantil organizará o evento?</strong></label>
+                    <label for="instituicao"><strong>*Que instituição/grupo estudantil organizará o evento?</strong></label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoCesarSchool" value="cesarschool">
+                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoCesarSchool" value="cesarschool" onclick="toggleInstituicaoInput()">
                         <label class="form-check-label" for="opcaoCesarSchool">CESAR School</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoCesarOrg" value="cesarorg">
+                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoCesarOrg" value="cesarorg" onclick="toggleInstituicaoInput()">
                         <label class="form-check-label" for="opcaoCesarOrg">CESAR ORG</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoNome" value="nome">
-                        {{ form.instituicao }}
+                        <input class="form-check-input" type="radio" name="opcao_instituicao" id="opcaoInstituicaoNome" value="nome" onclick="toggleInstituicaoInput()">
+                        <input type="text" name="instituicao" id="instituicao-input" class="form-control d-inline-block" placeholder="Digite o nome da instituição..."/>
                     </div>
-                    
                 </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo de Evento:</label>
+                    {{ form.tipo }}
+                </div>
+
                 <div class="form-group">
                     <label for="participantes">Participantes convidados:</label>
                     {{ form.participantes }}
@@ -103,4 +110,35 @@
         </div>
     </form>
 </div>
+
+<script>
+    //JavaScript para Controlar a Exibição do campo de entrada de palestrante
+
+    function togglePalestranteInput() {
+        const opcaoNome = document.getElementById('opcaoNome');
+        const inputPalestrante = document.getElementById('palestrante-input');
+
+        // Mostra o campo de entrada se "Informar nome" for selecionado, caso contrário esconde
+        if (opcaoNome.checked) {
+            inputPalestrante.style.display = 'inline-block'; // Mantém visível
+        } else {
+            inputPalestrante.style.display = 'none'; // Esconde
+            inputPalestrante.value = ''; // Limpa o campo ao escolher "Indefinido"
+        }
+    }
+    // JavaScript para Controlar a Exibição do campo de entrada de instituição
+
+    function toggleInstituicaoInput() {
+        const opcaoInstituicaoNome = document.getElementById('opcaoInstituicaoNome');
+        const inputInstituicao = document.getElementById('instituicao-input');
+
+        // Mostra o campo de entrada se "Outro" for selecionado, caso contrário esconde
+        if (opcaoInstituicaoNome.checked) {
+            inputInstituicao.style.display = 'inline-block'; // Mantém visível
+        } else {
+            inputInstituicao.style.display = 'none'; // Esconde
+            inputInstituicao.value = ''; // Limpa o campo ao escolher outra opção
+        }
+    }
+</script>
 {% endblock %}

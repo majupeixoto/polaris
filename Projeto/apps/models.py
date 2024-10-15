@@ -33,25 +33,31 @@ class Evento(models.Model):
         ('online', 'Online'),
         ('presencial', 'Presencial'),
     ]
-    
-    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
+
+    OPCOES_PALESTRANTE = [
+        ('nome', 'Informar nome'),
+        ('indefinido', 'Indefinido / não informar'),
+    ]
+
     titulo = models.CharField(max_length=100)
+    local = models.CharField(max_length=200)
     descricao = models.TextField()
     inicio_evento = models.DateField(default=timezone.now)
     fim_evento = models.DateField(default=timezone.now)
-    vagas = models.IntegerField()
     horario_de_inicio = models.TimeField(default=timezone.now)
     horario_de_termino = models.TimeField(default=timezone.now)
-    local = models.CharField(max_length=200)
+    palestrante = models.CharField(max_length=100, blank=True)  # Pode ser vazio
+    opcao_palestrante = models.CharField(max_length=10, choices=OPCOES_PALESTRANTE, default='indefinido')  # Adicionado para armazenar a opção escolhida
+    participantes = models.CharField(max_length=100, blank=True)  # Pode ser vazio
+    vagas = models.IntegerField()
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
 
     def __str__(self):
         return self.titulo
-    
-    # Método para verificar se o evento é online
+
     def is_online(self):
         return self.tipo == 'online'
 
-    # Método para calcular a duração do evento considerando horas e minutos
     def duracao_evento(self):
         from datetime import datetime, timedelta
         data_inicio = datetime.combine(self.inicio_evento, self.horario_de_inicio)
