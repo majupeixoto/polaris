@@ -77,8 +77,8 @@ def cadastrar_evento(request):
     if request.method == 'POST':
         form = EventoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('visualizar_evento')  # Redirecionar para a página de eventos após salvar
+            evento = form.save()  # Salva o evento e armazena na variável
+            return redirect('visualizar_evento', evento_id=evento.id)  # Redireciona passando o ID do evento
     else:
         form = EventoForm()
     
