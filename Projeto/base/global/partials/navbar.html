@@ -1,36 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="navbar.css">
-    <title>Navbar Estilo</title>
-</head>
-<body>
-    <!-- Navbar Superior -->
-    <div class="navbar-top">
-<div></div>
-        <div class="menu">
-            <a href="#">Dashboard</a>
-            <a href="#">Notificações</a>
-            <a href="#">Programas</a>
-            <a href="#">Eventos</a>
-            <a href="#">FAQ</a>
-        </div>
-        <div class="profile">
-        </div>
-    </div>
+{% load static %}
 
-    <!-- Navbar Lateral -->
-    <div class="navbar-side">
-    <div class="logo">
-    <a href="#">Logo</a>
-    </div>
-        <a href="#">Comunidade</a>
+{% block extra_head %}
+    <link href="{% static 'global/css/navbar.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+<!-- Navbar Superior -->
+<div class="navbar-top">
+    <div> </div>
+    <div class="menu">
+        <a href="#">Dashboard</a>
         <a href="#">Notificações</a>
-        <a href="#">Portfolio</a>
-        <a href="#">Calendário</a>
-        <a href="#">Log out</a>
+        <a href="#">Programas</a>
+        <a href="#">Eventos</a>
+        <a href="#">FAQ</a>
+    </div>
+            
+    <div class="profile"></div>
+</div>
+    
+<!-- Navbar Lateral -->
+<div class="navbar-side">
+    <div class="logo">
+        <a href="#">Logo</a>
     </div>
 
-
+    <a href="#">Comunidade</a>
+    <a href="#">Notificações</a>
+    <a href="#">Portfolio</a>
+    <a href="#">Calendário</a>
+    <a href="#">Log out</a>
+</div>
+    
