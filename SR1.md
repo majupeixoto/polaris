@@ -1,39 +1,23 @@
 # SR1
 
-## Links
+## Diagrama de Classe
+https://lucid.app/lucidchart/8b73be0a-c893-49f3-8f6d-c8df1179a0b9/edit?beaconFlowId=0A1FE70A13431B31&invitationId=inv_642184af-d456-4f89-be86-c7ecb7bf74fc&referringApp=slack&page=HWEp-vi-RSFO#
 
-- Azure
-- Jira
-- Diagrama de atividades
-- Figma - protótipos - sketches e storyboards
-- Screencast - Figma
-- Screencast - Azure
-- Relatório - programação em pares
+## Diagrama de Arquitetura em Camadas
+https://www.canva.com/design/DAGTux22Fdg/J9VIAffykI-NWe9P7hYfDg/edit
 
-## Histórias
+## Sprint 1
+*História 1*
+![image](https://github.com/user-attachments/assets/f5dd7db3-f49d-40c6-94c8-65590c714026)
 
-- Histórias implementadas no SR1 - x, x, x, x.
-- Lista de histórias ->
+*História 2*
+![image](https://github.com/user-attachments/assets/cfad7433-0561-4a01-aeae-4dbeb2eb4a86)
 
-### H1
+*História 3*
+![image](https://github.com/user-attachments/assets/62800527-d75d-4243-a70f-ca587117ea94)
 
-- Cartão
-- Conversa
-- Confirmação/Validação
+*História 4*
+![image](https://github.com/user-attachments/assets/3016b04d-659e-4231-b7da-4e5c39ea9489)
 
-## Instruções de acesso ao projeto na Azure
 
-Lorem ipsum dolor sit amet, consectetur adipiscing
 
-## Imagens
-
-**Diagrama de atividades**
-
-**Issue/bug tracker**
-
-- Issues abertas
-- Issues fechadas
-
-**Backlog**
-
-**Quadro da Sprint**
