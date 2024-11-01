@@ -1,0 +1,27 @@
+{% extends 'global/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% if eventos %}
+        {% for evento in eventos %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ evento.titulo }}</h5>
+                    <p class="card-text">{{ evento.descricao }}</p>
+                    <p class="card-text">Início: {{ evento.inicio_evento }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'detalhes' evento.id %}" class="btn btn-outline-secondary">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhum evento encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}

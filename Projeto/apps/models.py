@@ -1,33 +1,56 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import EmailValidator
 from django.utils import timezone
-from datetime import datetime
 
-# lembrando: SEMPRE que modificar ou acrescentar uma models a gnt tem q fazer os comandos:
-# python manage.py makemigrations
-# e em seguida:
-# python manage.py migrate
-# python manage.py runserver
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        """Cria e retorna um usuário com email e senha."""
+        if not email:
+            raise ValueError('O e-mail deve ser fornecido')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.password = password
+        user.save(using=self._db)
+        return user
 
-class Perfil(models.Model):
+    def create_superuser(self, email, password=None, **extra_fields):
+        """Cria e retorna um superusuário com e-mail e senha."""
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser precisa ter is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser precisa ter is_superuser=True.')
+
+        return self.create_user(email, password, **extra_fields)
+
+class Perfil(AbstractBaseUser):
     opcoes = [
         ('design', 'Design'),
         ('ciencias da computacao', 'Ciências da Computação'),
         ('sistemas de informacao', 'Sistemas de Informação'),
         ('analise e desenvolvimento de sistemas', 'Análise e Desenvolvimento de Sistemas'),
-        ('gestao de tecnologia da informacao', 'Gestão de Tecnologia da Informação')
+        ('gestao de tecnologia da informacao', 'Gestão de Tecnologia da Informação'),
     ]
+
     curso = models.CharField(max_length=50, choices=opcoes, null=True)
     nome = models.CharField(max_length=255)
-    username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
-    telefone = models.CharField(max_length=11)  # Para padronizar, pode-se usar django-phonenumber-field
+    password = models.CharField(max_length=128, null= True, blank= True)  # Senha em texto puro
+
+    telefone = models.CharField(max_length=11)  # Considere usar django-phonenumber-field para validação
     trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nome', 'telefone']  # Campos obrigatórios para criação do usuário
+
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.nome
-    
+
 class Evento(models.Model):
     TIPO_CHOICES = [
         ('online', 'Online'),

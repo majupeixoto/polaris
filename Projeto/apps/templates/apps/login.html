@@ -2,27 +2,26 @@
 {% load static %}
 
 {% block body %}
-
 <div class="container">
     <div class="item">
-        <img src="{% static 'imgs/logo_polaris_sem_fundo.png' %}" class="logo" alt="logotipo">
+        <img src="{% static 'imgs/logo_polaris_sem_fundo.png' %}" class="logo" alt="Logotipo da Polaris">
     </div>
     <div class="item">
         <form class="login" method="post">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
+            
             <h1>Login</h1>
-    
+
             <!-- Email Input -->
             <div class="box-user">
-                <label for="floatingInput">Email Institucional</label>
-                <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com" required>
+                <label for="email">Email Institucional</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
             </div>
                 
             <!-- Password Input -->
             <div class="box-user">
-                <label for="floatingPassword">Senha</label>
-                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
+                <label for="password">Senha</label>
+                <input type="password" class="form-control" id="password" name="senha" placeholder="Digite sua senha" required>
             </div>
         
             <!-- Remember Password Checkbox -->
@@ -35,11 +34,21 @@
             <div class="d-grid">
                 <button class="btn_login" type="submit">Entrar</button>
                 <div class="text-center">
-                    {% comment %} <a class="small" href="{% url 'password_reset' %}">Forgot password?</a> {% endcomment %}
                     <a class="small" href="{% url 'cadastro_usuario' %}">Esqueceu sua senha?</a>
                 </div>
             </div>
         </form>
+        
+        <!-- Exibir mensagens de erro, se houver -->
+        {% if messages %}
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

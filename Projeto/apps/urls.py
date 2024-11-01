@@ -8,4 +8,8 @@ urlpatterns = [
     path('cadastro_usuario/', views.cadastro_usuario, name='cadastro_usuario'),
     path('cadastrar_evento/', views.cadastrar_evento, name='cadastrar_evento'),
     path('evento/<int:evento_id>/', views.visualizar_evento, name='visualizar_evento'),
+    path('home_aluno/', views.home_aluno, name = 'home_aluno'),
+    path('home_funcionario/', views.home_funcionario, name = 'home_funcionario'),
+    path('logout/', views.logout_view, name='logout'),
+    path('listar_eventos/', views.listar_eventos, name='listar_eventos'),
 ]

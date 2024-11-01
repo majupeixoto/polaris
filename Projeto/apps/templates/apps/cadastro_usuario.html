@@ -1,52 +1,47 @@
 {% extends 'global/base_logins.html' %}
 {% load static %}
 
-
 {% block body %}
 <div class="center">
     <form class="login" method="post">
         {% csrf_token %}
         <h1>Cadastro</h1>
+        
         <div class="box-user">
-            <input type="text" placeholder="Nome de usuário" id="username" name="username" value="{{ request.POST.username }}" required>
-        </div>
-                
-        <div class="box-user">
-            <input type="text" placeholder="Nome" id="name" name="name" value="{{ request.POST.name }}" required>
-        </div>
-                
-        <div class="box-user">
-            <input type="email" placeholder="Email" id="email" name="email" value="{{ request.POST.email }}" required>
+            {{ form.nome.label_tag }}  <!-- Rótulo do campo Nome -->
+            {{ form.nome }}  <!-- Campo Nome -->
         </div>
         
         <div class="box-user">
-            <input type="text" placeholder="Telefone" id="telefone" name="telefone" value="{{ request.POST.telefone }}" required>
+            {{ form.email.label_tag }}  <!-- Rótulo do campo Email -->
+            {{ form.email }}  <!-- Campo Email -->
         </div>
-
-        <div>
-            <select name="curso" id="curso" required>
-                <option value="" disabled selected>Selecione um curso</option>
-                <option value="design">Design</option>
-                <option value="ciencias da computacao">Ciências da Computação</option>
-                <option value="sistemas de informacao">Sistemas de Informação</option>
-                <option value="analise e desenvolvimento de sistemas">Análise e Desenvolvimento de Sistemas</option>
-                <option value="gestao de tecnologia da informacao">Gestão de Tecnologia da Informação</option>
-            </select>
-        </div>
-                
+        
         <div class="box-user">
-            <input type="password" placeholder="Senha" id="password" name="password" required>
+            {{ form.telefone.label_tag }}  <!-- Rótulo do campo Telefone -->
+            {{ form.telefone }}  <!-- Campo Telefone -->
         </div>
 
-        <div class="box-user"></div>
-            <input type="confirm_password" placeholder="confirmar_senha" id="confirm_password" name="confirm_password" required>
+        <div class="box-user">
+            {{ form.curso.label_tag }}  <!-- Rótulo do campo Curso -->
+            {{ form.curso }}  <!-- Campo Curso -->
+        </div>
+        
+        <div class="box-user">
+            {{ form.password.label_tag }}  <!-- Rótulo do campo Senha -->
+            {{ form.password }}  <!-- Campo Senha -->
+        </div>
+
+        <div class="box-user">
+            {{ form.confirm_password.label_tag }}  <!-- Rótulo do campo Confirmar Senha -->
+            {{ form.confirm_password }}  <!-- Campo Confirmar Senha -->
         </div>
 
         <div class="box-user">
             <label for="trocar_perfil">Você é funcionário?</label>
-            <input type="checkbox" id="trocar_perfil" name="trocar_perfil">
+            {{ form.trocar_perfil }}  <!-- Campo para marcar se é funcionário -->
         </div>
-                
+
         {% if messages %}
             <ul class="error-messages">
                 {% for message in messages %}
