@@ -10,7 +10,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('O e-mail deve ser fornecido')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        user.password = password
+        user.set_password(password) 
         user.save(using=self._db)
         return user
 
@@ -42,6 +42,8 @@ class Perfil(AbstractBaseUser):
 
     telefone = models.CharField(max_length=11)  # Considere usar django-phonenumber-field para validação
     trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
+    is_staff = models.BooleanField(default=False)         
+    is_superuser = models.BooleanField(default=True)     
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome', 'telefone']  # Campos obrigatórios para criação do usuário
@@ -50,6 +52,14 @@ class Perfil(AbstractBaseUser):
 
     def __str__(self):
         return self.nome
+    
+    def has_perm(self, perm, obj=None):
+        """Retorna True se o usuário tem a permissão especificada."""
+        return self.is_superuser
+
+    def has_module_perms(self, app_label):
+        """Retorna True se o usuário tem permissão para acessar o módulo específico."""
+        return self.is_superuser
 
 class Evento(models.Model):
     TIPO_CHOICES = [

@@ -142,3 +142,11 @@ def listar_eventos(request):
     }
 
     return render(request, 'apps/listar_eventos.html', context)
+
+@login_required
+def listar_grupos_estudo(request):
+    grupos = GrupoEstudo.objects.all()  # Busca todos os grupos de estudo
+    context = {
+        'grupos': grupos,
+    }
+    return render(request, 'apps/listar_grupos_estudo.html', context)

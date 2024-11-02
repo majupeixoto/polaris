@@ -1,0 +1,37 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<h2>Grupos de Estudo</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Tema</th>
+            <th>Descrição</th>
+            <th>Número de Integrantes</th>
+            <th>Professor Orientador</th>
+            <th>Carga Horária Semanal</th>
+            <th>Dias de Reunião</th>
+            <th>Hora da Reunião</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grupo in grupos %}
+        <tr>
+            <td>{{ grupo.titulo }}</td>
+            <td>{{ grupo.tema }}</td>
+            <td>{{ grupo.descricao }}</td>
+            <td>{{ grupo.numero_integrantes }}</td>
+            <td>{{ grupo.professor_orientador }}</td>
+            <td>{{ grupo.carga_horaria_semanal }} horas</td>
+            <td>{{ grupo.dias_reuniao }}</td>
+            <td>{{ grupo.hora_reuniao }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Nenhum grupo de estudo encontrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
