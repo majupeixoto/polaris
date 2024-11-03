@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import EmailValidator
 from django.utils import timezone
 
@@ -10,7 +10,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('O e-mail deve ser fornecido')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        user.password = password
+        user.set_password(password)  # Use set_password para garantir que a senha seja criptografada
         user.save(using=self._db)
         return user
 
@@ -26,7 +26,7 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
-class Perfil(AbstractBaseUser):
+class Perfil(AbstractBaseUser, PermissionsMixin):
     opcoes = [
         ('design', 'Design'),
         ('ciencias da computacao', 'Ciências da Computação'),
@@ -39,9 +39,11 @@ class Perfil(AbstractBaseUser):
     nome = models.CharField(max_length=255)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
     password = models.CharField(max_length=128, null= True, blank= True)  # Senha em texto puro
-
+    is_staff = models.BooleanField(default=False)  # Adicione este campo
+    is_superuser = models.BooleanField(default=False) 
     telefone = models.CharField(max_length=11)  # Considere usar django-phonenumber-field para validação
     trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
+    last_login = models.DateTimeField(null=True, blank=True)  # Adicione isso se não estiver presente
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome', 'telefone']  # Campos obrigatórios para criação do usuário
