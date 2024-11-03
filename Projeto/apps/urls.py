@@ -12,4 +12,5 @@ urlpatterns = [
     path('home_funcionario/', views.home_funcionario, name = 'home_funcionario'),
     path('logout/', views.logout_view, name='logout'),
     path('listar_eventos/', views.listar_eventos, name='listar_eventos'),
+    path('listar_grupos_estudo/', views.listar_grupos_estudo, name='listar_grupos_estudo'),
 ]
