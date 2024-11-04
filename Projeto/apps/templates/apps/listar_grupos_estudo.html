@@ -13,6 +13,7 @@
             <th>Carga Horária Semanal</th>
             <th>Dias de Reunião</th>
             <th>Hora da Reunião</th>
+            <th>Ações</th> <!-- Nova coluna para o link "Ver mais" -->
         </tr>
     </thead>
     <tbody>
@@ -26,10 +27,13 @@
             <td>{{ grupo.carga_horaria_semanal }} horas</td>
             <td>{{ grupo.dias_reuniao }}</td>
             <td>{{ grupo.hora_reuniao }}</td>
+            <td>
+                <a href="{% url 'visualizar_grupo' grupo.id %}" class="btn btn-outline-secondary">Ver mais</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="8">Nenhum grupo de estudo encontrado.</td>
+            <td colspan="9">Nenhum grupo de estudo encontrado.</td> <!-- Atualizado para 9 colunas -->
         </tr>
         {% endfor %}
     </tbody>

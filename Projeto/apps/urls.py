@@ -13,4 +13,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('listar_eventos/', views.listar_eventos, name='listar_eventos'),
     path('listar_grupos_estudo/', views.listar_grupos_estudo, name='listar_grupos_estudo'),
+    path('grupos/<int:grupo_id>/', views.visualizar_grupo, name='visualizar_grupo'),
 ]

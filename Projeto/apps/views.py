@@ -150,3 +150,8 @@ def listar_grupos_estudo(request):
         'grupos': grupos,
     }
     return render(request, 'apps/listar_grupos_estudo.html', context)
+
+@login_required
+def visualizar_grupo(request, grupo_id):
+    grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
+    return render(request, 'visualizar_grupo.html', {'grupo': grupo})
