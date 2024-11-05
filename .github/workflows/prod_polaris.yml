@@ -28,23 +28,12 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r Projeto/requirements.txt
-
-      - name: Cleaning testing files
-        run: |
-          cd Projeto/
-          rm db.sqlite3
-          rm .env
-          cd ..
+        run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: |
-          cd Projeto/
-          zip release.zip ./* -r
-          cd ..
-          mv Projeto/release.zip .
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -76,9 +65,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C613B7B5CEE8432799E25ADA47C7601C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2D5A50312DCB48FFAE3AA06C09CE7A33 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_91417C7239164238A8DB15CE89B208AE }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A47CAB84C99A4BEBA884140A28EDDFE0 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D693EE0911424DE9B538FC62FDE820B4 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A426E507260041C9883563E2F46ED2F3 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
