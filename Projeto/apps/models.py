@@ -76,12 +76,13 @@ class Evento(models.Model):
     local = models.CharField(max_length=200)
     descricao = models.TextField()
     inicio_evento = models.DateField(default=timezone.now)
-    fim_evento = models.DateField(default=timezone.now)
+    fim_evento = models.DateField(null=True, blank=True)  # Agora opcional
     horario_de_inicio = models.TimeField(default=timezone.now)
     horario_de_termino = models.TimeField(default=timezone.now)
     palestrante = models.CharField(max_length=100, blank=True)  # Pode ser vazio
     opcao_palestrante = models.CharField(max_length=10, choices=OPCOES_PALESTRANTE, default='indefinido')  # Adicionado para armazenar a opção escolhida
-    participantes = models.CharField(max_length=100, blank=True)  # Pode ser vazio
+    participantes = models.JSONField(blank=True, default=list)
+    tags = models.JSONField(blank=True, default=list)
     vagas = models.IntegerField()
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
 

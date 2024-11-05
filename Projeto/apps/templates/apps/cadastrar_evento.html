@@ -99,9 +99,18 @@
 
                 <div class="form-group">
                     <label for="participantes">Participantes convidados:</label>
-                    {{ form.participantes }}
+                    <div id="participantes-convidados">
+                        <input type="text" name="participantes[]" class="form-control mt-2" placeholder="Nome do participante">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-participante">+</button>
                 </div>
-                <button type="button" class="btn btn-secondary">+</button>
+                <div class="form-group">
+                    <label for="tags">Tags do evento:</label>
+                    <div id="tags-container">
+                        <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+                </div>
             </div>
         </div>
 
@@ -112,8 +121,49 @@
 </div>
 
 <script>
-    //JavaScript para Controlar a Exibição do campo de entrada de palestrante
+    //JavaScript para adicionar participantes
+    document.addEventListener("DOMContentLoaded", function() {
+        const maxParticipantes = 5;
+        const maxTags = 8;
+        let participantesCount = 1;
+        let tagsCount = 1;
 
+        const addParticipanteBtn = document.getElementById("add-participante");
+        const addTagBtn = document.getElementById("add-tag");
+
+        addParticipanteBtn.addEventListener("click", () => {
+            if (participantesCount < maxParticipantes) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "participantes[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Nome do participante";
+                document.getElementById("participantes-convidados").appendChild(input);
+                participantesCount++;
+
+                if (participantesCount === maxParticipantes) {
+                    addParticipanteBtn.style.display = 'none';
+                }
+            }
+        });
+
+        addTagBtn.addEventListener("click", () => {
+            if (tagsCount < maxTags) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "tags[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma tag";
+                document.getElementById("tags-container").appendChild(input);
+                tagsCount++;
+
+                if (tagsCount === maxTags) {
+                    addTagBtn.style.display = 'none';
+                }
+            }
+        });
+    });
+   
     function togglePalestranteInput() {
         const opcaoNome = document.getElementById('opcaoNome');
         const inputPalestrante = document.getElementById('palestrante-input');

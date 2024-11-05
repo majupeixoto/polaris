@@ -73,6 +73,16 @@ class EventoForm(forms.ModelForm):
         label="Nome do palestrante",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nome...', 'id': 'palestrante-input', 'style': 'display:none;'})
     )
+    participantes = forms.CharField(
+        required=False,
+        label="Participantes",
+        widget=forms.HiddenInput()
+    )
+    tags = forms.CharField(
+        required=False,
+        label="Tags",
+        widget=forms.HiddenInput()
+    )
 
     class Meta:
         model = Evento
@@ -82,9 +92,9 @@ class EventoForm(forms.ModelForm):
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'inicio_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'horario_de_inicio': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
-            'horario_de_termino': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
-            'vagas': forms.NumberInput(attrs={'class': 'form-control'}),
+            'horario_de_inicio': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}, format='%H:%M'),
+            'horario_de_termino': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}, format='%H:%M'),
+            'vagas': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
             'tipo': forms.Select(attrs={'class': 'form-control'}),
             'local': forms.TextInput(attrs={'class': 'form-control'}),
         }
@@ -93,9 +103,15 @@ class EventoForm(forms.ModelForm):
         cleaned_data = super().clean()
         opcao = cleaned_data.get('opcao_palestrante')
         nome = cleaned_data.get('palestrante')
+        participantes = cleaned_data.get('participantes', '')
+        tags = cleaned_data.get('tags', '')
 
         # Validação para garantir que o nome seja preenchido quando a opção "nome" for escolhida
         if opcao == 'nome' and not nome:
             self.add_error('palestrante', 'Este campo é obrigatório quando "Informar nome" é selecionado.')
 
+        cleaned_data['participantes'] = [p.strip() for p in participantes.split(',') if p.strip()]
+        cleaned_data['tags'] = [t.strip() for t in tags.split(',') if t.strip()]
+
         return cleaned_data
+        

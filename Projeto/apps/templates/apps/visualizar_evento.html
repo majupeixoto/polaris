@@ -16,6 +16,17 @@
         <div class="col-md-8">
             <h1 class="mb-3">{{ evento.titulo }}</h1>
             <p>{{ evento.descricao }}</p>
+            <p><strong>Local:</strong> {{ evento.local }}</p>
+            <p><strong>Data do evento:</strong>
+                {% if evento.fim_evento %}
+                    {{ evento.inicio_evento }} - {{ evento.fim_evento }}
+                {% else %}
+                    {{ evento.inicio_evento }}
+                {% endif %}
+            </p>            
+            <p><strong>Horário:</strong> {{ evento.horario_de_inicio }} - {{ evento.horario_de_termino }}</p>
+            <p><strong>Vagas:</strong> {{ evento.vagas }}</p>
+            <p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
             <button class="btn btn-secondary mt-3">Página de inscrição</button>
         </div>
         <div class="col-md-4">
@@ -26,13 +37,47 @@
     <div class="row mt-5">
         <div class="col-md-12">
             <h2>Quem conduzirá o evento?</h2>
-            <div class="d-flex align-items-center mt-4">
-                <div class="img-placeholder" style="width: 100px; height: 100px; background-color: #e0e0e0; border-radius: 50%;"></div>
-                <div class="ms-3">
-                    <h4 class="mb-1">Djafran Ático</h4>
-                    <p>Professor de design</p>
+            {% if evento.opcao_palestrante == 'nome' %}
+                <div class="d-flex align-items-center mt-4">
+                    <div class="img-placeholder" style="width: 100px; height: 100px; background-color: #e0e0e0; border-radius: 50%;"></div>
+                    <div class="ms-3">
+                        <h4 class="mb-1">{{ evento.palestrante }}</h4>
+                        <p>Convidado especial</p>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <p>Palestrante não informado.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Participantes Convidados</h2>
+            {% if evento.participantes %}
+                <ul>
+                    {% for participante in evento.participantes %}
+                        <li>{{ participante }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhum participante convidado.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Tags do Evento</h2>
+            {% if evento.tags %}
+                <ul>
+                    {% for tag in evento.tags %}
+                        <li>{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhuma tag adicionada.</p>
+            {% endif %}
         </div>
     </div>
 </div>
