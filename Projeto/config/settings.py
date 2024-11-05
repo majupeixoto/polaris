@@ -17,10 +17,6 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
@@ -74,7 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    'apps',
+    'apps.apps.AppsConfig',
 ]
 
 AUTH_USER_MODEL = 'apps.Perfil'
@@ -151,9 +147,6 @@ USE_TZ = True
 # STATIC_URL = 'static/'
 
 # Diretórios de arquivos static
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
 
 
 STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
@@ -161,6 +154,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
