@@ -61,42 +61,37 @@ class Perfil(AbstractBaseUser):
         """Retorna True se o usuário tem permissão para acessar o módulo específico."""
         return self.is_superuser
 
-class Evento(models.Model):
-    TIPO_CHOICES = [
-        ('online', 'Online'),
-        ('presencial', 'Presencial'),
-    ]
-
-    OPCOES_PALESTRANTE = [
-        ('nome', 'Informar nome'),
-        ('indefinido', 'Indefinido / não informar'),
-    ]
-
-    STATUS_INSCRICOES_CHOICES = [
-        ('abertas', 'Abertas'),
-        ('em_breve', 'Abrem em breve'),
-        ('fechadas', 'Fechadas'),
-    ]
-
+class Oportunidade(models.Model):
     titulo = models.CharField(max_length=100)
-    local = models.CharField(max_length=200)
     descricao = models.TextField()
+    status_inscricoes = models.CharField(
+        max_length=10,
+        choices=[('abertas', 'Abertas'), ('em_breve', 'Abrem em breve'), ('fechadas', 'Fechadas')],
+        default='fechadas'
+    )
+    tags = models.JSONField(blank=True, default=list)
+
+    class Meta:
+        abstract = True  # Define que esta classe é abstrata e não será criada no banco de dados
+
+class Evento(Oportunidade):
+    local = models.CharField(max_length=200)
     inicio_evento = models.DateField(default=timezone.now)
-    fim_evento = models.DateField(null=True, blank=True)  # Agora opcional
+    fim_evento = models.DateField(null=True, blank=True)
     horario_de_inicio = models.TimeField(default=timezone.now)
     horario_de_termino = models.TimeField(default=timezone.now)
-    palestrante = models.CharField(max_length=100, blank=True)  # Pode ser vazio
-    opcao_palestrante = models.CharField(max_length=10, choices=OPCOES_PALESTRANTE, default='indefinido')  # Adicionado para armazenar a opção escolhida
+    palestrante = models.CharField(max_length=100, blank=True)
+    opcao_palestrante = models.CharField(
+        max_length=10,
+        choices=[('nome', 'Informar nome'), ('indefinido', 'Indefinido / não informar')],
+        default='indefinido'
+    )
     participantes = models.JSONField(blank=True, default=list)
-    tags = models.JSONField(blank=True, default=list)
     vagas = models.IntegerField()
-    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
-    status_inscricoes = models.CharField(
-    max_length=10,
-    choices=STATUS_INSCRICOES_CHOICES,
-    default='fechadas',  # Define "Fechadas" como o valor padrão
-    verbose_name="Status das Inscrições"
-)
+    tipo = models.CharField(
+        max_length=10,
+        choices=[('online', 'Online'), ('presencial', 'Presencial')],
+    )
 
     def cadastrar(self, dados):
         """Método para cadastrar evento com os dados fornecidos."""
