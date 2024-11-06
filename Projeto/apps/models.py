@@ -72,6 +72,12 @@ class Evento(models.Model):
         ('indefinido', 'Indefinido / não informar'),
     ]
 
+    STATUS_INSCRICOES_CHOICES = [
+        ('abertas', 'Abertas'),
+        ('em_breve', 'Abrem em breve'),
+        ('fechadas', 'Fechadas'),
+    ]
+
     titulo = models.CharField(max_length=100)
     local = models.CharField(max_length=200)
     descricao = models.TextField()
@@ -85,7 +91,30 @@ class Evento(models.Model):
     tags = models.JSONField(blank=True, default=list)
     vagas = models.IntegerField()
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)  # Escolha entre 'Online' e 'Presencial'
+    status_inscricoes = models.CharField(
+    max_length=10,
+    choices=STATUS_INSCRICOES_CHOICES,
+    default='fechadas',  # Define "Fechadas" como o valor padrão
+    verbose_name="Status das Inscrições"
+)
 
+    def cadastrar(self, dados):
+        """Método para cadastrar evento com os dados fornecidos."""
+        self.titulo = dados.get('titulo')
+        self.descricao = dados.get('descricao')
+        self.local = dados.get('local')
+        self.inicio_evento = dados.get('inicio_evento')
+        self.fim_evento = dados.get('fim_evento')
+        self.horario_de_inicio = dados.get('horario_de_inicio')
+        self.horario_de_termino = dados.get('horario_de_termino')
+        self.palestrante = dados.get('palestrante')
+        self.opcao_palestrante = dados.get('opcao_palestrante')
+        self.vagas = dados.get('vagas')
+        self.tipo = dados.get('tipo')
+        
+        # Validações e lógica extra podem ser adicionadas aqui, se necessário
+        self.save()  # Salva o evento no banco de dados
+        
     def __str__(self):
         return self.titulo
 

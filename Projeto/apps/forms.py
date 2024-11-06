@@ -86,7 +86,7 @@ class EventoForm(forms.ModelForm):
 
     class Meta:
         model = Evento
-        fields = ['tipo', 'titulo', 'descricao', 'inicio_evento', 'fim_evento', 'vagas', 'local', 'horario_de_inicio', 'horario_de_termino', 'opcao_palestrante', 'palestrante']
+        fields = ['titulo', 'descricao', 'inicio_evento', 'fim_evento', 'horario_de_inicio', 'horario_de_termino', 'opcao_palestrante', 'palestrante', 'vagas', 'tipo', 'local', 'status_inscricoes']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control'}),
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
@@ -97,6 +97,7 @@ class EventoForm(forms.ModelForm):
             'vagas': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
             'tipo': forms.Select(attrs={'class': 'form-control'}),
             'local': forms.TextInput(attrs={'class': 'form-control'}),
+            'status_inscricoes': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def clean(self):

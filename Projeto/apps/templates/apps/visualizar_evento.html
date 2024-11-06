@@ -17,6 +17,7 @@
             <h1 class="mb-3">{{ evento.titulo }}</h1>
             <p>{{ evento.descricao }}</p>
             <p><strong>Local:</strong> {{ evento.local }}</p>
+            <p><strong>Status das Inscrições:</strong> {{ evento.get_status_inscricoes_display }}</p>  <!-- Exibe o status das inscrições -->
             <p><strong>Data do evento:</strong>
                 {% if evento.fim_evento %}
                     {{ evento.inicio_evento }} - {{ evento.fim_evento }}

@@ -44,9 +44,6 @@ def cadastro_usuario(request):
 
     return render(request, 'apps/cadastro_usuario.html', {'form': form})
 
-
-
-
 @login_required
 def cadastro_grupo_estudo(request):
     if request.method == 'POST':
@@ -60,6 +57,7 @@ def cadastro_grupo_estudo(request):
 
     return render(request, 'apps/cadastro_grupo_estudo.html', {'form': form})
 
+# views.py
 @login_required
 def cadastrar_evento(request):
     user = request.user
@@ -76,10 +74,8 @@ def cadastrar_evento(request):
     if request.method == 'POST':
         form = EventoForm(request.POST)
         if form.is_valid():
-            evento = form.save(commit=False)
-            evento.participantes = form.cleaned_data['participantes']
-            evento.tags = form.cleaned_data['tags']
-            evento.save()  # Salva o evento
+            evento = Evento()
+            evento.cadastrar(form.cleaned_data)  # Usa o método cadastrar do modelo
             messages.success(request, "Evento cadastrado com sucesso!")
             return redirect('visualizar_evento', evento_id=evento.id)
         else:
