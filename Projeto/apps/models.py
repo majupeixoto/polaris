@@ -135,3 +135,40 @@ class GrupoEstudo(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+class ProgramaOficial(Oportunidade):
+    inicio_evento = models.DateField(default=timezone.now)
+    fim_evento = models.DateField(null=True, blank=True)
+    carga_horaria = models.IntegerField()  # em horas
+    link_inscricao = models.URLField()
+
+    class Meta:
+        abstract = True  # Define que esta classe é abstrata e não será criada no banco de dados
+
+class Voluntariado(ProgramaOficial):
+    local_trabalho = models.CharField(max_length=100)
+    organizacao_parceira = models.CharField(max_length=100)
+    habilidades_requeridas = models.JSONField(default=list, blank=True)
+
+    def cadastrar_voluntariado(self):
+        # lógica de cadastro
+        pass
+
+class Monitoria(ProgramaOficial):
+    professor_orientador = models.CharField(max_length=100)
+    disciplina = models.CharField(max_length=100)
+    cadeiras_requeridas = models.JSONField(default=list, blank=True)
+    requisitos = models.JSONField(default=list, blank=True)
+
+    def cadastrar_monitoria(self):
+        # lógica de cadastro
+        pass
+
+class IniciacaoCientifica(ProgramaOficial):
+    duracao = models.DurationField()
+    professor_orientador = models.CharField(max_length=100)
+    bolsa_pesquisa = models.BooleanField()
+
+    def cadastrar_iniciacao_cientifica(self):
+        # lógica de cadastro
+        pass

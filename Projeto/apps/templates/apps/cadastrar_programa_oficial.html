@@ -1,0 +1,167 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Cadastrar Programa Oficial</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Coluna 1 (esquerda) -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <label for="titulo"><strong>*Título do Programa:</strong></label>
+                    {{ form.titulo }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descricao"><strong>*Descrição do Programa:</strong></label>
+                    {{ form.descricao }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
+                    {{ form.status_inscricoes }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="tags"><strong>Tags:</strong></label>
+                    <div id="tags-container">
+                        <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+                </div>
+            </div>
+
+            <!-- Coluna 2 (central) -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <label for="inicio_evento"><strong>Data de Início:</strong></label>
+                    {{ form.inicio_evento }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="fim_evento"><strong>Data de Término:</strong></label>
+                    {{ form.fim_evento }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="carga_horaria"><strong>Carga Horária:</strong></label>
+                    {{ form.carga_horaria }}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="link_inscricao"><strong>Link para Inscrição:</strong></label>
+                    {{ form.link_inscricao }}
+                </div>
+            </div>
+
+            <!-- Coluna 3 (direita) - Seleção e campos específicos -->
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <label for="tipo_programa"><strong>Tipo de Programa:</strong></label>
+                    <select id="tipo_programa" name="tipo_programa" class="form-control" onchange="mostrarCamposEspecificos()">
+                        <option value="">Selecione</option>
+                        <option value="voluntariado">Voluntariado</option>
+                        <option value="monitoria">Monitoria</option>
+                        <option value="iniciacao_cientifica">Iniciação Científica</option>
+                    </select>
+                </div>
+
+                <!-- Campos específicos para cada tipo de programa -->
+                <div id="campos-voluntariado" style="display: none;">
+                    <h5>Voluntariado</h5>
+                    <div class="form-group mb-3">
+                        <label for="local_trabalho">Local de Trabalho:</label>
+                        {{ form.local_trabalho }}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="organizacao_parceira">Organização Parceira:</label>
+                        {{ form.organizacao_parceira }}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="habilidades_requeridas">Habilidades Requeridas:</label>
+                        <div id="habilidades-container">
+                            <input type="text" name="habilidades_requeridas[]" class="form-control mt-2" placeholder="Habilidade">
+                        </div>
+                        <button type="button" class="btn btn-secondary mt-2" id="add-habilidade">+</button>
+                    </div>
+                </div>
+
+                <div id="campos-monitoria" style="display: none;">
+                    <h5>Monitoria</h5>
+                    <div class="form-group mb-3">
+                        <label for="professor_orientador">Professor Orientador:</label>
+                        {{ form.professor_orientador }}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="disciplina">Disciplina:</label>
+                        {{ form.disciplina }}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="cadeiras_requeridas">Cadeiras Requeridas:</label>
+                        <div id="cadeiras-container">
+                            <input type="text" name="cadeiras_requeridas[]" class="form-control mt-2" placeholder="Cadeira">
+                        </div>
+                        <button type="button" class="btn btn-secondary mt-2" id="add-cadeira">+</button>
+                    </div>
+                </div>
+
+                <div id="campos-iniciacao" style="display: none;">
+                    <h5>Iniciação Científica</h5>
+                    <div class="form-group mb-3">
+                        <label for="duracao">Duração:</label>
+                        {{ form.duracao }}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="bolsa_pesquisa">Bolsa de Pesquisa:</label>
+                        {{ form.bolsa_pesquisa }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Publicar Programa</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Mostrar campos específicos com base no tipo selecionado
+    function mostrarCamposEspecificos() {
+        const tipo = document.getElementById("tipo_programa").value;
+        document.getElementById("campos-voluntariado").style.display = tipo === "voluntariado" ? "block" : "none";
+        document.getElementById("campos-monitoria").style.display = tipo === "monitoria" ? "block" : "none";
+        document.getElementById("campos-iniciacao").style.display = tipo === "iniciacao_cientifica" ? "block" : "none";
+    }
+
+    // Adicionar campos dinâmicos para habilidades, cadeiras e tags
+    document.addEventListener("DOMContentLoaded", function() {
+        const addHabilidadeBtn = document.getElementById("add-habilidade");
+        const addCadeiraBtn = document.getElementById("add-cadeira");
+        const addTagBtn = document.getElementById("add-tag");
+
+        addHabilidadeBtn.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "habilidades_requeridas[]";
+            input.className = "form-control mt-2";
+            input.placeholder = "Habilidade";
+            document.getElementById("habilidades-container").appendChild(input);
+        });
+
+        addCadeiraBtn.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "cadeiras_requeridas[]";
+            input.className = "form-control mt-2";
+            input.placeholder = "Cadeira";
+            document.getElementById("cadeiras-container").appendChild(input);
+        });
+
+        addTagBtn.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "tags[]";
+            input.className = "form-control mt-2";
+            input.placeholder = "Digite uma tag";
+            document.getElementById("tags-container").appendChild(input);
+        });
+    });
+</script>
+{% endblock %}

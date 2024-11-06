@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo
-from .forms import GrupoEstudoForm, EventoForm, PerfilForm  # Adicione o PerfilForm aqui
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica
+from .forms import GrupoEstudoForm, EventoForm, PerfilForm, ProgramaOficialForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
 from django.http import HttpResponse
 
 def login_view(request):
@@ -151,3 +151,63 @@ def listar_grupos_estudo(request):
 def visualizar_grupo(request, grupo_id):
     grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
     return render(request, 'visualizar_grupo.html', {'grupo': grupo})
+
+@login_required
+def cadastrar_programa_oficial(request):
+    if request.method == 'POST':
+        tipo_programa = request.POST.get('tipo_programa')
+
+        # Inicializa o formulário correto com base no tipo de programa
+        if tipo_programa == 'voluntariado':
+            form_programa = VoluntariadoForm(request.POST)
+        elif tipo_programa == 'monitoria':
+            form_programa = MonitoriaForm(request.POST)
+        elif tipo_programa == 'iniciacao_cientifica':
+            form_programa = IniciacaoCientificaForm(request.POST)
+        else:
+            messages.error(request, "Tipo de programa inválido.")
+            return redirect('cadastrar_programa')
+
+        # Verifica se o formulário é válido e salva a instância específica
+        if form_programa.is_valid():
+            form_programa.save()
+            messages.success(request, f"{tipo_programa.capitalize()} cadastrado com sucesso!")
+            return redirect('listar_programas')
+        else:
+            messages.error(request, "Erro no cadastro. Verifique os dados e tente novamente.")
+    else:
+        # Inicializa todos os formulários em branco para a renderização inicial
+        form_voluntariado = VoluntariadoForm()
+        form_monitoria = MonitoriaForm()
+        form_iniciacao = IniciacaoCientificaForm()
+
+    return render(request, 'apps/cadastrar_programa_oficial.html', {
+        'form_voluntariado': form_voluntariado,
+        'form_monitoria': form_monitoria,
+        'form_iniciacao': form_iniciacao,
+    })
+
+@login_required
+def visualizar_programa(request, programa_id):
+    # Obtenção do programa específico com base no ID
+    programa = get_object_or_404(ProgramaOficial, id=programa_id)
+    
+    # Determina o tipo de programa
+    if hasattr(programa, 'voluntariado'):
+        tipo = 'voluntariado'
+        programa_especifico = programa.voluntariado
+    elif hasattr(programa, 'monitoria'):
+        tipo = 'monitoria'
+        programa_especifico = programa.monitoria
+    elif hasattr(programa, 'iniciacaocientifica'):
+        tipo = 'iniciacao_cientifica'
+        programa_especifico = programa.iniciacaocientifica
+    else:
+        tipo = 'desconhecido'
+        programa_especifico = None
+
+    return render(request, 'apps/visualizar_programa.html', {
+        'programa': programa,
+        'programa_especifico': programa_especifico,
+        'tipo': tipo
+    })
