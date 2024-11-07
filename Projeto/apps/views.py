@@ -50,7 +50,8 @@ def cadastro_grupo_estudo(request):
         form = GrupoEstudoForm(request.POST)
         if form.is_valid():
             grupo_estudo = form.save(commit=False)
-            grupo_estudo.tags = form.cleaned_data.get('tags', [])  # Salva as tags como lista
+            # Obtém as tags do campo escondido e as converte de JSON para uma lista
+            grupo_estudo.tags = form.cleaned_data.get('tags', [])
             grupo_estudo.save()
             messages.success(request, 'Grupo de estudo cadastrado com sucesso!')
             return redirect('cadastro_grupo_estudo')

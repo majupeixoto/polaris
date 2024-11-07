@@ -18,16 +18,15 @@
             <p><strong>Hora da Reunião:</strong> {{ grupo.hora_reuniao }}</p>
             <p><strong>Descrição:</strong> {{ grupo.descricao }}</p>
 
-            <!-- Bloco de tags -->
+            <!-- Bloco de tags com <span> -->
             <h3>Tags:</h3>
-            <ul>
+            <div class="tags-container">
                 {% for tag in grupo.tags %}
-                    <li>{{ tag }}</li>
+                    <span class="tag">{{ tag|safe }}</span>
                 {% empty %}
-                    <li>Nenhuma tag disponível</li>
+                    <span class="tag">Nenhuma tag disponível</span>
                 {% endfor %}
-            </ul>
-            <!-- Fim do bloco de tags -->
+            </div>
              
         </div>
     </div>

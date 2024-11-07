@@ -1,5 +1,6 @@
 from django import forms
 from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica
+import json, re
 
 class PerfilForm(forms.ModelForm):
     password = forms.CharField(
@@ -76,8 +77,24 @@ class GrupoEstudoForm(forms.ModelForm):
 
     def clean_tags(self):
         tags = self.cleaned_data['tags']
-        # Transforma as tags em uma lista removendo espaços e ignorando vazias
-        return [tag.strip() for tag in tags.split(',') if tag.strip()]
+        # Converte de JSON string para lista, se necessário
+        if isinstance(tags, str):
+            try:
+                tags = json.loads(tags)  # Transforma em lista, caso seja uma string JSON
+            except json.JSONDecodeError:
+                tags = [tags]  # Se não for um JSON válido, coloca como uma lista de uma única tag
+
+        # Remove qualquer ocorrência de \nx de cada tag
+        cleaned_tags = []
+        for tag in tags:
+            # Remove qualquer sequência de escape (\n, \x) e qualquer 'x' no final da string
+           
+            tag = re.sub(r'\\n|\\x|\\|x$', '', tag.strip())
+            tag = tag.replace('\\nx', '')  # Remove \nx diretamente
+            tag = tag.replace('\n', '')    # Remove \n diretamente
+            cleaned_tags.append(tag)
+        
+        return cleaned_tags
 
 class EventoForm(forms.ModelForm):
     OPCOES_PALESTRANTE = [

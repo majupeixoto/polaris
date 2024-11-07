@@ -3,16 +3,6 @@
 
 {% block content %}
 
-{% if messages %}
-    <div class="container mt-4">
-        {% for message in messages %}
-            <div class="alert alert-success" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
-
 <div class="container mt-5">
     <h1 class="text-center">Cadastrar um grupo de estudos</h1>
     <form method="post">
@@ -60,11 +50,11 @@
                     <label for="dias_reuniao">Dias de reunião:</label>
                     <div id="dias-reuniao">
                         <label><input type="checkbox" name="dias_reuniao" value="Segunda"> Segunda</label>
-                        <label><input type="checkbox" name="dias_reuniao" value="Terça"> Terça</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Terca"> Terça</label>
                         <label><input type="checkbox" name="dias_reuniao" value="Quarta"> Quarta</label>
                         <label><input type="checkbox" name="dias_reuniao" value="Quinta"> Quinta</label>
                         <label><input type="checkbox" name="dias_reuniao" value="Sexta"> Sexta</label>
-                        <label><input type="checkbox" name="dias_reuniao" value="Sábado"> Sábado</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Sabado"> Sábado</label>
                         <label><input type="checkbox" name="dias_reuniao" value="Domingo"> Domingo</label>
                     </div>
                 </div>
@@ -86,6 +76,8 @@
                 <button type="button" id="add-tag" class="btn btn-secondary">+</button>
             </div>
             <div id="tag-list" class="tag-list mt-2"></div>
+            <!-- Campo oculto para armazenar a lista de tags como JSON -->
+            <input type="hidden" name="tags" id="tags-hidden">
         </div>
 
         <div class="text-center">
@@ -95,31 +87,42 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const tagInput = document.getElementById("tag-input");
-    const tagList = document.getElementById("tag-list");
-    const addTagButton = document.getElementById("add-tag");
-
-    addTagButton.addEventListener("click", () => {
-        const tag = tagInput.value.trim();
-        if (tag) {
-            const tagElement = document.createElement("span");
-            tagElement.className = "tag-item";
-            tagElement.innerText = tag;
-            
-            const removeButton = document.createElement("button");
-            removeButton.className = "remove-tag";
-            removeButton.innerText = "x";
-            removeButton.onclick = () => tagList.removeChild(tagElement);
-
-            tagElement.appendChild(removeButton);
-            tagList.appendChild(tagElement);
-
-            tagInput.value = "";
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+        const tagInput = document.getElementById("tag-input");
+        const tagList = document.getElementById("tag-list");
+        const tagsHidden = document.getElementById("tags-hidden");
+        const addTagButton = document.getElementById("add-tag");
+    
+        const updateTagsHiddenInput = () => {
+            const tags = Array.from(tagList.children).map(tagElement => tagElement.innerText.replace("\\nx", "").trim());
+            tagsHidden.value = JSON.stringify(tags);
+            console.log("Conteúdo de tagsHidden antes do envio:", tagsHidden.value);  // Verificação final
+        };
+    
+        addTagButton.addEventListener("click", () => {
+            const tag = tagInput.value.trim();
+            if (tag) {
+                const tagElement = document.createElement("span");
+                tagElement.className = "tag-item";
+                tagElement.innerText = tag;
+                
+                const removeButton = document.createElement("button");
+                removeButton.className = "remove-tag";
+                removeButton.innerText = "x";
+                removeButton.onclick = () => {
+                    tagList.removeChild(tagElement);
+                    updateTagsHiddenInput();
+                };
+    
+                tagElement.appendChild(removeButton);
+                tagList.appendChild(tagElement);
+    
+                tagInput.value = "";
+                updateTagsHiddenInput();
+            }
+        });
     });
-});
-</script>
+    </script>
 
 <style>
 #tags-container {
