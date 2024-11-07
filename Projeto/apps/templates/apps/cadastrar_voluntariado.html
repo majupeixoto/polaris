@@ -1,0 +1,99 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Cadastrar Voluntariado</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Campos de Voluntariado -->
+        <div class="form-group">
+            <label for="titulo"><strong>*Título do Programa:</strong></label>
+            {{ form.titulo }}
+        </div>
+        <div class="form-group">
+            <label for="descricao"><strong>*Descrição:</strong></label>
+            {{ form.descricao }}
+        </div>
+        <div class="form-group">
+            <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
+            {{ form.status_inscricoes }}
+        </div>
+        <div class="form-group">
+            <label for="local_trabalho"><strong>Local de Trabalho:</strong></label>
+            {{ form.local_trabalho }}
+        </div>
+        <div class="form-group">
+            <label for="organizacao_parceira"><strong>Organização Parceira:</strong></label>
+            {{ form.organizacao_parceira }}
+        </div>
+        
+        <!-- Campo para adicionar habilidades requeridas -->
+        <div class="form-group">
+            <label for="habilidades_requeridas">Habilidades Requeridas:</label>
+            <div id="habilidades-container">
+                <input type="text" name="habilidades_requeridas[]" class="form-control mt-2" placeholder="Digite uma habilidade">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-habilidade">+</button>
+        </div>
+
+        <!-- Campo para adicionar tags -->
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <div id="tags-container">
+                <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Publicar Voluntariado</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const maxHabilidades = 5;
+        const maxTags = 5;
+        let habilidadesCount = 1;
+        let tagsCount = 1;
+
+        const addHabilidadeBtn = document.getElementById("add-habilidade");
+        const addTagBtn = document.getElementById("add-tag");
+
+        addHabilidadeBtn.addEventListener("click", () => {
+            if (habilidadesCount < maxHabilidades) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "habilidades_requeridas[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma habilidade";
+                document.getElementById("habilidades-container").appendChild(input);
+                habilidadesCount++;
+
+                if (habilidadesCount === maxHabilidades) {
+                    addHabilidadeBtn.style.display = 'none';
+                }
+            }
+        });
+
+        addTagBtn.addEventListener("click", () => {
+            if (tagsCount < maxTags) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "tags[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma tag";
+                document.getElementById("tags-container").appendChild(input);
+                tagsCount++;
+
+                if (tagsCount === maxTags) {
+                    addTagBtn.style.display = 'none';
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

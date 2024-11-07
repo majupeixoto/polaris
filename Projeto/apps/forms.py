@@ -1,5 +1,5 @@
 from django import forms
-from .models import GrupoEstudo, Evento, Perfil, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica
+from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica
 
 class PerfilForm(forms.ModelForm):
     password = forms.CharField(
@@ -116,10 +116,10 @@ class EventoForm(forms.ModelForm):
 
         return cleaned_data
         
-class ProgramaOficialForm(forms.ModelForm):
+class VoluntariadoForm(forms.ModelForm):
     class Meta:
-        model = ProgramaOficial
-        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'inicio_evento', 'fim_evento', 'carga_horaria', 'link_inscricao']
+        model = Voluntariado
+        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'inicio_evento', 'fim_evento', 'carga_horaria', 'link_inscricao', 'local_trabalho', 'organizacao_parceira', 'habilidades_requeridas']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do Programa'}),
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
@@ -129,13 +129,6 @@ class ProgramaOficialForm(forms.ModelForm):
             'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'carga_horaria': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carga horária'}),
             'link_inscricao': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link para inscrição'}),
-        }
-
-class VoluntariadoForm(forms.ModelForm):
-    class Meta:
-        model = Voluntariado
-        fields = ['local_trabalho', 'organizacao_parceira', 'habilidades_requeridas']
-        widgets = {
             'local_trabalho': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Local de Trabalho'}),
             'organizacao_parceira': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Organização Parceira'}),
             'habilidades_requeridas': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Habilidades requeridas'}),
@@ -144,8 +137,16 @@ class VoluntariadoForm(forms.ModelForm):
 class MonitoriaForm(forms.ModelForm):
     class Meta:
         model = Monitoria
-        fields = ['professor_orientador', 'disciplina', 'cadeiras_requeridas', 'requisitos']
+        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'inicio_evento', 'fim_evento', 'carga_horaria', 'link_inscricao', 'professor_orientador', 'disciplina', 'cadeiras_requeridas', 'requisitos']
         widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do Programa'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
+            'status_inscricoes': forms.Select(attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tags separadas por vírgula'}),
+            'inicio_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'carga_horaria': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carga horária'}),
+            'link_inscricao': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link para inscrição'}),
             'professor_orientador': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Professor Orientador'}),
             'disciplina': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Disciplina'}),
             'cadeiras_requeridas': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Cadeiras Requeridas'}),
@@ -155,8 +156,16 @@ class MonitoriaForm(forms.ModelForm):
 class IniciacaoCientificaForm(forms.ModelForm):
     class Meta:
         model = IniciacaoCientifica
-        fields = ['duracao', 'professor_orientador', 'bolsa_pesquisa']
+        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'inicio_evento', 'fim_evento', 'carga_horaria', 'link_inscricao', 'duracao', 'professor_orientador', 'bolsa_pesquisa']
         widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do Programa'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
+            'status_inscricoes': forms.Select(attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tags separadas por vírgula'}),
+            'inicio_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'carga_horaria': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carga horária'}),
+            'link_inscricao': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link para inscrição'}),
             'duracao': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Duração em meses'}),
             'professor_orientador': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Professor Orientador'}),
             'bolsa_pesquisa': forms.CheckboxInput(attrs={'class': 'form-check-input'}),

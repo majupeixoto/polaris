@@ -150,9 +150,11 @@ class Voluntariado(ProgramaOficial):
     organizacao_parceira = models.CharField(max_length=100)
     habilidades_requeridas = models.JSONField(default=list, blank=True)
 
-    def cadastrar_voluntariado(self):
-        # lógica de cadastro
-        pass
+    def cadastrar(self, dados):
+        self.local_trabalho = dados.get('local_trabalho')
+        self.organizacao_parceira = dados.get('organizacao_parceira')
+        self.habilidades_requeridas = dados.get('habilidades_requeridas', [])
+        self.save()  # Salva o objeto preenchido
 
 class Monitoria(ProgramaOficial):
     professor_orientador = models.CharField(max_length=100)
@@ -160,15 +162,20 @@ class Monitoria(ProgramaOficial):
     cadeiras_requeridas = models.JSONField(default=list, blank=True)
     requisitos = models.JSONField(default=list, blank=True)
 
-    def cadastrar_monitoria(self):
-        # lógica de cadastro
-        pass
+    def cadastrar(self, dados):
+        self.professor_orientador = dados.get('professor_orientador')
+        self.disciplina = dados.get('disciplina')
+        self.cadeiras_requeridas = dados.get('cadeiras_requeridas', [])
+        self.requisitos = dados.get('requisitos', [])
+        self.save()
 
 class IniciacaoCientifica(ProgramaOficial):
     duracao = models.DurationField()
     professor_orientador = models.CharField(max_length=100)
     bolsa_pesquisa = models.BooleanField()
 
-    def cadastrar_iniciacao_cientifica(self):
-        # lógica de cadastro
-        pass
+    def cadastrar(self, dados):
+        self.duracao = dados.get('duracao')
+        self.professor_orientador = dados.get('professor_orientador')
+        self.bolsa_pesquisa = dados.get('bolsa_pesquisa', False)
+        self.save()

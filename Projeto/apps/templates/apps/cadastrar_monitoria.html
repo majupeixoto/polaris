@@ -1,0 +1,99 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Cadastrar Monitoria</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Campos de Monitoria -->
+        <div class="form-group">
+            <label for="titulo"><strong>*Título do Programa:</strong></label>
+            {{ form.titulo }}
+        </div>
+        <div class="form-group">
+            <label for="descricao"><strong>*Descrição:</strong></label>
+            {{ form.descricao }}
+        </div>
+        <div class="form-group">
+            <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
+            {{ form.status_inscricoes }}
+        </div>
+        <div class="form-group">
+            <label for="professor_orientador"><strong>Professor Orientador:</strong></label>
+            {{ form.professor_orientador }}
+        </div>
+        <div class="form-group">
+            <label for="disciplina"><strong>Disciplina:</strong></label>
+            {{ form.disciplina }}
+        </div>
+        
+        <!-- Campo para adicionar cadeiras requeridas -->
+        <div class="form-group">
+            <label for="cadeiras_requeridas">Cadeiras Requeridas:</label>
+            <div id="cadeiras-container">
+                <input type="text" name="cadeiras_requeridas[]" class="form-control mt-2" placeholder="Digite uma cadeira">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-cadeira">+</button>
+        </div>
+
+        <!-- Campo para adicionar tags -->
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <div id="tags-container">
+                <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Publicar Monitoria</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const maxCadeiras = 5;
+        const maxTags = 5;
+        let cadeirasCount = 1;
+        let tagsCount = 1;
+
+        const addCadeiraBtn = document.getElementById("add-cadeira");
+        const addTagBtn = document.getElementById("add-tag");
+
+        addCadeiraBtn.addEventListener("click", () => {
+            if (cadeirasCount < maxCadeiras) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "cadeiras_requeridas[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma cadeira";
+                document.getElementById("cadeiras-container").appendChild(input);
+                cadeirasCount++;
+
+                if (cadeirasCount === maxCadeiras) {
+                    addCadeiraBtn.style.display = 'none';
+                }
+            }
+        });
+
+        addTagBtn.addEventListener("click", () => {
+            if (tagsCount < maxTags) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "tags[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma tag";
+                document.getElementById("tags-container").appendChild(input);
+                tagsCount++;
+
+                if (tagsCount === maxTags) {
+                    addTagBtn.style.display = 'none';
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

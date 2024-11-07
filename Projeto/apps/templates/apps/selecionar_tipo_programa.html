@@ -1,0 +1,36 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Selecione o Tipo de Programa</h1>
+    
+    <form method="get" id="programaForm">
+        <div class="form-group">
+            <label for="tipo_programa"><strong>Tipo de Programa:</strong></label>
+            <select id="tipo_programa" name="tipo_programa" class="form-control" onchange="redirecionarFormulario()">
+                <option value="">Selecione</option>
+                <option value="voluntariado">Voluntariado</option>
+                <option value="monitoria">Monitoria</option>
+                <option value="iniciacao_cientifica">Iniciação Científica</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<script>
+    function redirecionarFormulario() {
+        const tipoPrograma = document.getElementById("tipo_programa").value;
+        if (tipoPrograma) {
+            let url = "";
+            if (tipoPrograma === "voluntariado") {
+                url = "{% url 'cadastrar_voluntariado' %}";
+            } else if (tipoPrograma === "monitoria") {
+                url = "{% url 'cadastrar_monitoria' %}";
+            } else if (tipoPrograma === "iniciacao_cientifica") {
+                url = "{% url 'cadastrar_iniciacao_cientifica' %}";
+            }
+            window.location.href = url;
+        }
+    }
+</script>
+{% endblock %}
