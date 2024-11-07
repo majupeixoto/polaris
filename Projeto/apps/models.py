@@ -123,15 +123,14 @@ class Evento(Oportunidade):
         return data_fim - data_inicio
 
 
-class GrupoEstudo(models.Model):
-    titulo = models.CharField(max_length=100)
+class GrupoEstudo(Oportunidade):
+    
     tema = models.CharField(max_length=100)
     numero_integrantes = models.IntegerField()
-    descricao = models.TextField()
-    professor_orientador = models.CharField(max_length=100)
-    carga_horaria_semanal = models.DecimalField(max_digits=4, decimal_places=2)
-    dias_reuniao = models.CharField(max_length=100)  # Ex: "Segunda, Quarta"
-    hora_reuniao = models.TimeField()
+    professor_orientador = models.CharField(max_length=100, blank=True)
+    carga_horaria_semanal = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    dias_reuniao = models.JSONField(blank=True, default=list)  # Armazena dias da semana em formato JSON
+    hora_reuniao = models.TimeField(null=True, blank=True)
 
     def __str__(self):
         return self.titulo

@@ -42,20 +42,42 @@ class PerfilForm(forms.ModelForm):
 
 
 class GrupoEstudoForm(forms.ModelForm):
+    tags = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Digite uma tag e pressione Enter'
+        }),
+        label="Tags"
+    )
+
     class Meta:
         model = GrupoEstudo
-        fields = ['titulo', 'tema', 'numero_integrantes', 'descricao', 'professor_orientador', 'carga_horaria_semanal', 'dias_reuniao', 'hora_reuniao']
+        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'tema', 'numero_integrantes', 
+                  'professor_orientador', 'carga_horaria_semanal', 'dias_reuniao', 'hora_reuniao']
         widgets = {
-            'titulo': forms.TextInput(attrs={'placeholder': 'Título do grupo', 'class': 'form-control'}),
-            'tema': forms.TextInput(attrs={'placeholder': 'Tema do grupo', 'class': 'form-control'}),
-            'numero_integrantes': forms.NumberInput(attrs={'class': 'form-control'}),
-            'descricao': forms.Textarea(attrs={'placeholder': 'Descrição do grupo', 'class': 'form-control'}),
-            'professor_orientador': forms.TextInput(attrs={'placeholder': 'Nome do professor orientador', 'class': 'form-control'}),
-            'carga_horaria_semanal': forms.NumberInput(attrs={'class': 'form-control'}),
-            'dias_reuniao': forms.TextInput(attrs={'placeholder': 'Ex: Segunda, Quarta', 'class': 'form-control'}),
-            'hora_reuniao': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+            'titulo': forms.TextInput(attrs={'placeholder': 'Nome do grupo de estudos', 'class': 'form-control', 'required': True}),
+            'descricao': forms.Textarea(attrs={'placeholder': 'Descrição do grupo', 'class': 'form-control', 'required': True}),
+            'status_inscricoes': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'tags': forms.TextInput(attrs={'placeholder': 'Digite uma tag', 'class': 'form-control'}),
+            'tema': forms.TextInput(attrs={'placeholder': 'Área de estudo do grupo', 'class': 'form-control', 'required': True}),
+            'numero_integrantes': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
+            'professor_orientador': forms.TextInput(attrs={'placeholder': 'Nome do professor orientador', 'class': 'form-control', 'required': True}),
+            'carga_horaria_semanal': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
+            'dias_reuniao': forms.CheckboxSelectMultiple(attrs={'required': True}),  # Widget para múltipla seleção
+            'hora_reuniao': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time', 'required': True}),
         }
 
+    def clean_dias_reuniao(self):
+        dias_reuniao = self.cleaned_data.get('dias_reuniao')
+        if not dias_reuniao:
+            raise forms.ValidationError("Selecione pelo menos um dia de reunião.")
+        return dias_reuniao
+
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        # Transforma as tags em uma lista removendo espaços e ignorando vazias
+        return [tag.strip() for tag in tags.split(',') if tag.strip()]
 
 class EventoForm(forms.ModelForm):
     OPCOES_PALESTRANTE = [
