@@ -66,6 +66,7 @@ def cadastrar_evento(request):
         messages.error(request, "Usuário não encontrado.")
         return redirect('login')
 
+    # Verifica o perfil do usuário antes de permitir o cadastro do evento
     if usuario.trocar_perfil == 0:
         messages.warning(request, "Você precisa trocar de perfil para acessar esta página.")
         return redirect('login')
@@ -73,10 +74,11 @@ def cadastrar_evento(request):
     if request.method == 'POST':
         form = EventoForm(request.POST)
         if form.is_valid():
-            evento = form.save(commit=False)
+            evento = form.save(commit=False)  # Cria o evento sem salvar no banco ainda
+            # Processa os campos 'participantes' e 'tags' antes de salvar
             evento.participantes = form.cleaned_data['participantes']
             evento.tags = form.cleaned_data['tags']
-            evento.save()  # Salva o evento
+            evento.save()  # Salva o evento com os dados completos
             messages.success(request, "Evento cadastrado com sucesso!")
             return redirect('visualizar_evento', evento_id=evento.id)
         else:
