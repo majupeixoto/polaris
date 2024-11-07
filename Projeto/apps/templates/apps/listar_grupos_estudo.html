@@ -1,41 +1,17 @@
 {% extends 'global/base.html' %}
 
 {% block content %}
-<h2>Grupos de Estudo</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Tema</th>
-            <th>Descrição</th>
-            <th>Número de Integrantes</th>
-            <th>Professor Orientador</th>
-            <th>Carga Horária Semanal</th>
-            <th>Dias de Reunião</th>
-            <th>Hora da Reunião</th>
-            <th>Ações</th> <!-- Nova coluna para o link "Ver mais" -->
-        </tr>
-    </thead>
-    <tbody>
+<div class="container mt-5">
+    <h1 class="text-center">Grupos de Estudo</h1>
+    <ul class="list-group mt-4">
         {% for grupo in grupos %}
-        <tr>
-            <td>{{ grupo.titulo }}</td>
-            <td>{{ grupo.tema }}</td>
-            <td>{{ grupo.descricao }}</td>
-            <td>{{ grupo.numero_integrantes }}</td>
-            <td>{{ grupo.professor_orientador }}</td>
-            <td>{{ grupo.carga_horaria_semanal }} horas</td>
-            <td>{{ grupo.dias_reuniao }}</td>
-            <td>{{ grupo.hora_reuniao }}</td>
-            <td>
-                <a href="{% url 'visualizar_grupo' grupo.id %}" class="btn btn-outline-secondary">Ver mais</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="9">Nenhum grupo de estudo encontrado.</td> <!-- Atualizado para 9 colunas -->
-        </tr>
+            <li class="list-group-item">
+                <h5>{{ grupo.titulo }}</h5>
+                <p><strong>Tema:</strong> {{ grupo.tema }}</p>
+                <p><strong>Descrição:</strong> {{ grupo.descricao }}</p>
+                <a href="{% url 'visualizar_grupo' grupo.id %}" class="btn btn-primary">Ver detalhes</a>
+            </li>
         {% endfor %}
-    </tbody>
-</table>
+    </ul>
+</div>
 {% endblock %}

@@ -49,12 +49,16 @@ def cadastro_grupo_estudo(request):
     if request.method == 'POST':
         form = GrupoEstudoForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Grupo de estudos cadastrado com sucesso!')
-            return redirect('listar_grupos_estudo')
+            grupo_estudo = form.save(commit=False)
+            grupo_estudo.tags = form.cleaned_data.get('tags', [])  # Salva as tags como lista
+            grupo_estudo.save()
+            messages.success(request, 'Grupo de estudo cadastrado com sucesso!')
+            return redirect('cadastro_grupo_estudo')
+        else:
+            messages.error(request, 'Erro ao salvar o grupo de estudo. Verifique os dados e tente novamente.')
     else:
         form = GrupoEstudoForm()
-
+    
     return render(request, 'apps/cadastro_grupo_estudo.html', {'form': form})
 
 @login_required
@@ -152,7 +156,7 @@ def listar_grupos_estudo(request):
 @login_required
 def visualizar_grupo(request, grupo_id):
     grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
-    return render(request, 'visualizar_grupo.html', {'grupo': grupo})
+    return render(request, 'apps/visualizar_grupo.html', {'grupo': grupo})
 
 @login_required
 def cadastrar_programa_oficial(request):

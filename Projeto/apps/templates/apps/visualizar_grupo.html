@@ -17,6 +17,18 @@
             <p><strong>Dias de Reunião:</strong> {{ grupo.dias_reuniao }}</p>
             <p><strong>Hora da Reunião:</strong> {{ grupo.hora_reuniao }}</p>
             <p><strong>Descrição:</strong> {{ grupo.descricao }}</p>
+
+            <!-- Bloco de tags -->
+            <h3>Tags:</h3>
+            <ul>
+                {% for tag in grupo.tags %}
+                    <li>{{ tag }}</li>
+                {% empty %}
+                    <li>Nenhuma tag disponível</li>
+                {% endfor %}
+            </ul>
+            <!-- Fim do bloco de tags -->
+             
         </div>
     </div>
 </div>
