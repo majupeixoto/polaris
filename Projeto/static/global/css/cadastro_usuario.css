@@ -1,0 +1,32 @@
+.login {
+    width: 382px;
+    height: 658px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    background: #F6F6F9;
+}
+
+.form-control {
+    width: 299px;
+    height: 48px;
+    border-radius: 7px;
+    opacity: 0.5;
+    background: rgba(58, 58, 60, 0.22);
+    flex-shrink: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.item {
+    margin: 100px;
+}
+
+.logo {
+    width: 100%;
+    max-width: 350px;
+}
