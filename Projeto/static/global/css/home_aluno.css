@@ -1,0 +1,279 @@
+body {
+    width: 1440px;
+    height: 900px;
+    position: relative;
+    background: white;
+}
+
+#botao_1 {
+    width: 190px;
+    height: 226px;
+    left: 140px;
+    top: 164px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_2 {
+    width: 191px;
+    height: 102px;
+    left: 349px;
+    top: 161px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_3 {
+    width: 191px;
+    height: 102px;
+    left: 349px;
+    top: 282px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_4 {
+    width: 86px;
+    height: 102px;
+    left: 558px;
+    top: 161px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_5 {
+    width: 86px;
+    height: 102px;
+    left: 558px;
+    top: 282px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_6 {
+    width: 192px;
+    height: 102px;
+    left: 663px;
+    top: 161px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_7 {
+    width: 192px;
+    height: 102px;
+    left: 663px;
+    top: 284px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_8 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 161px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_9 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 238px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_10 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 315px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_11 {
+    width: 87px;
+    height: 225px;
+    left: 1083px;
+    top: 161px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_12 {
+    width: 192px;
+    height: 220px;
+    left: 1188px;
+    top: 164px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_13 {
+    width: 242px;
+    height: 57px;
+    left: 138px;
+    top: 471px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_14 {
+    width: 242px;
+    height: 57px;
+    left: 403px;
+    top: 472px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_15 {
+    width: 242px;
+    height: 57px;
+    left: 663px;
+    top: 470px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_16 {
+    width: 242px;
+    height: 57px;
+    left: 928px;
+    top: 471px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_17 {
+    width: 192px;
+    height: 367px;
+    left: 1188px;
+    top: 470px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_18 {
+    width: 295px;
+    height: 221px;
+    left: 140px;
+    top: 616px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_19 {
+    width: 298px;
+    height: 221px;
+    left: 452px;
+    top: 616px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#botao_20 {
+    width: 402px;
+    height: 221px;
+    left: 768px;
+    top: 616px;
+    position: absolute;
+    background: #D9D9D9;
+}
+
+#atividades-complementares {
+    left: 140px;
+    top: 120px;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#iniciativas-estudantis {
+    left: 1188px;
+    top: 125px;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#eventech {
+    left: 771px;
+    top: 584px;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#beneficios-email {
+    width: 192px;
+    left: 1188px;
+    top: 431px;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#atividades-atuais {
+    left: 140px;
+    top: 432px;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#grupos-estudos {
+    left: 140px;
+    top: 584px;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#criar {
+    width: 87px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: 26px;
+    word-wrap: break-word;
+}
