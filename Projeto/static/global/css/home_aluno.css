@@ -3,8 +3,7 @@ body {
     height: calc(900px - 70px); /* Adjust height to account for top bar */
     position: relative;
     background: #292D3C;
-    left: 80px; /* Sidebar width */
-    top: 70px; /* Top bar height */
+    left: 50px; /* Sidebar width */
 }
 
 #botao_1 {

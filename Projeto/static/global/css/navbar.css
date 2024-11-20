@@ -10,7 +10,7 @@ content {
     left: 0;
     right: 0;
     height: 70px;
-    background: rgba(255, 255, 255, 0.05);
+    background: #212534; /* Add a background color with full opacity */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,7 +39,7 @@ content {
     left: 0;
     width: 80px;
     height: 100%; /* A navbar lateral agora ocupa toda a altura */
-    background-color: #f8f9fa; /* Removido o caractere extra `#` */
+    background-color: #f8f9fa; /* Ensure the background color is not transparent */
     padding-top: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     z-index: 2; /* Maior que a navbar superior para sobrepor */
@@ -63,4 +63,3 @@ content {
     margin-left: 150px; /* Compensar a largura da navbar lateral */
     padding: 20px;
   }
-  
