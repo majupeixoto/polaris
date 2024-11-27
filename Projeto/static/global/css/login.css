@@ -41,45 +41,43 @@ div.tagline .highlight {
 
 .login {
     width: 345px;
-    height: 390px;
     border-radius: 40px;
     background: #F6F6F9;
-    flex-shrink: 0;
+    padding: 30px; /* Adiciona espaçamento interno */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Opcional, se você quiser que os elementos fiquem em coluna */
+    flex-direction: column; /* Organiza os elementos em coluna */
+    align-items: center; /* Centraliza os elementos */
+    gap: 20px; /* Espaçamento uniforme entre os elementos */
 }
+
 .login h1 {
-    width: 345px;
-    height: 17px;
-    flex-shrink: 0;
     color: var(--Azul-IDV-1, #0027DB);
     font-size: 32px;
-    font-style: normal;
     font-weight: 600;
-    line-height: 16px;
+    margin-bottom: 20px; /* Adiciona espaço abaixo do título */
     text-align: center;
-    font-feature-settings: 'liga' off, 'clig' off;
 }
 
 .box-user {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ocupa toda a largura disponível */
+    gap: 5px; /* Espaçamento entre o label e o input */
 }
 
 .box-user label {
     color: var(--Azul-IDV-1, #0027DB);
-    font-style: bold;
-    display: flex;
-    width: 240.477px;
-    height: 16.14px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
     font-size: 14px;
-    font-style: normal;
     font-weight: 500;
-    line-height: 16px; /* 114.286% */
+}
+
+.form-control {
+    width: 100%; /* Faz o input ocupar toda a largura */
+    height: 40px;
+    border-radius: 7px;
+    background: rgba(0, 39, 189, 0.10);
+    border: none; /* Remove a borda */
+    padding: 5px 10px; /* Adiciona espaçamento interno */
 }
 
 .btn_login {
@@ -89,16 +87,22 @@ div.tagline .highlight {
     border-radius: 7px;
     color: white; /* Altera a cor do texto para branco */
     background: var(--Azul-IDV-1, #0027DB);
+    outline: none; /* Remove a linha preta ao redor */
+    border: none;  /* Certifique-se de que não há borda */
 }
 
-.text-center a:hover {
-    text-decoration: underline;
+.btn_login:focus {
+    outline: none; /* Remove o contorno no estado de foco */
+    box-shadow: none; /* Remove qualquer sombra adicional */
 }
 
-.form-control {
-    width: 287.256px;
-    height: 40.351px;
-    border-radius: 7px;
-    background: rgba(0, 39, 189, 0.10);
-    flex-shrink: 0;
+.link-cadastro {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px; /* Espaço acima do link */
+}
+
+.link-cadastro a {
+    color: var(--Azul-IDV-1, #0027DB);
+    text-decoration: none;
 }
