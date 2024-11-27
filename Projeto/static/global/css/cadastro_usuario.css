@@ -1,18 +1,17 @@
 .login {
-    width: 382px;
-    height: 658px;
-    flex-shrink: 0;
+    width: 345px;
+    height: 471px;
     border-radius: 40px;
-    background: #F6F6F9;
+    background: #FFF;
+    flex-shrink: 0;
 }
 
 .form-control {
-    width: 340px;
-    height: 48px;
-    border-radius: 7px;
-    opacity: 0.5;
-    background: rgba(58, 58, 60, 0.22);
+    width: 287.256px;
+    height: 40.351px;
     flex-shrink: 0;
+    border-radius: 7px;
+    background: rgba(0, 39, 189, 0.10);
 }
 
 .center {
@@ -29,4 +28,9 @@
 .logo {
     width: 100%;
     max-width: 350px;
+}
+
+.link-login {
+    text-align: center;
+    font-size: 14px;
 }

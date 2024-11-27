@@ -6,11 +6,11 @@
 
 <div class="center">
     <div class="item">
-        <img src="{% static 'imgs/logo_polaris_sem_fundo.png' %}" class="logo" alt="Logotipo da Polaris">
+        <img src="{% static 'imgs/logo_branco.png' %}" class="logo" alt="Logotipo da Polaris">
     </div>
     <form class="login" method="post">
         {% csrf_token %}
-        <h1>Cadastra-se</h1>
+        <h1>Criar conta</h1>
         
         <div class="box-user">
             {{ form.nome.label_tag }}  <!-- Rótulo do campo Nome -->
@@ -22,15 +22,15 @@
             {{ form.email }}  <!-- Campo Email -->
         </div>
         
-        <div class="box-user">
-            {{ form.telefone.label_tag }}  <!-- Rótulo do campo Telefone -->
-            {{ form.telefone }}  <!-- Campo Telefone -->
-        </div>
+        <!--<div class="box-user">
+            {{ form.telefone.label_tag }}  
+            {{ form.telefone }}  
+        </div>-->
 
-        <div class="box-user">
-            {{ form.curso.label_tag }}  <!-- Rótulo do campo Curso -->
-            {{ form.curso }}  <!-- Campo Curso -->
-        </div>
+        <!--<div class="box-user">
+            {{ form.curso.label_tag }}  
+            {{ form.curso }}  
+        </div>-->
         
         <div class="box-user">
             {{ form.password.label_tag }}  <!-- Rótulo do campo Senha -->
@@ -42,11 +42,11 @@
             {{ form.confirm_password }}  <!-- Campo Confirmar Senha -->
         </div>
 
-        <div class="box-user">
+        <!--<div class="box-user">
             <label for="trocar_perfil">Você é funcionário?</label>
-            {{ form.trocar_perfil }}  <!-- Campo para marcar se é funcionário -->
-        </div>
-
+            {{ form.trocar_perfil }}  
+        </div>-->
+        
         {% if messages %}
             <ul class="error-messages">
                 {% for message in messages %}
@@ -54,12 +54,13 @@
                 {% endfor %}
             </ul>
         {% endif %}
+
+        <button type="submit" class="btn_login">Entrar</button>
         
-        <div>
-            <p>Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui.</a></p>
+        <div class="link-login">
+            <p>Já possui uma conta? <a href="{% url 'login' %}">Fazer login</a></p>
         </div>
         
-        <button type="submit" class="btn_login">Entrar</button>
     </form>
 </div>
 {% endblock %}
