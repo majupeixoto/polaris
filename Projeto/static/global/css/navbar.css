@@ -39,13 +39,16 @@ content {
 .navbar-top #Geral {
     width: 59px; 
     height: 60px; 
-    opacity: 0.50; 
     text-align: center; 
     color: white; 
     line-height: 24px; 
     margin-left: 24px;
-    color: #FFF; /* Ensure the color is set explicitly */
 }
+
+.navbar-top .menu #Geral:hover {
+    color: #9C9C9C;
+}
+
 
 .navbar-top .profile {
     font-weight: bold;
@@ -125,6 +128,10 @@ content {
 }
 
 .search-bar input {
+    position: absolute; /* Add this line */
+    left: 660px;
+    top: 50%; /* Add this line */
+    transform: translateY(-50%); /* Add this line */
     width: 357px;
     padding: 8px;
     font-size: 14px;
