@@ -35,4 +35,5 @@ urlpatterns = [
     path('iniciativas/<int:pk>/excluir/', IniciativaEstudantilDeleteView.as_view(), name='iniciativa_delete'),
     path('favoritos/', FavoritoListView.as_view(), name='favoritos'),
     path('faq/', faq_view, name='faq'),
+    path('search_results/', views.search_results, name='search_results'),
 ]
