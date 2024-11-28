@@ -295,38 +295,77 @@ class FavoritoListView(LoginRequiredMixin, ListView):
     
 #     return render(request, 'apps/busca/resultados.html', {'resultados': resultados, 'query': query})
 
+# def search_results(request):
+#     query = request.GET.get('q', '').strip()
+#     query = unidecode(query.lower())
+#     obj_type = request.GET.get('type', '').lower()  # filtrar pelo tipo de subclasse
+
+#     # subclasses de BaseModelo
+#     subclasses = {
+#         'iniciativaestudantil': IniciativaEstudantil.objects.all(),
+#         'grupoestudo': GrupoEstudo.objects.all(),
+#         # mais subclasses...
+#     }
+
+#     # resultados de acordo com o tipo
+#     if obj_type and obj_type in subclasses:
+#         results = subclasses[obj_type].filter(
+#             Q(nome__icontains=query) | Q(descricao__icontains=query)
+#         )
+#     else:
+#         results = []
+#         for model in subclasses.values():
+#             results += model.filter(
+#                 Q(nome__icontains=query) | Q(descricao__icontains=query)
+#             )
+
+from apps.models import Evento, GrupoEstudo, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
+
 def search_results(request):
     query = request.GET.get('q', '').strip()
     query = unidecode(query.lower())
-    obj_type = request.GET.get('type', '').lower()  # filtrar pelo tipo de subclasse
+    obj_type = request.GET.get('type', '').strip()  # tipo selecionado
+    results = []
 
-    # subclasses de BaseModelo
-    subclasses = {
-        'iniciativaestudantil': IniciativaEstudantil.objects.all(),
-        'grupoestudo': GrupoEstudo.objects.all(),
-        # mais subclasses...
-    }
-
-    # resultados de acordo com o tipo
-    if obj_type and obj_type in subclasses:
-        results = subclasses[obj_type].filter(
-            Q(nome__icontains=query) | Q(descricao__icontains=query)
-        )
+    if query:
+        # condições para cada modelo
+        if obj_type == 'evento' or not obj_type:
+            results += list(Evento.objects.filter(
+                Q(titulo__icontains=query) | Q(descricao__icontains=query)
+            ))
+        if obj_type == 'grupoestudo' or not obj_type:
+            results += list(GrupoEstudo.objects.filter(
+                Q(titulo__icontains=query) | Q(descricao__icontains=query)
+            ))
+        if obj_type == 'voluntariado' or not obj_type:
+            results += list(Voluntariado.objects.filter(
+                Q(titulo__icontains=query) | Q(descricao__icontains=query)
+            ))
+        if obj_type == 'monitoria' or not obj_type:
+            results += list(Monitoria.objects.filter(
+                Q(titulo__icontains=query) | Q(descricao__icontains=query)
+            ))
+        if obj_type == 'iniciacao' or not obj_type:
+            results += list(IniciacaoCientifica.objects.filter(
+                Q(titulo__icontains=query) | Q(descricao__icontains=query)
+            ))
+        if obj_type == 'iniciativa' or not obj_type:
+            results += list(IniciativaEstudantil.objects.filter(
+                Q(nome__icontains=query) | Q(descricao__icontains=query)
+            ))
     else:
         results = []
-        for model in subclasses.values():
-            results += model.filter(
-                Q(nome__icontains=query) | Q(descricao__icontains=query)
-            )
 
+    # paginação
+    from django.core.paginator import Paginator
     paginator = Paginator(results, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'apps/search_results.html', {
         'query': query,
-        'page_obj': page_obj,
         'type': obj_type,
+        'page_obj': page_obj,
     })
 
 
