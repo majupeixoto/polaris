@@ -2,7 +2,9 @@
 
 {% block content %}
 <h1>Iniciativas Estudantis</h1>
-<a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
+{% if user.is_superuser %}
+    <a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
+{% endif %}
 <ul>
     {% for iniciativa in object_list %}
         <li>
