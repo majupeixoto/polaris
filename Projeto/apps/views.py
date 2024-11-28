@@ -146,17 +146,19 @@ def listar_eventos(request):
         messages.error(request, "Perfil não encontrado.")
         return redirect('login')
 
-    # Verifica se o usuário é um superusuário (funcionário)
-    if not usuario.is_superuser:
-        return redirect('login')  # Redireciona para login se não for funcionário
+    # Verifica se o usuário NÃO é um superusuário (ou seja, é um aluno)
+    if usuario.is_superuser:
+        messages.warning(request, "Funcionários não têm acesso a esta página.")
+        return redirect('home_funcionario')  # Redireciona para a home do funcionário
 
-    # Obtém todos os eventos
+    # Obtém todos os eventos para o aluno
     eventos = Evento.objects.all()
     context = {
         'eventos': eventos,
     }
 
     return render(request, 'apps/listar_eventos.html', context)
+
 
 
 @login_required
