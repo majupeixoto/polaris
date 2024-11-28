@@ -171,3 +171,20 @@ class IniciacaoCientifica(ProgramaOficial):
         self.professor_orientador = dados.get('professor_orientador')
         self.bolsa_pesquisa = dados.get('bolsa_pesquisa', False)
         self.save()
+
+class BaseModelo(models.Model):
+    nome = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True, null=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class IniciativaEstudantil(BaseModelo):
+    responsavel = models.CharField(max_length=255)
+    site = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nome

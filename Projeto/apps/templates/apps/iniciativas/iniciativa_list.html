@@ -1,0 +1,13 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<h1>Iniciativas Estudantis</h1>
+<a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
+<ul>
+    {% for iniciativa in object_list %}
+        <li>
+            <a href="{% url 'iniciativa_detail' iniciativa.pk %}">{{ iniciativa.nome }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

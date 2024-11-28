@@ -23,7 +23,7 @@
     {% else %} <!-- NAV FUNCIONÁRIO -->
     <div class="menu">
         <a href="#">Geral</a>
-        <a href="#">iniciativas estudantis</a>
+        <a href="{% url 'iniciativa_list' %}">iniciativas estudantis</a>
         <a href="#">Novidades</a>
         <a href="#">Programas</a>
         <a href="{% url 'listar_eventos' %}">

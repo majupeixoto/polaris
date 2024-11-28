@@ -1,6 +1,13 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import (
+    IniciativaEstudantilListView,
+    IniciativaEstudantilDetailView,
+    IniciativaEstudantilCreateView,
+    IniciativaEstudantilUpdateView,
+    IniciativaEstudantilDeleteView,
+)
 
 urlpatterns = [
     path('', views.login_view, name='login'),
@@ -19,4 +26,9 @@ urlpatterns = [
     path('cadastrar_voluntariado/', views.cadastrar_voluntariado, name='cadastrar_voluntariado'),
     path('cadastrar_monitoria/', views.cadastrar_monitoria, name='cadastrar_monitoria'),
     path('cadastrar_iniciacao_cientifica/', views.cadastrar_iniciacao_cientifica, name='cadastrar_iniciacao_cientifica'),
+    path('iniciativas/', IniciativaEstudantilListView.as_view(), name='iniciativa_list'),
+    path('iniciativas/<int:pk>/', IniciativaEstudantilDetailView.as_view(), name='iniciativa_detail'),
+    path('iniciativas/criar/', IniciativaEstudantilCreateView.as_view(), name='iniciativa_create'),
+    path('iniciativas/<int:pk>/editar/', IniciativaEstudantilUpdateView.as_view(), name='iniciativa_update'),
+    path('iniciativas/<int:pk>/excluir/', IniciativaEstudantilDeleteView.as_view(), name='iniciativa_delete'),
 ]

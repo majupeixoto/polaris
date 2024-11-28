@@ -1,0 +1,10 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<h1>{{ object.nome }}</h1>
+<p>{{ object.descricao }}</p>
+<p>Responsável: {{ object.responsavel }}</p>
+<p><a href="{{ object.site }}">Site</a></p>
+<a href="{% url 'iniciativa_update' object.pk %}">Editar</a>
+<a href="{% url 'iniciativa_delete' object.pk %}">Excluir</a>
+{% endblock %}

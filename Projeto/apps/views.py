@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
 from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
 from django.http import HttpResponse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 def login_view(request):
     if request.method == 'POST':
@@ -219,3 +221,30 @@ def visualizar_programa(request, programa_id):
         'programa_especifico': programa_especifico,
         'tipo': tipo
     })
+
+class BaseCrudView:
+    model = None  # definido pelas classes que herdam
+    template_name = ''  # template padrão para reutilizar
+    success_url = reverse_lazy('home')  # Redireciona após CRUD
+
+class IniciativaEstudantilListView(BaseCrudView, ListView):
+    model = IniciativaEstudantil
+    template_name = 'apps/iniciativas/iniciativa_list.html'
+
+class IniciativaEstudantilDetailView(BaseCrudView, DetailView):
+    model = IniciativaEstudantil
+    template_name = 'apps/iniciativas/iniciativa_detail.html'
+
+class IniciativaEstudantilCreateView(BaseCrudView, CreateView):
+    model = IniciativaEstudantil
+    fields = ['nome', 'descricao', 'responsavel', 'site']
+    template_name = 'apps/iniciativas/iniciativa_form.html'
+
+class IniciativaEstudantilUpdateView(BaseCrudView, UpdateView):
+    model = IniciativaEstudantil
+    fields = ['nome', 'descricao', 'responsavel', 'site']
+    template_name = 'apps/iniciativas/iniciativa_form.html'
+
+class IniciativaEstudantilDeleteView(BaseCrudView, DeleteView):
+    model = IniciativaEstudantil
+    template_name = 'apps/iniciativas/iniciativa_confirm_delete.html'
