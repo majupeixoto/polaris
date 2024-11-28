@@ -1,11 +1,11 @@
 {% extends "global/base.html" %}
 
 {% block content %}
-<h1>Excluir {{ object.nome }}</h1>
-<p>Tem certeza de que deseja excluir esta iniciativa?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Sim</button>
+    <h2>Confirmar Exclusão</h2>
+    <p>Tem certeza de que deseja excluir a iniciativa "{{ object.titulo }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
     <a href="{% url 'iniciativa_list' %}">Cancelar</a>
-</form>
 {% endblock %}

@@ -63,9 +63,11 @@ class Perfil(AbstractBaseUser):
         """Retorna True se o usuário tem permissão para acessar o módulo específico."""
         return self.is_superuser
 
+from django.db import models
+
 class Oportunidade(models.Model):
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField()
+    titulo = models.CharField(max_length=255, default="Título não especificado")
+    descricao = models.TextField(default="Não especificado")
     status_inscricoes = models.CharField(
         max_length=10,
         choices=[('abertas', 'Abertas'), ('em_breve', 'Abrem em breve'), ('fechadas', 'Fechadas')],
@@ -75,6 +77,48 @@ class Oportunidade(models.Model):
 
     class Meta:
         abstract = True  # Define que esta classe é abstrata e não será criada no banco de dados
+
+    def excluir_oportunidade(self):
+        """Método para excluir a oportunidade."""
+        self.delete()
+
+    def fechar_inscricoes(self):
+        """Fecha as inscrições."""
+        self.status_inscricoes = 'fechadas'
+        self.save()
+
+    def abrir_inscricoes(self):
+        """Abre as inscrições."""
+        self.status_inscricoes = 'abertas'
+        self.save()
+
+    def inscrever_estudante(self, estudante):
+        """Método para inscrever um estudante na oportunidade."""
+        # A lógica de inscrição depende do seu modelo de dados, mas pode ser implementada aqui
+        pass
+
+    def publicar_oportunidade(self):
+        """Publica a oportunidade."""
+        # Lógica para publicar, como mudar o status ou outros comportamentos específicos
+        self.status_inscricoes = 'abertas'  # Exemplo
+        self.save()
+
+    def filtrar_oportunidade(self, **kwargs):
+        """Filtra oportunidades com base em parâmetros fornecidos."""
+        oportunidades = Oportunidade.objects.filter(**kwargs)
+        return oportunidades
+
+    def editar_oportunidade(self, titulo=None, descricao=None, status_inscricoes=None, tags=None):
+        """Método para editar os campos da oportunidade."""
+        if titulo:
+            self.titulo = titulo
+        if descricao:
+            self.descricao = descricao
+        if status_inscricoes:
+            self.status_inscricoes = status_inscricoes
+        if tags is not None:
+            self.tags = tags
+        self.save()
 
 class Evento(Oportunidade):
     local = models.CharField(max_length=200)
@@ -191,12 +235,13 @@ class BaseModelo(models.Model):
         abstract = True
 
 
-class IniciativaEstudantil(BaseModelo):
-    responsavel = models.CharField(max_length=255)
+class IniciativaEstudantil(Oportunidade):
+    objetivo = models.TextField(max_length=255, default="Sem objetivo definido")
+    docente_supervisor = models.CharField(max_length=255)
     site = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return self.nome
+        return self.titulo
     
 
 class Favorito(models.Model):

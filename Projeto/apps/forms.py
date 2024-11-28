@@ -210,22 +210,52 @@ class IniciacaoCientificaForm(forms.ModelForm):
 class IniciativaEstudantilForm(forms.ModelForm):
     class Meta:
         model = IniciativaEstudantil
-        fields = ['nome', 'descricao', 'responsavel', 'site']
+        fields = [
+            'titulo', 'descricao', 'status_inscricoes', 'tags', 
+            'objetivo', 'docente_supervisor', 'site'
+        ]
 
-    nome = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome da Iniciativa'}),
-        label="Nome"
+    # Título (herdado de Oportunidade)
+    titulo = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título da Oportunidade'}),
+        label="Título"
     )
+    
+    # Descrição (herdado de Oportunidade)
     descricao = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição da Oportunidade'}),
         label="Descrição"
     )
-    responsavel = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Responsável'}),
-        label="Responsável"
+    
+    # Status das Inscrições (herdado de Oportunidade)
+    status_inscricoes = forms.ChoiceField(
+        choices=[('abertas', 'Abertas'), ('em_breve', 'Em breve'), ('fechadas', 'Fechadas')],
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Status das Inscrições"
     )
+    
+    # Tags (herdado de Oportunidade)
+    tags = forms.JSONField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tags (em formato JSON)'}),
+        label="Tags",
+        required=False
+    )
+
+    # Objetivo (específico de IniciativaEstudantil)
+    objetivo = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Objetivo da Iniciativa'}),
+        label="Objetivo"
+    )
+
+    # Docente Supervisor (específico de IniciativaEstudantil)
+    docente_supervisor = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Docente Supervisor'}),
+        label="Docente Supervisor"
+    )
+
+    # Site (específico de IniciativaEstudantil)
     site = forms.URLField(
-        widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Site'}),
+        widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Site da Iniciativa'}),
         label="Site",
         required=False
     )

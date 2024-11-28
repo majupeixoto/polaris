@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="alert alert-success">
+    <h2>Operação realizada com sucesso!</h2>
+    <p>A ação foi concluída com sucesso.</p>
+    {% if user.is_superuser %}
+        <a href="{% url 'home_funcionario' %}" class="btn btn-primary">Voltar para a página inicial</a>
+    {% else %}
+        <a href="{% url 'home_aluno' %}" class="btn btn-primary">Voltar para a página inicial</a>
+    {% endif %}
+</div>
+{% endblock %}

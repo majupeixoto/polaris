@@ -279,27 +279,31 @@ class BaseCrudView:
     template_name = ''  # template padrão para reutilizar
     success_url = reverse_lazy('home')  # Redireciona após CRUD
 
-class IniciativaEstudantilListView(BaseCrudView, ListView):
+class IniciativaEstudantilListView(ListView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_list.html'
+    context_object_name = 'iniciativas'
 
-class IniciativaEstudantilDetailView(BaseCrudView, DetailView):
+class IniciativaEstudantilDetailView(DetailView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_detail.html'
 
-class IniciativaEstudantilCreateView(BaseCrudView, CreateView):
+class IniciativaEstudantilCreateView(CreateView):
     model = IniciativaEstudantil
-    fields = ['nome', 'descricao', 'responsavel', 'site']
+    fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'objetivo', 'docente_supervisor', 'site']
     template_name = 'apps/iniciativas/iniciativa_form.html'
+    success_url = 'apps/sucesso.html'
 
-class IniciativaEstudantilUpdateView(BaseCrudView, UpdateView):
+class IniciativaEstudantilUpdateView(UpdateView):
     model = IniciativaEstudantil
-    fields = ['nome', 'descricao', 'responsavel', 'site']
+    fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'objetivo', 'docente_supervisor', 'site']
     template_name = 'apps/iniciativas/iniciativa_form.html'
+    success_url = 'apps/sucesso.html'
 
-class IniciativaEstudantilDeleteView(BaseCrudView, DeleteView):
+class IniciativaEstudantilDeleteView(DeleteView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_confirm_delete.html'
+    success_url = 'apps/sucesso.html'
 
 class FavoritoListView(LoginRequiredMixin, ListView):
     model = Favorito
