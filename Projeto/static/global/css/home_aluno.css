@@ -248,14 +248,18 @@ body {
     border-radius: 10px;
 }
 
-#botao_12 {
+#card_12 {
     width: 192px;
     height: 220px;
     left: 1188px;
     top: 164px;
     position: absolute;
-    background: var(--Cards-escuros, #424655);    border: none;
+    background: var(--Cards-escuros, #424655);
+    border: none;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #botao_13 {
@@ -298,7 +302,7 @@ body {
     border-radius: 10px;
 }
 
-#botao_17 {
+#card_17 {
     width: 192px;
     height: 367px;
     left: 1188px;
@@ -309,7 +313,7 @@ body {
     border-radius: 10px;
 }
 
-#botao_18 {
+#card_18 {
     width: 295px;
     height: 221px;
     left: 140px;
@@ -474,4 +478,9 @@ body {
     background-position: center; 
 }
 
+#card_12 svg {
+    position: absolute;
+    left: 15px;
+    bottom: 13px;
+}
 
