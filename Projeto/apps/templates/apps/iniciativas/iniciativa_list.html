@@ -1,6 +1,8 @@
 {% extends "global/base.html" %}
+{% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'global/css/iniciativa.css' %}">
 <h1>Iniciativas Estudantis</h1>
 {% if user.is_superuser %}
 <a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
