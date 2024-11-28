@@ -42,7 +42,7 @@ content {
     position: fixed;
     top: 0;
     left: 0;
-    width: 80px;
+    width: 120px;
     height: 100%;
     background-color: #f8f9fa;
     padding-top: 20px;
@@ -83,17 +83,18 @@ content {
 }
 
 .navbar-side #Favoritos {
-    top: 0;
+    top: 120px;
 }
 
 .navbar-side #Comunidade {
-    top: 20px;
+    top: 140px;
 }
 
 .navbar-side #faq {
-    top: 40px;
+    top: 160px;
 }
 
 .navbar-side #logout {
-    top: 60px;
+    top: 250px;
+    left: 6px;
 }
