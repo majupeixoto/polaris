@@ -36,4 +36,6 @@ urlpatterns = [
     path('favoritos/', FavoritoListView.as_view(), name='favoritos'),
     path('favoritar_evento/', views.favoritar_evento, name='favoritar_evento'),
     path('faq/', faq_view, name='faq'),
+    path('evento/<int:evento_id>/alterar/', views.alterar_evento, name='alterar_evento'),
+    path('evento/<int:evento_id>/excluir/', views.excluir_evento, name='excluir_evento'),
 ]

@@ -331,3 +331,42 @@ def faq_view(request):
         faqs = faqs.filter(Q(pergunta__icontains=query) | Q(resposta__icontains=query))
 
     return render(request, 'apps/faq.html', {'faqs': faqs, 'query': query})
+        
+
+@login_required
+def alterar_evento(request, evento_id):
+    user = request.user
+    if not user.is_superuser:  # Apenas superusuários podem alterar eventos
+        messages.warning(request, "Você precisa ser um superusuário para alterar este evento.")
+        return redirect('visualizar_evento', evento_id=evento_id)
+
+    evento = get_object_or_404(Evento, id=evento_id)
+    
+    if request.method == 'POST':
+        form = EventoForm(request.POST, instance=evento)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Evento alterado com sucesso!")
+            return redirect('visualizar_evento', evento_id=evento.id)
+        else:
+            messages.error(request, "Erro ao alterar o evento.")
+    else:
+        form = EventoForm(instance=evento)
+
+    return render(request, 'apps/alterar_evento.html', {'form': form, 'evento': evento})
+
+@login_required
+def excluir_evento(request, evento_id):
+    user = request.user
+    if not user.is_superuser:  # Apenas superusuários podem excluir eventos
+        messages.warning(request, "Você precisa ser um superusuário para excluir este evento.")
+        return redirect('visualizar_evento', evento_id=evento_id)
+
+    evento = get_object_or_404(Evento, id=evento_id)
+
+    if request.method == 'POST':
+        evento.delete()
+        messages.success(request, "Evento excluído com sucesso!")
+        return redirect('listar_eventos')
+
+    return render(request, 'apps/excluir_evento.html', {'evento': evento})

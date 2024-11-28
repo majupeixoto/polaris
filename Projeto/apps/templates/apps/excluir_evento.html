@@ -1,0 +1,12 @@
+{% extends 'global/base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Excluir Evento</h2>
+    <p>Tem certeza de que deseja excluir o evento <strong>{{ evento.titulo }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+        <a href="{% url 'visualizar_evento' evento.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
