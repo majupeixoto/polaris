@@ -1,5 +1,8 @@
 .corpo-login {
-    background: var(--Cores-novas-Degrad-1, linear-gradient(270deg, #3352CA 0%, #2B3493 37.63%, #22155B 75.27%));
+    background-image: url('../../imgs/login.png'); /* Adjusted path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .container {

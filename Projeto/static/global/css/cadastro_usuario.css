@@ -1,3 +1,11 @@
+.corpo-login {
+    background-image: url('../../imgs/login.png'); /* Adjusted path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 .login {
     width: 345px;
     height: 471px;
