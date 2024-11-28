@@ -360,8 +360,6 @@ class FavoritoListView(LoginRequiredMixin, ListView):
 #                 Q(nome__icontains=query) | Q(descricao__icontains=query)
 #             )
 
-from apps.models import Evento, GrupoEstudo, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
-
 def search_results(request):
     query = request.GET.get('q', '').strip()
     query = unidecode(query.lower())
