@@ -7,10 +7,10 @@
 <!-- Navbar Superior -->
 <div class="navbar-top">
     <div></div>
-    {% if trocar_perfil == 0 %} <!-- NAV ALUNO -->
+    {% if not user.is_superuser %} <!-- NAV ALUNO -->
     <div class="menu">
         <a href="#">Geral</a>
-        <a href="#">iniciativas estudantis</a>
+        <a href="#">Iniciativas Estudantis</a>
         <a href="#">Novidades</a>
         <a href="#">Programas</a>
         <a href="{% url 'listar_eventos' %}">
@@ -23,10 +23,10 @@
     {% else %} <!-- NAV FUNCIONÁRIO -->
     <div class="menu">
         <a href="#">Geral</a>
-        <a href="#">iniciativas estudantis</a>
+        <a href="#">Iniciativas Estudantis</a>
         <a href="#">Novidades</a>
         <a href="#">Programas</a>
-        <a href="{% url 'listar_eventos' %}">
+        <a href="{% url 'cadastrar_evento' %}">
             <span class="txt-link">Eventos</span>
         </a>
         <a href="#">FAQ</a>
@@ -34,6 +34,7 @@
     <div class="profile"></div>
     {% endif %}
 </div>
+
 
 <!-- Navbar Lateral -->
 <div class="navbar-side">
@@ -49,8 +50,7 @@
                 <rect width="13" height="39" fill="white"/>
                 </clipPath>
                 </defs>
-                </svg>
-                
+            </svg>     
         </a>
     </div>
 
