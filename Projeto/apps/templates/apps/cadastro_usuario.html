@@ -7,60 +7,50 @@
 <div class="center">
     <div class="item">
         <img src="{% static 'imgs/logo_branco.png' %}" class="logo" alt="Logotipo da Polaris">
+        <div class="tagline">
+            Sua faculdade <span class="highlight">simplificada</span> para você
+        </div>
     </div>
-    <form class="login" method="post">
-        {% csrf_token %}
-        <h1>Criar conta</h1>
-        
-        <div class="box-user">
-            {{ form.nome.label_tag }}  <!-- Rótulo do campo Nome -->
-            {{ form.nome }}  <!-- Campo Nome -->
-        </div>
-        
-        <div class="box-user">
-            {{ form.email.label_tag }}  <!-- Rótulo do campo Email -->
-            {{ form.email }}  <!-- Campo Email -->
-        </div>
-        
-        <!--<div class="box-user">
-            {{ form.telefone.label_tag }}  
-            {{ form.telefone }}  
-        </div>-->
+    <div class="item">
+        <form class="login" method="post">
+            {% csrf_token %}
+            <h1>Criar conta</h1>
+            
+            <div class="box-user">
+                {{ form.nome.label_tag }}  <!-- Rótulo do campo Nome -->
+                {{ form.nome }}  <!-- Campo Nome -->
+            </div>
+            
+            <div class="box-user">
+                {{ form.email.label_tag }}  <!-- Rótulo do campo Email -->
+                {{ form.email }}  <!-- Campo Email -->
+            </div>
+            
+            <div class="box-user">
+                {{ form.password.label_tag }}  <!-- Rótulo do campo Senha -->
+                {{ form.password }}  <!-- Campo Senha -->
+            </div>
 
-        <!--<div class="box-user">
-            {{ form.curso.label_tag }}  
-            {{ form.curso }}  
-        </div>-->
-        
-        <div class="box-user">
-            {{ form.password.label_tag }}  <!-- Rótulo do campo Senha -->
-            {{ form.password }}  <!-- Campo Senha -->
-        </div>
+            <div class="box-user">
+                {{ form.confirm_password.label_tag }}  <!-- Rótulo do campo Confirmar Senha -->
+                {{ form.confirm_password }}  <!-- Campo Confirmar Senha -->
+            </div>
+            
+            {% if messages %}
+                <ul class="error-messages">
+                    {% for message in messages %}
+                        <li class="erro">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-        <div class="box-user">
-            {{ form.confirm_password.label_tag }}  <!-- Rótulo do campo Confirmar Senha -->
-            {{ form.confirm_password }}  <!-- Campo Confirmar Senha -->
-        </div>
-
-        <!--<div class="box-user">
-            <label for="trocar_perfil">Você é funcionário?</label>
-            {{ form.trocar_perfil }}  
-        </div>-->
-        
-        {% if messages %}
-            <ul class="error-messages">
-                {% for message in messages %}
-                    <li class="erro">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <button type="submit" class="btn_login">Entrar</button>
-        
-        <div class="link-login">
-            <p>Já possui uma conta? <a href="{% url 'login' %}">Fazer login</a></p>
-        </div>
-        
-    </form>
+            <button type="submit" class="btn_login">Entrar</button>
+            
+            <div class="link-login">
+                <p>Já possui uma conta? <a href="{% url 'login' %}">Fazer login</a></p>
+            </div>
+            
+        </form>
+    </div>
 </div>
 {% endblock %}

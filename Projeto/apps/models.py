@@ -4,18 +4,21 @@ from django.core.validators import EmailValidator
 from django.utils import timezone
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        """Cria e retorna um usuário com email e senha."""
+    def create_user(self, email, nome, password=None, **extra_fields):
+        """Cria e retorna um usuário com email, nome e senha."""
         if not email:
-            raise ValueError('O e-mail deve ser fornecido')
+            raise ValueError('O e-mail é obrigatório')
+        if not nome:
+            raise ValueError("O nome é obrigatório")
+        
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, nome=nome, **extra_fields)
         user.set_password(password) 
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        """Cria e retorna um superusuário com e-mail e senha."""
+    def create_superuser(self, email, nome, password=None, **extra_fields):
+        """Cria e retorna um superusuário com e-mail, nome e senha."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -24,29 +27,18 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser precisa ter is_superuser=True.')
 
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, nome, password, **extra_fields)
 
 class Perfil(AbstractBaseUser):
-    opcoes = [
-        ('design', 'Design'),
-        ('ciencias da computacao', 'Ciências da Computação'),
-        ('sistemas de informacao', 'Sistemas de Informação'),
-        ('analise e desenvolvimento de sistemas', 'Análise e Desenvolvimento de Sistemas'),
-        ('gestao de tecnologia da informacao', 'Gestão de Tecnologia da Informação'),
-    ]
-
-    curso = models.CharField(max_length=50, choices=opcoes, null=True)
     nome = models.CharField(max_length=255)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
-    password = models.CharField(max_length=128, null= True, blank= True)  # Senha em texto puro
-
-    telefone = models.CharField(max_length=11)  # Considere usar django-phonenumber-field para validação
-    trocar_perfil = models.BooleanField(default=False)  # Distinção entre aluno e funcionário
-    is_staff = models.BooleanField(default=False)         
+    password = models.CharField(max_length=128, null= True, blank= True)  # Gerenciado por AbstractBaseUser
+       
+    is_staff = models.BooleanField(default=False)  # Permissão para acessar o admin
     is_superuser = models.BooleanField(default=True)     
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nome', 'telefone']  # Campos obrigatórios para criação do usuário
+    REQUIRED_FIELDS = ['nome'] # 'email' é tratado por USERNAME_FIELD, e a senha é gerenciada por AbstractBaseUser
 
     objects = CustomUserManager()
 
