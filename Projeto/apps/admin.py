@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Evento, Perfil, GrupoEstudo
+from .models import Evento, Perfil, GrupoEstudo, FAQ
 
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -20,3 +20,9 @@ class GrupoEstudoAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'tema', 'numero_integrantes', 'professor_orientador', 'carga_horaria_semanal')
     search_fields = ('titulo', 'tema', 'professor_orientador')
     ordering = ('titulo',)
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('pergunta', 'resposta', 'criado_em')
+    search_fields = ('pergunta',)
+    ordering = ('-criado_em',)

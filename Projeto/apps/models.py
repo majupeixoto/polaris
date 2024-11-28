@@ -219,3 +219,12 @@ class Favorito(models.Model):
 
     def __str__(self):
         return f'Favorito: {self.user} - {self.objeto_favoritado}'
+
+class FAQ(models.Model):
+    pergunta = models.CharField(max_length=255)
+    resposta = models.TextField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.pergunta

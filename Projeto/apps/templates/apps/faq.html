@@ -1,0 +1,39 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>FAQ - Perguntas Frequentes</h2>
+    
+    <!-- Formulário de busca -->
+    <form class="d-flex mb-4" action="{% url 'faq' %}" method="get">
+        <input class="form-control me-2" type="search" name="q" placeholder="Buscar pergunta..." aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    </form>
+    
+    {% if query %}
+    <p><strong>Resultados para: "{{ query }}"</strong></p>
+    {% endif %}
+    
+    <!-- Accordion de Perguntas e Respostas -->
+    <div class="accordion" id="accordionFAQ">
+        {% for faq in faqs %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button class="accordion-button {% if forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                    {{ faq.pergunta }}
+                </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">
+                    {{ faq.resposta }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if not faqs %}
+    <p>Nenhuma pergunta encontrada.</p>
+    {% endif %}
+</div>
+{% endblock %}

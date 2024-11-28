@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ
 from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -282,3 +281,12 @@ class FavoritoListView(LoginRequiredMixin, ListView):
 
         # Retorna à página de favoritos
         return redirect('apps/favoritos.html')
+
+def faq_view(request):
+    query = request.GET.get('q', '')
+    faqs = FAQ.objects.all()
+
+    if query:
+        faqs = faqs.filter(Q(pergunta__icontains=query) | Q(resposta__icontains=query))
+
+    return render(request, 'apps/faq.html', {'faqs': faqs, 'query': query})
