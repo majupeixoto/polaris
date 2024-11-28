@@ -13,26 +13,28 @@ def login_view(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
-        # Autentica usando o email
+        # Autentica o usuário usando o email
         user = authenticate(request, email=email, password=senha)  # Usando 'email' aqui
 
         if user is not None:
             login(request, user)
 
-            if user.trocar_perfil == 1: 
-                return redirect('home_funcionario')  # funcionário
-            else:
-                return redirect('home_aluno')  # aluno
+            # Verifica se o usuário é um superusuário (funcionário)
+            if user.is_superuser:  # funcionário
+                return redirect('home_funcionario')
+            else:  # aluno
+                return redirect('home_aluno')
         else:
             messages.error(request, "Credenciais inválidas. Por favor, tente novamente.")
     
     return render(request, 'apps/login.html')
 
+
+
 def logout_view(request):
     logout(request)
-    if "usuario" in request.session:
-        del request.session["usuario"]
-    return redirect('login')
+    return redirect('login')  # Redireciona para a página de login após o logout
+
 
 def cadastro_usuario(request):
     if request.method == 'POST':
@@ -73,9 +75,9 @@ def cadastrar_evento(request):
         messages.error(request, "Usuário não encontrado.")
         return redirect('login')
 
-    # Verifica o perfil do usuário antes de permitir o cadastro do evento
-    if usuario.trocar_perfil == 0:
-        messages.warning(request, "Você precisa trocar de perfil para acessar esta página.")
+    # Verifica se o usuário é superusuário antes de permitir o cadastro do evento
+    if not user.is_superuser:  # Se não for superusuário, redireciona
+        messages.warning(request, "Você precisa ser um superusuário para acessar esta página.")
         return redirect('login')
 
     if request.method == 'POST':
@@ -83,8 +85,8 @@ def cadastrar_evento(request):
         if form.is_valid():
             evento = form.save(commit=False)  # Cria o evento sem salvar no banco ainda
             # Processa os campos 'participantes' e 'tags' antes de salvar
-            evento.participantes = form.cleaned_data['participantes']
-            evento.tags = form.cleaned_data['tags']
+            evento.participantes.set(form.cleaned_data['participantes'])  # Caso seja ManyToManyField
+            evento.tags.set(form.cleaned_data['tags'])  # Caso seja ManyToManyField
             evento.save()  # Salva o evento com os dados completos
             messages.success(request, "Evento cadastrado com sucesso!")
             return redirect('visualizar_evento', evento_id=evento.id)
@@ -95,6 +97,7 @@ def cadastrar_evento(request):
 
     return render(request, 'apps/cadastrar_evento.html', {'form': form})
 
+
 @login_required
 def visualizar_evento(request, evento_id):
     evento = get_object_or_404(Evento, id=evento_id)
@@ -103,28 +106,35 @@ def visualizar_evento(request, evento_id):
 @login_required
 def home_aluno(request):
     user = request.user
-    usuario = Perfil.objects.get(email=user.email)
-    if user.trocar_perfil == 1:
-        return redirect(login)
-    else:
-        if request.user.is_anonymous:
-            return redirect(login)
-        else:
-            eventos = Evento.objects.all()
-            return render(request, 'apps/home_aluno.html', {'eventos': eventos})
+    
+    # Verifica se o usuário é um superusuário (funcionário)
+    if user.is_superuser:
+        return redirect('home_funcionario')  # Redireciona para a página de funcionário se for superusuário
+    
+    # Verifica se o usuário é anônimo (não autenticado)
+    if request.user.is_anonymous:
+        return redirect('login')  # Redireciona para o login se o usuário não estiver autenticado
+    
+    # Se for um aluno e o usuário estiver autenticado, carrega os eventos
+    eventos = Evento.objects.all()
+    return render(request, 'apps/home_aluno.html', {'eventos': eventos})
+
 
 @login_required
 def home_funcionario(request):
     user = request.user
-    usuario = Perfil.objects.get(email=user.email)
-    if user.trocar_perfil == 0:
-        return redirect(login)
+    
+    # Verifica se o usuário é um superusuário (funcionário)
+    if not user.is_superuser:
+        return redirect('login')  # Redireciona para login se não for funcionário
+
+    # Se o usuário não for anônimo, carrega os eventos
+    if request.user.is_authenticated:
+        eventos = Evento.objects.all()
+        return render(request, 'apps/home_funcionario.html', {'eventos': eventos})
     else:
-        if request.user.is_anonymous:
-            return redirect(login)
-        else:
-            eventos = Evento.objects.all()
-            return render(request, 'apps/home_funcionario.html', {'eventos': eventos})
+        return redirect('login')  # Se o usuário não estiver autenticado, redireciona para login
+
 
 
 @login_required
@@ -136,9 +146,9 @@ def listar_eventos(request):
         messages.error(request, "Perfil não encontrado.")
         return redirect('login')
 
-    # Verifica se o usuário é um funcionário
-    if usuario.funcionario == 1:
-        return redirect('login')
+    # Verifica se o usuário é um superusuário (funcionário)
+    if not usuario.is_superuser:
+        return redirect('login')  # Redireciona para login se não for funcionário
 
     # Obtém todos os eventos
     eventos = Evento.objects.all()
@@ -147,6 +157,7 @@ def listar_eventos(request):
     }
 
     return render(request, 'apps/listar_eventos.html', context)
+
 
 @login_required
 def listar_grupos_estudo(request):
