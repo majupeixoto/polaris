@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import EmailValidator
 from django.utils import timezone
+from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.utils.timezone import now
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, nome, password=None, **extra_fields):
@@ -194,13 +198,24 @@ class IniciativaEstudantil(BaseModelo):
     def __str__(self):
         return self.nome
     
+
 class Favorito(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    objeto_favoritado = models.ForeignKey(BaseModelo, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='favoritos'
+    )
+    # Campos para GenericForeignKey
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    objeto_favoritado = GenericForeignKey('content_type', 'object_id')
+    
     data_adicionado = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'objeto_favoritado')  # Garante que o usuário não adicione o mesmo favorito duas vezes
+        unique_together = ('user', 'content_type', 'object_id')  # Evita duplicidade de favoritos
+        verbose_name = 'Favorito'
+        verbose_name_plural = 'Favoritos'
 
     def __str__(self):
-        return f'{self.user} - {self.objeto_favoritado}'
+        return f'Favorito: {self.user} - {self.objeto_favoritado}'

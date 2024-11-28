@@ -7,6 +7,8 @@ from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, Mo
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 def login_view(request):
     if request.method == 'POST':
@@ -262,29 +264,33 @@ class IniciativaEstudantilDeleteView(BaseCrudView, DeleteView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_confirm_delete.html'
 
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
 class FavoritoListView(LoginRequiredMixin, ListView):
     model = Favorito
-    template_name = 'apps/favoritos/favoritos_list.html'
+    template_name = 'apps/favoritos.html'
     context_object_name = 'favoritos'
     
     def get_queryset(self):
+        """
+        Filtra os favoritos do usuário logado e, opcionalmente, por tipo de objeto.
+        """
         queryset = Favorito.objects.filter(user=self.request.user)
         tipo = self.request.GET.get('tipo', None)
         if tipo:
-            queryset = queryset.filter(objeto_favoritado__content_type__model=tipo)
+            queryset = queryset.filter(content_type__model=tipo)  # Ajuste no campo de filtro
 
         return queryset
 
     def post(self, request, *args, **kwargs):
         """
-        Lida com a ação de desfavoritar. Quando o usuário envia uma requisição POST, remove o favorito.
+        Lida com a ação de desfavoritar. Remove o favorito e exibe uma mensagem de confirmação.
         """
         favorito_id = request.POST.get('favorito_id')
         favorito = Favorito.objects.filter(id=favorito_id, user=request.user).first()
         if favorito:
             favorito.delete()
+            messages.success(request, "Favorito removido com sucesso!")
+        else:
+            messages.error(request, "Favorito não encontrado ou não pertence a você.")
 
-        return redirect('apps/favoritos_list')
+        # Retorna à página de favoritos
+        return redirect('apps/favoritos.html')

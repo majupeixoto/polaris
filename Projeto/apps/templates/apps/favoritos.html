@@ -4,22 +4,25 @@
 <div class="container mt-5">
     <h2>Meus Favoritos</h2>
     
+    <!-- Formulário de filtro -->
     <form method="get" class="mb-3">
         <label for="tipo">Filtrar por Tipo:</label>
         <select name="tipo" id="tipo">
             <option value="">-- Todos --</option>
-            <option value="iniciativaestudantil">Iniciativas Estudantis</option>
-            <!-- mais campos... -->
+            <option value="iniciativaestudantil" {% if request.GET.tipo == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
+            <!-- adicione outros tipos de favoritos aqui -->
         </select>
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
     
+    <!-- Exibição dos favoritos -->
     <ul>
         {% for favorito in favoritos %}
         <li>
             <h5>{{ favorito.objeto_favoritado.nome }}</h5>
             <p>{{ favorito.objeto_favoritado.descricao }}</p>
             
+            <!-- Formulário para desfavoritar -->
             <form method="post" style="display:inline;">
                 {% csrf_token %}
                 <input type="hidden" name="favorito_id" value="{{ favorito.id }}">
