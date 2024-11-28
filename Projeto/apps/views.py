@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito
 from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -259,3 +259,30 @@ class IniciativaEstudantilUpdateView(BaseCrudView, UpdateView):
 class IniciativaEstudantilDeleteView(BaseCrudView, DeleteView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_confirm_delete.html'
+
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+class FavoritoListView(LoginRequiredMixin, ListView):
+    model = Favorito
+    template_name = 'apps/favoritos/favoritos_list.html'
+    context_object_name = 'favoritos'
+    
+    def get_queryset(self):
+        queryset = Favorito.objects.filter(user=self.request.user)
+        tipo = self.request.GET.get('tipo', None)
+        if tipo:
+            queryset = queryset.filter(objeto_favoritado__content_type__model=tipo)
+
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        """
+        Lida com a ação de desfavoritar. Quando o usuário envia uma requisição POST, remove o favorito.
+        """
+        favorito_id = request.POST.get('favorito_id')
+        favorito = Favorito.objects.filter(id=favorito_id, user=request.user).first()
+        if favorito:
+            favorito.delete()
+
+        return redirect('apps/favoritos_list')

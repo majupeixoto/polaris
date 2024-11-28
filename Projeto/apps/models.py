@@ -187,3 +187,14 @@ class IniciativaEstudantil(BaseModelo):
 
     def __str__(self):
         return self.nome
+    
+class Favorito(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    objeto_favoritado = models.ForeignKey(BaseModelo, on_delete=models.CASCADE)
+    data_adicionado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'objeto_favoritado')  # Garante que o usuário não adicione o mesmo favorito duas vezes
+
+    def __str__(self):
+        return f'{self.user} - {self.objeto_favoritado}'

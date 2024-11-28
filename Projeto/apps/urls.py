@@ -7,6 +7,7 @@ from .views import (
     IniciativaEstudantilCreateView,
     IniciativaEstudantilUpdateView,
     IniciativaEstudantilDeleteView,
+    FavoritoListView,
 )
 
 urlpatterns = [
@@ -31,4 +32,5 @@ urlpatterns = [
     path('iniciativas/criar/', IniciativaEstudantilCreateView.as_view(), name='iniciativa_create'),
     path('iniciativas/<int:pk>/editar/', IniciativaEstudantilUpdateView.as_view(), name='iniciativa_update'),
     path('iniciativas/<int:pk>/excluir/', IniciativaEstudantilDeleteView.as_view(), name='iniciativa_delete'),
+    path('favoritos/', FavoritoListView.as_view(), name='favoritos_list'),
 ]
