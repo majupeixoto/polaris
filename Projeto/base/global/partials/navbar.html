@@ -9,15 +9,33 @@
     <div></div>
     {% if not user.is_superuser %} <!-- NAV ALUNO -->
     <div class="menu">
-
-        <a id="Geral" href="{% url 'home_aluno' %}">Geral</a>
+<<<<<<< Updated upstream
+        <a href="{% url 'home_aluno' %}">Geral</a>
+        <a href="#">Iniciativas Estudantis</a>
+=======
+        <a id="Geral" href="#">Geral</a>
         <a href="{% url 'iniciativa_list' %}">Iniciativas Estudantis</a>
         <a href="#">Novidades</a>
         <a href="{% url 'programa_list' %}">Programas</a>
         <a href="{% url 'listar_eventos' %}">
             <span class="txt-link">Eventos</span>
         </a>
-        <a href="{% url 'search_results' %}">Buscar</a>
+        <a href="{% url 'faq' %}">FAQ</a>
+        <a>
+            <form method="get" action="{% url 'search_results' %}">
+                <input type="text" name="q" placeholder="Pesquisar..." value="{{ request.GET.q }}">
+                <select name="type">
+                    <option value="">Todos</option>
+                    <option value="iniciativaestudantil" {% if request.GET.type == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
+                    <option value="grupoestudo" {% if request.GET.type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
+                    <option value="evento" {% if request.GET.type == 'evento' %}selected{% endif %}>Eventos</option>
+                    <option value="voluntariado" {% if request.GET.type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
+                    <option value="monitoria" {% if request.GET.type == 'monitoria' %}selected{% endif %}>Monitoria</option>
+                    <option value="iniciacaocientifica" {% if request.GET.type == 'iniciacaocientifica' %}selected{% endif %}>Iniciação Científica</option>
+                </select>
+                <button type="submit">Buscar</button>
+            </form>
+        </a>
     </div>
     <div class="profile"></div>
     <div style="width: 1px; height: 36px; right: 10px; opacity: 0.50; background: white; border-radius: 7px; border: 1px white solid"></div>
@@ -28,7 +46,17 @@
         </g>
     </svg>
     <div class="search-bar">
-        <input type="text" placeholder="">
+        <a>
+            <form method="get" action="{% url 'search_results' %}">
+                <input type="text" name="q" placeholder="Pesquisar..." value="{{ request.GET.q }}">
+            </form>
+        </a>
+    </div>
+    <div class="perfil">
+        <a id="boasvindas">Olá, </a>
+        <a href="">
+            
+        </a>
     </div>
 
     {% else %} <!-- NAV FUNCIONÁRIO -->

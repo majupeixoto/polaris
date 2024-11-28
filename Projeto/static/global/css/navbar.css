@@ -51,6 +51,11 @@ content {
     font-weight: bold;
 }
 
+.navbar-top .perfil {
+    position: absolute;
+    left: 1186px;
+}
+
 .navbar-side {
     position: fixed;
     top: 0;
@@ -134,4 +139,12 @@ content {
     color: #FFF;
     margin-left: 10px;
 }
+
+#boasvindas {
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 600;
+    color: #FFF;
+}
+
 
