@@ -141,19 +141,7 @@ def home_funcionario(request):
 
 @login_required
 def listar_eventos(request):
-    user = request.user
-    try:
-        usuario = Perfil.objects.get(email=user.email)
-    except Perfil.DoesNotExist:
-        messages.error(request, "Perfil não encontrado.")
-        return redirect('login')
-
-    # Verifica se o usuário NÃO é um superusuário (ou seja, é um aluno)
-    if usuario.is_superuser:
-        messages.warning(request, "Funcionários não têm acesso a esta página.")
-        return redirect('home_funcionario')  # Redireciona para a home do funcionário
-
-    # Obtém todos os eventos para o aluno
+    
     eventos = Evento.objects.all()
     context = {
         'eventos': eventos,
