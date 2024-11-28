@@ -33,7 +33,8 @@ class Perfil(AbstractBaseUser):
     nome = models.CharField(max_length=255)
     email = models.EmailField(max_length=50, unique=True, validators=[EmailValidator()])
     password = models.CharField(max_length=128, null= True, blank= True)  # Gerenciado por AbstractBaseUser
-       
+    
+    trocar_perfil = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)  # Permissão para acessar o admin
     is_superuser = models.BooleanField(default=True)     
 
