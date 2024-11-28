@@ -11,13 +11,10 @@ class PerfilForm(forms.ModelForm):
 
     class Meta:
         model = Perfil
-        fields = ['nome', 'email', 'telefone', 'curso', 'trocar_perfil', 'password']
+        fields = ['nome', 'email', 'password']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome completo'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Seu e-mail'}),
-            'telefone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefone'}),
-            'curso': forms.Select(attrs={'class': 'form-control'}),
-            'trocar_perfil': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
     def clean_email(self):

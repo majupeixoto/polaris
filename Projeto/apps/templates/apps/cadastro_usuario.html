@@ -26,16 +26,6 @@
                 {{ form.email }}  <!-- Campo Email -->
             </div>
             
-            <!--<div class="box-user">
-                {{ form.telefone.label_tag }}  
-                {{ form.telefone }}  
-            </div>-->
-
-            <!--<div class="box-user">
-                {{ form.curso.label_tag }}  
-                {{ form.curso }}  
-            </div>-->
-            
             <div class="box-user">
                 {{ form.password.label_tag }}  <!-- Rótulo do campo Senha -->
                 {{ form.password }}  <!-- Campo Senha -->
@@ -45,11 +35,6 @@
                 {{ form.confirm_password.label_tag }}  <!-- Rótulo do campo Confirmar Senha -->
                 {{ form.confirm_password }}  <!-- Campo Confirmar Senha -->
             </div>
-
-            <!--<div class="box-user">
-                <label for="trocar_perfil">Você é funcionário?</label>
-                {{ form.trocar_perfil }}  
-            </div>-->
             
             {% if messages %}
                 <ul class="error-messages">
