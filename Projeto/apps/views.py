@@ -329,7 +329,7 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         favorito_id = request.POST.get('favorito_id')
         Favorito.objects.filter(id=favorito_id, user=request.user).delete()
         
-        return redirect(reverse('apps:favoritos'))
+        return redirect(reverse('favoritos'))
 
 
 # def busca(request):
