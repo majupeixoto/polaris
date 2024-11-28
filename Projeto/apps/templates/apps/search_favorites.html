@@ -1,0 +1,32 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<h2>Resultados da Busca nos Favoritos</h2>
+
+<form method="get" action="{% url 'search_favorites' %}">
+    <input type="text" name="q" placeholder="Pesquisar..." value="{{ query }}">
+    <select name="type">
+        <option value="">Todos</option>
+        <option value="iniciativaestudantil" {% if obj_type == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
+        <option value="grupoestudo" {% if obj_type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
+        <option value="evento" {% if obj_type == 'evento' %}selected{% endif %}>Eventos</option>
+        <option value="voluntariado" {% if obj_type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
+        <option value="monitoria" {% if obj_type == 'monitoria' %}selected{% endif %}>Monitoria</option>
+        <option value="iniciacaocientifica" {% if obj_type == 'iniciacaocientifica' %}selected{% endif %}>Iniciação Científica</option>
+    </select>
+    <button type="submit">Buscar</button>
+</form>
+
+{% if results %}
+<ul>
+    {% for result in results %}
+    <li>
+        <a href="{{ result.get_absolute_url }}">{{ result.titulo }}</a>
+        <p>{{ result.descricao|truncatechars:100 }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Nenhum resultado encontrado.</p>
+{% endif %}
+{% endblock %}

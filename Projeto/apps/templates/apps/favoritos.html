@@ -3,24 +3,33 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">Meus Favoritos</h2>
-    
-    <!-- Formulário de filtro -->
-    <form method="get" class="mb-4">
+
+    <!-- Formulário de busca -->
+    <form method="get" action="{% url 'search_favorites' %}" class="mb-4">
         <div class="row">
-            <div class="col-md-6">
-                <label for="tipo" class="form-label">Filtrar por Tipo:</label>
-                <select name="tipo" id="tipo" class="form-select">
+            <div class="col-md-8">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Pesquisar nos favoritos..." 
+                    class="form-control" 
+                    value="{{ request.GET.q }}">
+            </div>
+            <div class="col-md-4">
+                <select name="type" class="form-select">
                     <option value="">-- Todos --</option>
-                    <option value="iniciativaestudantil" {% if request.GET.tipo == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
-                    <!-- adicione outros tipos de favoritos aqui -->
+                    <option value="iniciativaestudantil" {% if request.GET.type == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
+                    <option value="grupoestudo" {% if request.GET.type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
+                    <option value="evento" {% if request.GET.type == 'evento' %}selected{% endif %}>Eventos</option>
+                    <option value="voluntariado" {% if request.GET.type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
+                    <option value="monitoria" {% if request.GET.type == 'monitoria' %}selected{% endif %}>Monitoria</option>
+                    <option value="iniciacaocientifica" {% if request.GET.type == 'iniciacaocientifica' %}selected{% endif %}>Iniciação Científica</option>
                 </select>
             </div>
-            <div class="col-md-6 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-            </div>
         </div>
+        <button type="submit" class="btn btn-primary mt-3">Buscar</button>
     </form>
-    
+
     <!-- Exibição dos favoritos -->
     {% if favoritos %}
         <div class="row">
@@ -28,7 +37,10 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
                     <a href="{% url 'visualizar_evento' favorito.objeto_favoritado.id %}">
-                        <img src="{{ favorito.objeto_favoritado.imagem.url }}" class="card-img-top" alt="{{ favorito.objeto_favoritado.nome }}">
+                        <img 
+                            src="{{ favorito.objeto_favoritado.imagem.url }}" 
+                            class="card-img-top" 
+                            alt="{{ favorito.objeto_favoritado.nome }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ favorito.objeto_favoritado.nome }}</h5>
                             <p class="card-text">{{ favorito.objeto_favoritado.descricao }}</p>

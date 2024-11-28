@@ -39,4 +39,5 @@ urlpatterns = [
     path('evento/<int:evento_id>/alterar/', views.alterar_evento, name='alterar_evento'),
     path('evento/<int:evento_id>/excluir/', views.excluir_evento, name='excluir_evento'),
     path('search_results/', views.search_results, name='search_results'),
+    path('search_favorites/', FavoritoListView.as_view(), name='search_favorites'),
 ]

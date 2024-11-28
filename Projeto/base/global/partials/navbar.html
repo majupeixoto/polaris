@@ -17,21 +17,7 @@
             <span class="txt-link">Eventos</span>
         </a>
         <a href="{% url 'faq' %}">FAQ</a>
-        <a>
-            <form method="get" action="{% url 'search_results' %}">
-                <input type="text" name="q" placeholder="Pesquisar..." value="{{ request.GET.q }}">
-                <select name="type">
-                    <option value="">Todos</option>
-                    <option value="iniciativaestudantil" {% if request.GET.type == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
-                    <option value="grupoestudo" {% if request.GET.type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
-                    <option value="evento" {% if request.GET.type == 'evento' %}selected{% endif %}>Eventos</option>
-                    <option value="voluntariado" {% if request.GET.type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
-                    <option value="monitoria" {% if request.GET.type == 'monitoria' %}selected{% endif %}>Monitoria</option>
-                    <option value="iniciacaocientifica" {% if request.GET.type == 'iniciacaocientifica' %}selected{% endif %}>Iniciação Científica</option>
-                </select>
-                <button type="submit">Buscar</button>
-            </form>
-        </a>
+        <a href="{% url 'search_results' %}">Buscar</a>
     </div>
     <div class="profile"></div>
     
@@ -45,21 +31,7 @@
             <span class="txt-link">Eventos</span>
         </a>
         <a href="{% url 'faq' %}">FAQ</a>
-        <a>
-            <form method="get" action="{% url 'search_results' %}">
-                <input type="text" name="q" placeholder="Pesquisar..." value="{{ request.GET.q }}">
-                <select name="type">
-                    <option value="">Todos</option>
-                    <option value="iniciativaestudantil" {% if request.GET.type == 'iniciativaestudantil' %}selected{% endif %}>Iniciativas Estudantis</option>
-                    <option value="grupoestudo" {% if request.GET.type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
-                    <option value="evento" {% if request.GET.type == 'evento' %}selected{% endif %}>Eventos</option>
-                    <option value="voluntariado" {% if request.GET.type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
-                    <option value="monitoria" {% if request.GET.type == 'monitoria' %}selected{% endif %}>Monitoria</option>
-                    <option value="iniciacaocientifica" {% if request.GET.type == 'iniciacaocientifica' %}selected{% endif %}>Iniciação Científica</option>
-                </select>
-                <button type="submit">Buscar</button>
-            </form>
-        </a>
+        <a href="{% url 'search_results' %}">Buscar</a>
     </div>
     <div class="profile"></div>
     {% endif %}

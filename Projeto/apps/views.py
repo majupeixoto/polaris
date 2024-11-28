@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ, BaseModelo
 from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.contrib.contenttypes.models import ContentType
@@ -307,13 +307,19 @@ class FavoritoListView(LoginRequiredMixin, ListView):
     context_object_name = 'favoritos'
 
     def get_queryset(self):
-        """
-        Filtra os favoritos do usuário logado e, opcionalmente, por tipo de objeto.
-        """
         queryset = Favorito.objects.filter(user=self.request.user)
         tipo = self.request.GET.get('tipo', None)
+        q = self.request.GET.get('q', None)
+
         if tipo:
-            queryset = queryset.filter(content_type__model=tipo)  # Filtra por tipo de objeto, se fornecido
+            queryset = queryset.filter(content_type__model=tipo)  # tipo de objeto, se fornecido
+        
+        if q:
+            queryset = queryset.filter(
+                Q(objeto_favoritado__nome__icontains=q) |  # nome do objeto
+                Q(objeto_favoritado__descricao__icontains=q)  # descrição
+            )
+
         return queryset
 
     def post(self, request, *args, **kwargs):
@@ -322,8 +328,9 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         """
         favorito_id = request.POST.get('favorito_id')
         Favorito.objects.filter(id=favorito_id, user=request.user).delete()
-        # Retorna à página de favoritos
-        return redirect('apps/favoritos.html')
+        
+        return redirect(reverse('apps:favoritos'))
+
 
 # def busca(request):
 #     query = request.GET.get('q', '')
@@ -335,30 +342,6 @@ class FavoritoListView(LoginRequiredMixin, ListView):
 #         )
     
 #     return render(request, 'apps/busca/resultados.html', {'resultados': resultados, 'query': query})
-
-# def search_results(request):
-#     query = request.GET.get('q', '').strip()
-#     query = unidecode(query.lower())
-#     obj_type = request.GET.get('type', '').lower()  # filtrar pelo tipo de subclasse
-
-#     # subclasses de BaseModelo
-#     subclasses = {
-#         'iniciativaestudantil': IniciativaEstudantil.objects.all(),
-#         'grupoestudo': GrupoEstudo.objects.all(),
-#         # mais subclasses...
-#     }
-
-#     # resultados de acordo com o tipo
-#     if obj_type and obj_type in subclasses:
-#         results = subclasses[obj_type].filter(
-#             Q(nome__icontains=query) | Q(descricao__icontains=query)
-#         )
-#     else:
-#         results = []
-#         for model in subclasses.values():
-#             results += model.filter(
-#                 Q(nome__icontains=query) | Q(descricao__icontains=query)
-#             )
 
 def search_results(request):
     query = request.GET.get('q', '').strip()
@@ -455,3 +438,36 @@ def excluir_evento(request, evento_id):
         return redirect('listar_eventos')
 
     return render(request, 'apps/excluir_evento.html', {'evento': evento})
+
+@login_required
+def search_favorites(request):
+    query = request.GET.get('q', '')
+    obj_type = request.GET.get('type', '')
+    user = request.user
+    results = []
+
+    if obj_type:
+        # filtra favoritos de um tipo específico
+        content_type = ContentType.objects.filter(model=obj_type).first()
+        if content_type:
+            model = content_type.model_class()
+            favoritos = user.favoritos.filter(content_type=content_type)
+            objects = model.objects.filter(
+                Q(id__in=[fav.object_id for fav in favoritos]) &
+                Q(titulo__icontains=query)
+            )
+            results.extend(objects)
+    else:
+        favoritos = user.favoritos.all()
+        for fav in favoritos:
+            model = fav.content_type.model_class()
+            obj = model.objects.filter(id=fav.object_id, titulo__icontains=query).first()
+            if obj:
+                results.append(obj)
+
+    context = {
+        'results': results,
+        'query': query,
+        'obj_type': obj_type,
+    }
+    return render(request, 'favorites_search_results.html', context)
