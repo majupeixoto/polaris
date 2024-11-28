@@ -1,0 +1,27 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Resultados da Busca</h2>
+    
+    {% if query %}
+    <p>Resultados para: "{{ query }}"</p>
+    {% endif %}
+    
+    {% if resultados %}
+    <ul>
+        {% for resultado in resultados %}
+        <li>
+            <h5>{{ resultado.nome }}</h5>
+            <p>{{ resultado.descricao }}</p>
+            <!-- Adicione links ou outros detalhes de acordo com o seu modelo -->
+        </li>
+        {% empty %}
+        <p>Nenhum resultado encontrado.</p>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Faça uma busca para ver os resultados.</p>
+    {% endif %}
+</div>
+{% endblock %}

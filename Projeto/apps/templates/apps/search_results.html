@@ -1,0 +1,42 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Resultados da Busca</h1>
+    <form method="get">
+        <input type="text" name="q" placeholder="Pesquisar..." value="{{ query }}">
+        <select name="type">
+            <option value="">Todos</option>
+            <option value="evento" {% if type == 'evento' %}selected{% endif %}>Eventos</option>
+            <option value="grupoestudo" {% if type == 'grupoestudo' %}selected{% endif %}>Grupos de Estudo</option>
+            <option value="voluntariado" {% if type == 'voluntariado' %}selected{% endif %}>Voluntariado</option>
+            <option value="monitoria" {% if type == 'monitoria' %}selected{% endif %}>Monitoria</option>
+            <option value="iniciacao" {% if type == 'iniciacao' %}selected{% endif %}>Iniciação Científica</option>
+            <option value="iniciativa" {% if type == 'iniciativa' %}selected{% endif %}>Iniciativas Estudantis</option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if page_obj.object_list %}
+        <ul>
+            {% for obj in page_obj %}
+                <li>
+                    <a href="{{ obj.get_absolute_url }}">{{ obj.titulo|default:obj.nome }}</a> - 
+                    {{ obj.descricao|truncatechars:100 }}
+                </li>
+            {% endfor %}
+        </ul>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?q={{ query }}&type={{ type }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            {% if page_obj.has_next %}
+                <a href="?q={{ query }}&type={{ type }}&page={{ page_obj.next_page_number }}">Próxima</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Nenhum resultado encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}
