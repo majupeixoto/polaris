@@ -321,7 +321,7 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         favorito_id = request.POST.get('favorito_id')
         Favorito.objects.filter(id=favorito_id, user=request.user).delete()
         # Retorna à página de favoritos
-        return redirect('apps/favoritos.html')
+        return redirect('favoritos')
 
 def faq_view(request):
     query = request.GET.get('q', '')
