@@ -75,6 +75,23 @@ body {
     border-radius: 10px;
 }
 
+#botao_3 #ic {
+    position: absolute;
+    bottom: 58px;
+    left: 10px;
+    top: 12px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_3 #ic_svg {
+    position: absolute;
+    bottom: 10px;
+    left: 108px;
+}
+
 #botao_4 {
     width: 86px;
     height: 102px;
@@ -86,6 +103,13 @@ body {
     border-radius: 10px;
 }
 
+#botao_4 #Eventos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
 #botao_5 {
     width: 86px;
     height: 102px;
@@ -95,6 +119,13 @@ body {
     background: #fff;
     border: none;
     border-radius: 10px;
+}
+
+#botao_5 #Artigos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
 }
 
 #botao_6 {
