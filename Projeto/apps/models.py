@@ -7,25 +7,31 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, email, nome, password=None, **extra_fields):
         """Cria e retorna um usuário com email, nome e senha."""
         if not email:
-            raise ValueError('O e-mail é obrigatório')
+            raise ValueError('O e-mail é obrigatório.')
         if not nome:
-            raise ValueError("O nome é obrigatório")
-        
+            raise ValueError("O nome é obrigatório.")
+
         email = self.normalize_email(email)
+
+        # Configura valores padrão para novos usuários
+        extra_fields.setdefault('is_staff', False)  # Alunos não são staff
+        extra_fields.setdefault('is_superuser', False)  # Alunos não são superusuários
+
         user = self.model(email=email, nome=nome, **extra_fields)
         user.set_password(password) 
         user.save(using=self._db)
         return user
 
+
     def create_superuser(self, email, nome, password=None, **extra_fields):
-        """Cria e retorna um superusuário com e-mail, nome e senha."""
+        """Cria e retorna um superusuário com email, nome e senha."""
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser precisa ter is_staff=True.')
+            raise ValueError('Superusuários precisam ter is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser precisa ter is_superuser=True.')
+            raise ValueError('Superusuários precisam ter is_superuser=True.')
 
         return self.create_user(email, nome, password, **extra_fields)
 
@@ -35,7 +41,7 @@ class Perfil(AbstractBaseUser):
     password = models.CharField(max_length=128, null= True, blank= True)  # Gerenciado por AbstractBaseUser
 
     is_staff = models.BooleanField(default=False)  # Permissão para acessar o admin
-    is_superuser = models.BooleanField(default=True)     
+    is_superuser = models.BooleanField(default=False)     
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome'] # 'email' é tratado por USERNAME_FIELD, e a senha é gerenciada por AbstractBaseUser
