@@ -1,5 +1,5 @@
 from django import forms
-from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica
+from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
 import json, re
 
 class PerfilForm(forms.ModelForm):
@@ -206,3 +206,26 @@ class IniciacaoCientificaForm(forms.ModelForm):
             'professor_orientador': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Professor Orientador'}),
             'bolsa_pesquisa': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+class IniciativaEstudantilForm(forms.ModelForm):
+    class Meta:
+        model = IniciativaEstudantil
+        fields = ['nome', 'descricao', 'responsavel', 'site']
+
+    nome = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome da Iniciativa'}),
+        label="Nome"
+    )
+    descricao = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
+        label="Descrição"
+    )
+    responsavel = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Responsável'}),
+        label="Responsável"
+    )
+    site = forms.URLField(
+        widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Site'}),
+        label="Site",
+        required=False
+    )
