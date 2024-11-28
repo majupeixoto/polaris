@@ -30,6 +30,7 @@ content {
     font-size: 14px; 
     font-family: Poppins; 
     font-weight: 600; 
+    top: 10px;
 }
 
 .navbar-top .menu a:hover {
@@ -153,5 +154,4 @@ content {
     font-weight: 600;
     color: #FFF;
 }
-
 
