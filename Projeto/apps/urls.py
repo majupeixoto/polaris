@@ -8,7 +8,7 @@ from .views import (
     IniciativaEstudantilUpdateView,
     IniciativaEstudantilDeleteView,
     FavoritoListView,
-    faq_view
+    faq_view,
 )
 
 urlpatterns = [
@@ -40,4 +40,9 @@ urlpatterns = [
     path('evento/<int:evento_id>/excluir/', views.excluir_evento, name='excluir_evento'),
     path('search_results/', views.search_results, name='search_results'),
     path('search_favorites/', FavoritoListView.as_view(), name='search_favorites'),
+    path('programas/', views.ProgramaListView.as_view(), name='programa_list'),
+    path('programas/<int:pk>/', views.ProgramaDetailView.as_view(), name='programa_detail'),
+    path('programas/criar/', views.ProgramaCreateView.as_view(), name='programa_create'),
+    path('programas/editar/<int:pk>/', views.ProgramaUpdateView.as_view(), name='programa_edit'),
+    path('programas/excluir/<int:pk>/', views.ProgramaDeleteView.as_view(), name='programa_delete'),
 ]

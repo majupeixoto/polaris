@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ, BaseModelo
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ, Programa
 from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
@@ -331,17 +331,27 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         
         return redirect(reverse('apps:favoritos'))
 
+class ProgramaListView(BaseCrudView, ListView):
+    model = Programa
+    template_name = 'apps/programas/programa_list.html'
 
-# def busca(request):
-#     query = request.GET.get('q', '')
-#     resultados = []
-    
-#     if query:
-#         resultados = BaseModelo.objects.filter(
-#             Q(nome__icontains=query) | Q(descricao__icontains=query)
-#         )
-    
-#     return render(request, 'apps/busca/resultados.html', {'resultados': resultados, 'query': query})
+class ProgramaDetailView(BaseCrudView, DetailView):
+    model = Programa
+    template_name = 'apps/programas/programa_detail.html'
+
+class ProgramaCreateView(BaseCrudView, CreateView):
+    model = Programa
+    fields = ['nome', 'tema', 'periodicidade', 'descricao', 'responsavel', 'links']
+    template_name = 'apps/programas/programa_form.html'
+
+class ProgramaUpdateView(BaseCrudView, UpdateView):
+    model = Programa
+    fields = ['nome', 'tema', 'periodicidade', 'descricao', 'responsavel', 'links']
+    template_name = 'apps/programas/programa_form.html'
+
+class ProgramaDeleteView(BaseCrudView, DeleteView):
+    model = Programa
+    template_name = 'apps/programas/programa_confirm_delete.html'
 
 def search_results(request):
     query = request.GET.get('q', '').strip()

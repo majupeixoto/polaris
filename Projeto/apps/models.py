@@ -228,3 +228,12 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.pergunta
+
+class Programa(BaseModelo):
+    tema = models.CharField(max_length=255)
+    periodicidade = models.CharField(max_length=100)
+    responsavel = models.CharField(max_length=255)
+    links = models.URLField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.nome

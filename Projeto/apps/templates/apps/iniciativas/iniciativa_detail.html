@@ -5,6 +5,9 @@
 <p>{{ object.descricao }}</p>
 <p>Responsável: {{ object.responsavel }}</p>
 <p><a href="{{ object.site }}">Site</a></p>
-<a href="{% url 'iniciativa_update' object.pk %}">Editar</a>
-<a href="{% url 'iniciativa_delete' object.pk %}">Excluir</a>
+{% if user.is_superuser %}
+    <a href="{% url 'iniciativa_update' object.pk %}">Editar</a>
+    <a href="{% url 'iniciativa_delete' object.pk %}">Excluir</a>
+{% endif %}
+<a href="{% url 'iniciativa_list' %}" class="btn btn-secondary">Voltar para a lista</a>
 {% endblock %}

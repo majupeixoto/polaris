@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Excluir Programa</h2>
+    <p>Você tem certeza que deseja excluir o programa "{{ programa.nome }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </form>
+    <a href="{% url 'programa_list' %}" class="btn btn-secondary">Cancelar</a>
+</div>
+{% endblock %}
