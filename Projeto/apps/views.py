@@ -8,6 +8,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
 from unidecode import unidecode
 from django.core.paginator import Paginator
 
@@ -99,12 +101,6 @@ def cadastrar_evento(request):
         form = EventoForm()
 
     return render(request, 'apps/cadastrar_evento.html', {'form': form})
-
-
-@login_required
-def visualizar_evento(request, evento_id):
-    evento = get_object_or_404(Evento, id=evento_id)
-    return render(request, 'apps/visualizar_evento.html', {'evento': evento})
 
 @login_required
 def home_aluno(request):
@@ -226,6 +222,58 @@ def visualizar_programa(request, programa_id):
         'tipo': tipo
     })
 
+@login_required
+def visualizar_evento(request, evento_id):
+    # Obtém o evento pelo ID
+    evento = get_object_or_404(Evento, id=evento_id)
+
+    # Obtém o tipo de conteúdo do modelo Evento
+    evento_content_type = ContentType.objects.get_for_model(Evento)
+
+    # Verifica se o evento está nos favoritos do usuário atual
+    favoritado = Favorito.objects.filter(
+        user=request.user,
+        content_type=evento_content_type,
+        object_id=evento.id
+    ).exists()
+
+    # Adiciona a propriedade favoritado ao evento
+    evento.favoritado = favoritado
+
+    return render(request, 'apps/visualizar_evento.html', {'evento': evento})
+
+
+@login_required
+def favoritar_evento(request):
+    if request.method == 'POST':
+        evento_id = request.POST.get('evento_id')
+        action = request.POST.get('action')
+
+        # Obtém o evento e seu ContentType
+        evento = get_object_or_404(Evento, id=evento_id)
+        evento_content_type = ContentType.objects.get_for_model(Evento)
+
+        if action == 'favoritar':
+            # Cria o favorito
+            Favorito.objects.get_or_create(
+                user=request.user,
+                content_type=evento_content_type,
+                object_id=evento.id
+            )
+        elif action == 'desfavoritar':
+            # Remove o favorito
+            Favorito.objects.filter(
+                user=request.user,
+                content_type=evento_content_type,
+                object_id=evento.id
+            ).delete()
+
+        # Retorna uma resposta JSON indicando sucesso e o novo estado do evento
+        return JsonResponse({
+            'success': True,
+            'favoritado': action == 'favoritar'
+        })
+
 class BaseCrudView:
     model = None  # definido pelas classes que herdam
     template_name = ''  # template padrão para reutilizar
@@ -257,7 +305,7 @@ class FavoritoListView(LoginRequiredMixin, ListView):
     model = Favorito
     template_name = 'apps/favoritos.html'
     context_object_name = 'favoritos'
-    
+
     def get_queryset(self):
         """
         Filtra os favoritos do usuário logado e, opcionalmente, por tipo de objeto.
@@ -265,22 +313,15 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         queryset = Favorito.objects.filter(user=self.request.user)
         tipo = self.request.GET.get('tipo', None)
         if tipo:
-            queryset = queryset.filter(content_type__model=tipo)  # Ajuste no campo de filtro
-
+            queryset = queryset.filter(content_type__model=tipo)  # Filtra por tipo de objeto, se fornecido
         return queryset
 
     def post(self, request, *args, **kwargs):
         """
-        Lida com a ação de desfavoritar. Remove o favorito e exibe uma mensagem de confirmação.
+        Lida com a ação de desfavoritar. Remove o favorito diretamente.
         """
         favorito_id = request.POST.get('favorito_id')
-        favorito = Favorito.objects.filter(id=favorito_id, user=request.user).first()
-        if favorito:
-            favorito.delete()
-            messages.success(request, "Favorito removido com sucesso!")
-        else:
-            messages.error(request, "Favorito não encontrado ou não pertence a você.")
-
+        Favorito.objects.filter(id=favorito_id, user=request.user).delete()
         # Retorna à página de favoritos
         return redirect('apps/favoritos.html')
 

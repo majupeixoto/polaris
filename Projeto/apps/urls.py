@@ -34,6 +34,7 @@ urlpatterns = [
     path('iniciativas/<int:pk>/editar/', IniciativaEstudantilUpdateView.as_view(), name='iniciativa_update'),
     path('iniciativas/<int:pk>/excluir/', IniciativaEstudantilDeleteView.as_view(), name='iniciativa_delete'),
     path('favoritos/', FavoritoListView.as_view(), name='favoritos'),
+    path('favoritar_evento/', views.favoritar_evento, name='favoritar_evento'),
     path('faq/', faq_view, name='faq'),
     path('search_results/', views.search_results, name='search_results'),
 ]

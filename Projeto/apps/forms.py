@@ -229,3 +229,10 @@ class IniciativaEstudantilForm(forms.ModelForm):
         label="Site",
         required=False
     )
+
+class FavoritarForm(forms.Form):
+    evento_id = forms.IntegerField(widget=forms.HiddenInput())
+    action = forms.ChoiceField(
+        choices=[('favoritar', 'Favoritar'), ('desfavoritar', 'Desfavoritar')],
+        widget=forms.HiddenInput()
+    )
