@@ -10,8 +10,8 @@ class EventoAdmin(admin.ModelAdmin):
 
 @admin.register(Perfil)
 class PerfilAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'telefone', 'curso', 'trocar_perfil', 'is_staff', 'is_superuser')
-    list_filter = ('curso', 'trocar_perfil', 'is_staff', 'is_superuser')
+    list_display = ('nome', 'email', 'is_staff', 'is_superuser')
+    list_filter = ('is_staff', 'is_superuser')
     search_fields = ('nome', 'email')
     ordering = ('nome',)
 
