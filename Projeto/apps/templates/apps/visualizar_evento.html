@@ -30,18 +30,23 @@
             <p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
             <button class="btn btn-secondary mt-3">Página de inscrição</button>
 
-            <!-- Formulário para favoritar ou desfavoritar -->
-            <form method="post" class="mt-3">
-                {% csrf_token %}
-                <input type="hidden" name="evento_id" value="{{ evento.id }}">
-                {% if evento.favoritado %}
-                    <!-- Caso o evento já seja favorito, mostrar botão de desfavoritar -->
-                    <button type="submit" name="action" value="desfavoritar" class="btn btn-danger">Desfavoritar</button>
+            <div class="btn-group">
+                {% if user.is_authenticated %}
+                    {% if evento.favoritado %}
+                        <button id="favoritar-btn" class="btn btn-lg btn-outline-secondary btn-desfavoritar" data-bs-toggle="popover" data-bs-content="Remover da lista de favoritos" data-evento-id="{{ evento.id }}" data-favoritado="true">
+                            <i class="fa-solid fa-heart"></i> Remover dos Favoritos
+                        </button>
+                    {% else %}
+                        <button id="favoritar-btn" class="btn btn-lg btn-outline-secondary btn-favoritar" data-bs-toggle="popover" data-bs-content="Adicionar à lista de favoritos" data-evento-id="{{ evento.id }}" data-favoritado="false">
+                            <i class="fa-regular fa-heart"></i> Adicionar aos Favoritos
+                        </button>
+                    {% endif %}
                 {% else %}
-                    <!-- Caso o evento não seja favorito, mostrar botão de favoritar -->
-                    <button type="submit" name="action" value="favoritar" class="btn btn-primary">Favoritar</button>
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-outline-secondary" data-bs-toggle="popover" data-bs-content="Faça login para adicionar aos favoritos">
+                        Faça login para Favoritar
+                    </a>
                 {% endif %}
-            </form>
+            </div>
 
         </div>
         <div class="col-md-4">
@@ -96,4 +101,58 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializa os popovers
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+        });
+
+        // Seleciona o botão de favoritar/desfavoritar
+        var favoritarBtn = document.querySelector('.btn-favoritar, .btn-desfavoritar');
+        if (favoritarBtn) {
+            favoritarBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // Pega os dados do evento e do estado do botão
+                var eventoId = favoritarBtn.getAttribute('data-evento-id');
+                var favoritado = favoritarBtn.getAttribute('data-favoritado') === 'true';
+                var action = favoritado ? 'desfavoritar' : 'favoritar';
+
+                // Envia a requisição AJAX para o servidor
+                fetch("{% url 'favoritar_evento' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: 'evento_id=' + eventoId + '&action=' + action
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Altera o conteúdo e a classe do botão com base no estado
+                        if (favoritado) {
+                            favoritarBtn.setAttribute('data-bs-content', 'Adicionar à lista de favoritos');
+                            favoritarBtn.innerHTML = '<i class="fa-regular fa-heart"></i> Adicionar aos Favoritos';
+                            favoritarBtn.classList.remove('btn-desfavoritar');
+                            favoritarBtn.classList.add('btn-favoritar');
+                            favoritarBtn.setAttribute('data-favoritado', 'false');
+                        } else {
+                            favoritarBtn.setAttribute('data-bs-content', 'Remover da lista de favoritos');
+                            favoritarBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Remover dos Favoritos';
+                            favoritarBtn.classList.remove('btn-favoritar');
+                            favoritarBtn.classList.add('btn-desfavoritar');
+                            favoritarBtn.setAttribute('data-favoritado', 'true');
+                        }
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+            });
+        }
+    });
+</script>
+
 {% endblock %}
