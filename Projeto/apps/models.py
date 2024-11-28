@@ -66,17 +66,23 @@ class Perfil(AbstractBaseUser):
 from django.db import models
 
 class Oportunidade(models.Model):
+    STATUS_CHOICES = [
+        ('abertas', 'Abertas'),
+        ('em_breve', 'Abrem em breve'),
+        ('fechadas', 'Fechadas'),
+    ]
+    
     titulo = models.CharField(max_length=255, default="Título não especificado")
     descricao = models.TextField(default="Não especificado")
     status_inscricoes = models.CharField(
         max_length=10,
-        choices=[('abertas', 'Abertas'), ('em_breve', 'Abrem em breve'), ('fechadas', 'Fechadas')],
+        choices=STATUS_CHOICES,
         default='fechadas'
     )
     tags = models.JSONField(blank=True, default=list)
 
     class Meta:
-        abstract = True  # Define que esta classe é abstrata e não será criada no banco de dados
+        abstract = True  # classe abstrata
 
     def excluir_oportunidade(self):
         """Método para excluir a oportunidade."""
@@ -99,7 +105,6 @@ class Oportunidade(models.Model):
 
     def publicar_oportunidade(self):
         """Publica a oportunidade."""
-        # Lógica para publicar, como mudar o status ou outros comportamentos específicos
         self.status_inscricoes = 'abertas'  # Exemplo
         self.save()
 
@@ -123,7 +128,7 @@ class Oportunidade(models.Model):
 class Evento(Oportunidade):
     local = models.CharField(max_length=200)
     inicio_evento = models.DateField(default=timezone.now)
-    fim_evento = models.DateField(null=True, blank=True)
+    fim_evento = models.DateField(default=timezone.now, null=True, blank=True)
     horario_de_inicio = models.TimeField(default=timezone.now)
     horario_de_termino = models.TimeField(default=timezone.now)
     palestrante = models.CharField(max_length=100, blank=True)
@@ -182,14 +187,20 @@ class GrupoEstudo(Oportunidade):
         return self.titulo
     
 class ProgramaOficial(Oportunidade):
-    inicio_evento = models.DateField(default=timezone.now)
-    fim_evento = models.DateField(null=True, blank=True)
-    carga_horaria = models.IntegerField()  # em horas
-    link_inscricao = models.URLField()
+    inicio_evento = models.DateTimeField(default=timezone.now)
+    fim_evento = models.DateTimeField(default=timezone.now)
+    carga_horaria = models.IntegerField(default=0)
+    tema = models.CharField(max_length=255, blank=True, null=True)
+    periodicidade = models.CharField(max_length=100, blank=True, null=True)
+    responsavel = models.CharField(max_length=255, blank=True, null=True)
+    links = models.URLField(max_length=500, blank=True, null=True)
+    link_inscricao = models.URLField(max_length=500, blank=True, null=True)
 
+    def __str__(self):
+        return self.titulo
+    
     class Meta:
-        abstract = True  # Define que esta classe é abstrata e não será criada no banco de dados
-
+        abstract = True
 class Voluntariado(ProgramaOficial):
     local_trabalho = models.CharField(max_length=100)
     organizacao_parceira = models.CharField(max_length=100)
@@ -224,16 +235,6 @@ class IniciacaoCientifica(ProgramaOficial):
         self.professor_orientador = dados.get('professor_orientador')
         self.bolsa_pesquisa = dados.get('bolsa_pesquisa', False)
         self.save()
-
-class BaseModelo(models.Model):
-    nome = models.CharField(max_length=255)
-    descricao = models.TextField(blank=True, null=True)
-    criado_em = models.DateTimeField(auto_now_add=True)
-    atualizado_em = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
 
 class IniciativaEstudantil(Oportunidade):
     objetivo = models.TextField(max_length=255, default="Sem objetivo definido")
@@ -274,11 +275,3 @@ class FAQ(models.Model):
     def __str__(self):
         return self.pergunta
 
-class Programa(BaseModelo):
-    tema = models.CharField(max_length=255)
-    periodicidade = models.CharField(max_length=100)
-    responsavel = models.CharField(max_length=255)
-    links = models.URLField(max_length=500, blank=True, null=True)
-
-    def __str__(self):
-        return self.nome

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ, Programa
-from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm
+from .models import Perfil, Evento, GrupoEstudo, ProgramaOficial, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Favorito, FAQ, ProgramaOficial
+from .forms import GrupoEstudoForm, EventoForm, PerfilForm, VoluntariadoForm, MonitoriaForm, IniciacaoCientificaForm, ProgramaOficialForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -274,11 +274,6 @@ def favoritar_evento(request):
             'favoritado': action == 'favoritar'
         })
 
-class BaseCrudView:
-    model = None  # definido pelas classes que herdam
-    template_name = ''  # template padrão para reutilizar
-    success_url = reverse_lazy('home')  # Redireciona após CRUD
-
 class IniciativaEstudantilListView(ListView):
     model = IniciativaEstudantil
     template_name = 'apps/iniciativas/iniciativa_list.html'
@@ -335,27 +330,33 @@ class FavoritoListView(LoginRequiredMixin, ListView):
         
         return redirect(reverse('favoritos'))
 
-class ProgramaListView(BaseCrudView, ListView):
-    model = Programa
+class ProgramaListView(ListView):
+    model = ProgramaOficial
     template_name = 'apps/programas/programa_list.html'
+    context_object_name = 'programas'
 
-class ProgramaDetailView(BaseCrudView, DetailView):
-    model = Programa
+class ProgramaDetailView(DetailView):
+    model = ProgramaOficial
     template_name = 'apps/programas/programa_detail.html'
+    context_object_name = 'programa'
 
-class ProgramaCreateView(BaseCrudView, CreateView):
-    model = Programa
-    fields = ['nome', 'tema', 'periodicidade', 'descricao', 'responsavel', 'links']
+class ProgramaCreateView(CreateView):
+    model = ProgramaOficial
+    form_class = ProgramaOficialForm
     template_name = 'apps/programas/programa_form.html'
+    success_url = 'apps/sucesso.html'
 
-class ProgramaUpdateView(BaseCrudView, UpdateView):
-    model = Programa
-    fields = ['nome', 'tema', 'periodicidade', 'descricao', 'responsavel', 'links']
+class ProgramaUpdateView(UpdateView):
+    model = ProgramaOficial
+    form_class = ProgramaOficialForm
     template_name = 'apps/programas/programa_form.html'
+    success_url = 'apps/sucesso.html'
 
-class ProgramaDeleteView(BaseCrudView, DeleteView):
-    model = Programa
+class ProgramaDeleteView(DeleteView):
+    model = ProgramaOficial
     template_name = 'apps/programas/programa_confirm_delete.html'
+    success_url = reverse_lazy('programa_list')
+
 
 def search_results(request):
     query = request.GET.get('q', '').strip()

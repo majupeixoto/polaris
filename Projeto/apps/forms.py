@@ -1,5 +1,5 @@
 from django import forms
-from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil
+from .models import GrupoEstudo, Evento, Perfil, Voluntariado, Monitoria, IniciacaoCientifica, IniciativaEstudantil, Oportunidade, ProgramaOficial
 import json, re
 
 class PerfilForm(forms.ModelForm):
@@ -265,4 +265,56 @@ class FavoritarForm(forms.Form):
     action = forms.ChoiceField(
         choices=[('favoritar', 'Favoritar'), ('desfavoritar', 'Desfavoritar')],
         widget=forms.HiddenInput()
+    )
+
+class ProgramaOficialForm(forms.ModelForm):
+    class Meta:
+        model = ProgramaOficial
+        fields = ['titulo', 'descricao', 'status_inscricoes', 'tags', 'inicio_evento', 'fim_evento', 'carga_horaria', 'tema', 'periodicidade', 'responsavel', 'links']
+
+    titulo = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do Programa'}),
+        label="Título"
+    )
+    descricao = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição do Programa'}),
+        label="Descrição"
+    )
+    status_inscricoes = forms.ChoiceField(
+        choices=Oportunidade.STATUS_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Status das Inscrições"
+    )
+    tags = forms.JSONField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Tags do Programa'}),
+        label="Tags"
+    )
+    inicio_evento = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Início do Evento'}),
+        label="Início do Evento"
+    )
+    fim_evento = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Fim do Evento'}),
+        label="Fim do Evento"
+    )
+    carga_horaria = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carga Horária'}),
+        label="Carga Horária"
+    )
+    tema = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tema do Programa'}),
+        label="Tema"
+    )
+    periodicidade = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Periodicidade'}),
+        label="Periodicidade"
+    )
+    responsavel = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Responsável'}),
+        label="Responsável"
+    )
+    links = forms.URLField(
+        widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Links do Programa'}),
+        label="Links",
+        required=False
     )

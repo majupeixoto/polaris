@@ -43,6 +43,6 @@ urlpatterns = [
     path('programas/', views.ProgramaListView.as_view(), name='programa_list'),
     path('programas/<int:pk>/', views.ProgramaDetailView.as_view(), name='programa_detail'),
     path('programas/criar/', views.ProgramaCreateView.as_view(), name='programa_create'),
-    path('programas/editar/<int:pk>/', views.ProgramaUpdateView.as_view(), name='programa_edit'),
+    path('programas/editar/<int:pk>/', views.ProgramaUpdateView.as_view(), name='programa_edit'),  # Rota de atualização
     path('programas/excluir/<int:pk>/', views.ProgramaDeleteView.as_view(), name='programa_delete'),
 ]
