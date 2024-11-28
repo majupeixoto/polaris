@@ -106,3 +106,7 @@ div.tagline .highlight {
     color: var(--Azul-IDV-1, #0027DB);
     text-decoration: none;
 }
+
+.btn_login:hover {
+    background: var(--Azul-IDV-2, #001dab);
+}
