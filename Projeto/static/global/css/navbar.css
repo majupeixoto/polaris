@@ -27,11 +27,11 @@ content {
 .navbar-top .menu a {
     margin-right: 20px;
     text-decoration: none;
-    color: #333;
+    color: #FFF;
 }
 
 .navbar-top .menu a:hover {
-    color: #007bff;
+    color: #9C9C9C;
 }
 
 .navbar-top .profile {
