@@ -24,6 +24,18 @@ body {
     color: #000;
 }
 
+#botao_1 span {
+    position: absolute;
+    top: 49px;
+    left: 15px;
+}
+
+#botao_1 #mala {
+    position: absolute;
+    bottom: 8px;
+    left: 54px;
+}
+
 #botao_2 {
     width: 191px;
     height: 102px;
