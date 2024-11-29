@@ -6,98 +6,124 @@
 <!-- Link to external CSS file -->
 <link rel="stylesheet" type="text/css" href="{% static 'global/css/iniciativa_form.css' %}">
 
-<!-- Conteúdo da página -->
-<div class="container mt-5">
-    <h2>{% if form.instance.pk %}Editar{% else %}Cadastrar{% endif %} Iniciativa Estudantil</h2>
-
+<!-- Div com padding para evitar sobreposição -->
+<div class="content-cadastro"> 
+    <h1> {% if form.instance.pk %}Editar{% else %}Cadastrar{% endif %} Cadastrar uma Iniciativa</h1>
+    
     <form method="post">
         {% csrf_token %}
-        
-        <div class="form-group">
-            <label for="id_titulo">Título</label>
-            {{ form.titulo }}
-            {% if form.titulo.errors %}
-            <div class="text-danger">
-                {% for error in form.titulo.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
+        <div class="row">
+            <!-- Coluna 1 (esquerda) -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="titulo" class="required">Nome da iniciativa</label>
+                    {{ form.titulo }}
+                    {% if form.titulo.errors %}
+                        <div class="text-danger">
+                            {% for error in form.titulo.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="id_objetivo" class="required">Objetivo:</label>
+                        <div id="objetivo">
+                            {{ form.objetivo }}
+                        </div>
+                        
+                        {% if form.objetivo.errors %}
+                        <div class="text-danger">
+                            {% for error in form.objetivo.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_docente_supervisor" class="required">Docente Supervisor</label>
+                        <div id="docente-supervisor">
+                            {{ form.docente_supervisor }}
+                        </div>
+                        {% if form.docente_supervisor.errors %}
+                        <div class="text-danger">
+                            {% for error in form.docente_supervisor.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_descricao" class="required">Descrição:</label>
+                    <div id="descricao">
+                        {{ form.descricao }}
+                    </div>
+                   
+                    {% if form.descricao.errors %}
+                    <div class="text-danger">
+                        {% for error in form.descricao.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_tags">Tags</label>
+                    <div id="tags-container">
+                        {{ form.tags }}
+                    </div>
+                   
+                    {% if form.tags.errors %}
+                    <div class="text-danger">
+                        {% for error in form.tags.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+                </div>
+                
             </div>
-            {% endif %}
+
+            <!-- Coluna 2 (central) -->
+            <div class="col-md-4">            
+                <div class="form-group">
+                    <label for="id_site">Site</label>
+                    {{ form.site }}
+                    {% if form.site.errors %}
+                    <div class="text-danger">
+                        {% for error in form.site.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Coluna 3 (direita) -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="id_status_inscricoes" class="required">Status das Inscrições</label>
+                    {{ form.status_inscricoes }}
+                    {% if form.status_inscricoes.errors %}
+                    <div class="text-danger">
+                        {% for error in form.status_inscricoes.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="id_descricao">Descrição</label>
-            {{ form.descricao }}
-            {% if form.descricao.errors %}
-            <div class="text-danger">
-                {% for error in form.descricao.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Atualizar{% else %}Criar{% endif %} Iniciativa</button>
         </div>
-
-        <div class="form-group">
-            <label for="id_status_inscricoes">Status das Inscrições</label>
-            {{ form.status_inscricoes }}
-            {% if form.status_inscricoes.errors %}
-            <div class="text-danger">
-                {% for error in form.status_inscricoes.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_tags">Tags</label>
-            {{ form.tags }}
-            {% if form.tags.errors %}
-            <div class="text-danger">
-                {% for error in form.tags.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_objetivo">Objetivo</label>
-            {{ form.objetivo }}
-            {% if form.objetivo.errors %}
-            <div class="text-danger">
-                {% for error in form.objetivo.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_docente_supervisor">Docente Supervisor</label>
-            {{ form.docente_supervisor }}
-            {% if form.docente_supervisor.errors %}
-            <div class="text-danger">
-                {% for error in form.docente_supervisor.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_site">Site</label>
-            {{ form.site }}
-            {% if form.site.errors %}
-            <div class="text-danger">
-                {% for error in form.site.errors %}
-                <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Atualizar{% else %}Criar{% endif %} Iniciativa</button>
     </form>
 </div>
 

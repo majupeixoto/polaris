@@ -1,141 +1,125 @@
-/* Global styles */
-html, body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-    height: 100%; /* Garante que o body ocupe toda a altura da tela */
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
-    overflow-x: hidden; /* Impede rolagem horizontal */
-    overflow-y: auto; /* Adiciona rolagem vertical */
+.corpo {
+    overflow-y: auto; /* Permite rolagem vertical se necessário */
+    font-family: 'Poppins';
 }
 
-/* Contêiner principal */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    max-width: 800px;
-    margin: 30px auto;
-    overflow-y: auto; /* Garante que o conteúdo tenha rolagem vertical se necessário */
-    background-color: #fff; /* Adiciona fundo ao container */
-    max-height: 90vh; /* Limita a altura máxima para caber na tela */
+.content-cadastro{
+    padding: 10vh 5vw 0 10vw; /* Espaços: topo, direita, baixo, esquerda */
+    position: relative;
 }
 
-/* Heading */
-h2 {
-    margin-bottom: 30px;
-    color: #333; /* Cor padrão */
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: 'Poppins', Arial, sans-serif; /* Adicionando fallback */
-    font-size: 36px; /* Ajustado para melhor proporção */
-    font-weight: 600;
-    line-height: 1.4; /* Melhor ajuste para a altura da linha */
-    text-align: center; /* Centralizado */
+h1 {
+    color: white; /* Deixa o texto branco */
+    font-size: 2rem; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito, se desejar */
 }
 
-/* Form elements */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
-
-/* Form Group */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Garante que ocupa o espaço disponível */
-}
-
-/* Labels */
 label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #7f8c8d;
+    color: #ffff;
+    font-weight: 500;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Input fields */
-input[type="text"], input[type="url"], select, textarea {
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #dcdfe1;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-    resize: vertical; /* Permite que o campo de texto seja redimensionado verticalmente */
-    width: 100%; /* Ajusta o campo ao tamanho do contêiner */
+.form-group label {
+    display: block; /* Força o label a ocupar toda a linha */
+    margin-bottom: 5px; /* Adiciona espaço entre o label e o input */
 }
 
-/* Estilizando input específico */
-input#id_titulo {
-    width: 100%;
-    margin-bottom: 20px; /* Removendo posição absoluta */
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%; /* Ajusta o input para ocupar o espaço disponível */
+    box-sizing: border-box; /* Evita que padding quebre o layout */
 }
 
-/* Input fields on focus */
-input[type="text"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
-    border-color: #3498db;
-    outline: none;
+.required::before {
+    content: "*"; /* Adiciona o asterisco */
+    color: #007BFF; /* Define o azul para o asterisco */
+    margin-right: 4px; /* Espaço entre o asterisco e o texto */
+    font-size: 1em; /* Tamanho proporcional ao texto */
+    font-weight: bold; /* Deixa o asterisco em destaque */
 }
 
-/* Error messages */
-.text-danger {
-    font-size: 12px;
-    color: #e74c3c;
-    margin-top: 5px;
+#tags-container {
+    display: flex;
+    width: 99px;
+    height: 35px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 7px;
 }
 
-/* Button */
-button[type="submit"] {
-    padding: 12px 20px;
-    background-color: #3498db;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    align-self: center; /* Centraliza o botão */
+#objetivo {
+    display: flex;
+    width: 286px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 7px;
 }
 
-/* Button hover */
-button[type="submit"]:hover {
-    background-color: #2980b9;
+#docente-supervisor {
+    display: flex;
+    width: 286px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 7px;
 }
 
-/* Button active */
-button[type="submit"]:active {
-    background-color: #1d6fa5;
+
+
+.form-group-inline {
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Media query for responsiveness */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
+.form-group-inline > div {
+    flex: 1;
+    margin-right: 10px;
+}
 
-    h2 {
-        font-size: 24px; /* Melhor ajuste para telas menores */
-    }
+.form-group-inline > div:last-child {
+    margin-right: 0;
+}
 
-    label {
-        font-size: 12px;
-    }
+.btn-publicar-evento{
+    margin-top: 2.5rem;
+    background-color: #2F8F2F;
+    color: white;
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    text-decoration: none; /* Remove sublinhado */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Suaviza transições */
+}
 
-    input[type="text"], input[type="url"], select, textarea {
-        font-size: 12px;
-    }
+.row {
+    display: flex;
+    justify-content: space-between;
+}
 
-    button[type="submit"] {
-        font-size: 14px;
-    }
+.col-md-4 {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.col-md-4:first-child {
+    width: 604px;
+    margin-left: 0;
+}
+
+.col-md-4:last-child {
+    margin-right: 0;
 }

@@ -3,8 +3,9 @@
 {% block content %}
 <div class="content-wrapper">
     <h3>Iniciativas Estudantis</h3>
-    
-    <a href="{% url 'iniciativa_create' %}" class="btn-cadastrar-iniciativa">Cadastrar Iniciativa</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'iniciativa_create' %}" class="btn-cadastrar-iniciativa">Cadastrar Iniciativa</a>
+    {% endif %}
     
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
         {% if iniciativas %}
