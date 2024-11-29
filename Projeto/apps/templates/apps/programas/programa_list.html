@@ -13,8 +13,10 @@
                 <li>
                     <a href="{% url 'programa_detail' programa.pk %}">{{ programa.nome }}</a>
                     <p>{{ programa.tema }} - {{ programa.periodicidade }}</p>
-                    <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning">Editar</a>
-                    <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">Excluir</a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning">Editar</a>
+                        <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">Excluir</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

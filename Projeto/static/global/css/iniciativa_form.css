@@ -1,0 +1,141 @@
+/* Global styles */
+html, body {
+
+    height: 100%; /* Garante que o body ocupe toda a altura da tela */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    overflow-x: hidden; /* Impede rolagem horizontal */
+    overflow-y: auto; /* Adiciona rolagem vertical */
+}
+
+/* Contêiner principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    max-width: 800px;
+    margin: 30px auto;
+    overflow-y: auto; /* Garante que o conteúdo tenha rolagem vertical se necessário */
+    background-color: #fff; /* Adiciona fundo ao container */
+    max-height: 90vh; /* Limita a altura máxima para caber na tela */
+}
+
+/* Heading */
+h2 {
+    margin-bottom: 30px;
+    color: #333; /* Cor padrão */
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: 'Poppins', Arial, sans-serif; /* Adicionando fallback */
+    font-size: 36px; /* Ajustado para melhor proporção */
+    font-weight: 600;
+    line-height: 1.4; /* Melhor ajuste para a altura da linha */
+    text-align: center; /* Centralizado */
+}
+
+/* Form elements */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Form Group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Garante que ocupa o espaço disponível */
+}
+
+/* Labels */
+label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+
+/* Input fields */
+input[type="text"], input[type="url"], select, textarea {
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #dcdfe1;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    resize: vertical; /* Permite que o campo de texto seja redimensionado verticalmente */
+    width: 100%; /* Ajusta o campo ao tamanho do contêiner */
+}
+
+/* Estilizando input específico */
+input#id_titulo {
+    width: 100%;
+    margin-bottom: 20px; /* Removendo posição absoluta */
+}
+
+/* Input fields on focus */
+input[type="text"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Error messages */
+.text-danger {
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 5px;
+}
+
+/* Button */
+button[type="submit"] {
+    padding: 12px 20px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    align-self: center; /* Centraliza o botão */
+}
+
+/* Button hover */
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Button active */
+button[type="submit"]:active {
+    background-color: #1d6fa5;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 24px; /* Melhor ajuste para telas menores */
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input[type="text"], input[type="url"], select, textarea {
+        font-size: 12px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}
