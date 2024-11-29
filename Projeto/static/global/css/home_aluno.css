@@ -167,6 +167,13 @@ body {
     border-radius: 10px;
 }
 
+#botao_7 #Cursos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
 #botao_8 {
     width: 191px;
     height: 69px;
@@ -241,14 +248,18 @@ body {
     border-radius: 10px;
 }
 
-#botao_12 {
+#card_12 {
     width: 192px;
     height: 220px;
     left: 1188px;
     top: 164px;
     position: absolute;
-    background: var(--Cards-escuros, #424655);    border: none;
+    background: var(--Cards-escuros, #424655);
+    border: none;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #botao_13 {
@@ -257,9 +268,16 @@ body {
     left: 138px;
     top: 471px;
     position: absolute;
-    background: linear-gradient(90deg, #F46405 0%, #8E3A03 100%);
+    background: var(--Cores-novas-Laranja-IDV, #F46405);
     border: none;
     border-radius: 10px;
+}
+
+#botao_13 .span {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
 }
 
 #botao_14 {
@@ -268,7 +286,7 @@ body {
     left: 403px;
     top: 472px;
     position: absolute;
-    background: linear-gradient(90deg, #33C133 0%, #185B18 100%);
+    background: var(--Verde-escurecido, #2F872F);    
     border: none;
     border-radius: 10px;
 }
@@ -279,23 +297,22 @@ body {
     left: 663px;
     top: 470px;
     position: absolute;
-    background: linear-gradient(90deg, #3A5DE2 0%, #171A27 100%);
+    background: var(--cores-novas-azul-alta-01-cor-principal, #3A5DE2);    
     border: none;
     border-radius: 10px;
 }
 
-#botao_17 {
+#card_17 {
     width: 192px;
     height: 367px;
     left: 1188px;
     top: 470px;
     position: absolute;
-    background: var(--Cards-escuros, #424655);
     border: none;
     border-radius: 10px;
 }
 
-#botao_18 {
+#card_18 {
     width: 295px;
     height: 221px;
     left: 140px;
@@ -304,7 +321,7 @@ body {
     background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
     border: none;
     border-radius: 10px;
-    border: 2px solid orange;
+    border: 2px solid var(--Alta-Azul-01, #3352CA);;
 }
 
 #botao_19 {
@@ -316,7 +333,7 @@ body {
     background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
     border: none;
     border-radius: 10px;
-    border: 2px solid orange;
+    border: 2px solid #2F872F;
 }
 
 #botao_20 {
@@ -328,7 +345,7 @@ body {
     background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
     border: none;
     border-radius: 10px;
-    border: 2px solid orange;
+    border: 2px solid #2F872F;
 }
 
 #atividades-complementares {
@@ -346,7 +363,7 @@ body {
 
 #iniciativas-estudantis {
     left: 1188px;
-    top: 125px;
+    top: 120px;
     position: absolute;
     text-align: right;
     color: #fff;
@@ -365,7 +382,6 @@ body {
     color: #fff;
     font-size: 20px;
     font-family: Poppins;
-    font-weight: 600;
     line-height: 26px;
     word-wrap: break-word;
 }
@@ -434,3 +450,40 @@ body {
     font-weight: 600;
     color: #000;
 }
+
+/* Add the specified styles to the text inside the buttons */
+#botao_13 span,
+#botao_14 span,
+#botao_15 span {
+    color: #FFF;
+    text-align: right;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px; /* 185.714% */
+}
+
+#botao_19 {
+    background-image: url('../../imgs/recnplay.png'); 
+    background-size: cover; 
+    background-position: center; 
+}
+
+#botao_20 {
+    background-image: url('../../imgs/websummit.png'); 
+    background-size: cover; 
+    background-position: center; 
+}
+
+#card_12 svg {
+    position: absolute;
+    left: 15px;
+    bottom: 13px;
+}
+
+#card_17 svg {
+    margin-bottom: 22px;
+}
+
