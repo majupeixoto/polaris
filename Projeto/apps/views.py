@@ -147,7 +147,6 @@ def listar_eventos(request):
     return render(request, 'apps/listar_eventos.html', context)
 
 
-
 @login_required
 def listar_grupos_estudo(request):
     grupos = GrupoEstudo.objects.all()  # Busca todos os grupos de estudo
@@ -155,6 +154,19 @@ def listar_grupos_estudo(request):
         'grupos': grupos,
     }
     return render(request, 'apps/listar_grupos_estudo.html', context)
+
+def listar_programas(request):
+    monitorias = Monitoria.objects.all()
+    voluntariados = Voluntariado.objects.all()
+    iniciacoes_cientificas = IniciacaoCientifica.objects.all()
+    
+    context = {
+        'monitorias': monitorias,
+        'voluntariados': voluntariados,
+        'iniciacoes_cientificas': iniciacoes_cientificas,
+    }
+    
+    return render(request, 'apps/listar_programas.html', context)
 
 @login_required
 def visualizar_grupo(request, grupo_id):

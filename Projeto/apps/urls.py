@@ -22,6 +22,7 @@ urlpatterns = [
     path('home_funcionario/', views.home_funcionario, name = 'home_funcionario'),
     path('listar_eventos/', views.listar_eventos, name='listar_eventos'),
     path('listar_grupos_estudo/', views.listar_grupos_estudo, name='listar_grupos_estudo'),
+    path('listar_programas/', views.listar_programas, name='listar_programas'),
     path('grupos/<int:grupo_id>/', views.visualizar_grupo, name='visualizar_grupo'),
     path('programa/<str:tipo>/<int:id>/', views.visualizar_programa, name='detalhes_programa'),
     path('selecionar_programa/', views.selecionar_tipo_programa, name='selecionar_programa'),

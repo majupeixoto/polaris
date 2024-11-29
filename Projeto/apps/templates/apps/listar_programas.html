@@ -1,0 +1,40 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Programas Institucionais</h1>
+    <ul class="list-group mt-4">
+        {% for programa in monitorias %}
+            <li class="list-group-item">
+                <h5>{{ programa.titulo }}</h5>
+                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
+                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
+                <a href="{% url 'detalhes_programa' programa.id %}">Detalhes do Programa</a>
+            </li>
+        {% endfor %}
+        
+        {% for programa in voluntariados %}
+            <li class="list-group-item">
+                <h5>{{ programa.titulo }}</h5>
+                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
+                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
+                <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}">
+                    Detalhes do Programa
+                </a>
+            </li>
+        {% endfor %}
+
+        {% for programa in iniciacoes_cientificas %}
+            <li class="list-group-item">
+                <h5>{{ programa.titulo }}</h5>
+                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
+                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
+                <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}">
+                    Detalhes do Programa
+                </a>
+            </li>
+        {% endfor %}
+        
+    </ul>
+</div>
+{% endblock %}
