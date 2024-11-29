@@ -7,7 +7,7 @@
 <div class="content-wrapper">
     <h3>Programas Institucionais</h3>
     {% if user.is_superuser %}
-        <a href="{% url 'cadastrar_programa' %}" class="btn-cadastrar-evento">Cadastrar Programa</a>
+        <a href="{% url 'programa_create' %}" class="btn-cadastrar-evento">Cadastrar Programa</a>
     {% endif %}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
         {% if monitorias %}

@@ -256,7 +256,7 @@ def cadastrar_monitoria(request):
         form = MonitoriaForm()
     
     return render(request, 'apps/cadastrar_monitoria.html', {'form': form})
-              
+
 def cadastrar_iniciacao_cientifica(request):
     if request.method == 'POST':
         form = IniciacaoCientificaForm(request.POST)
