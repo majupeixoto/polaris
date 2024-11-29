@@ -1,0 +1,25 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Programas</h2>
+    {% if user.is_superuser %}
+    <a href="{% url 'programa_create' %}" class="btn btn-primary mb-3">Criar Novo Programa</a>
+    {% endif %}
+    
+    {% if programas %}
+        <ul>
+            {% for programa in programas %}
+                <li>
+                    <a href="{% url 'programa_detail' programa.pk %}">{{ programa.nome }}</a>
+                    <p>{{ programa.tema }} - {{ programa.periodicidade }}</p>
+                    <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">Excluir</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não há programas cadastrados.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,3 +1,10 @@
+.corpo-login {
+    background-image: url('../../imgs/login.png'); /* Adjusted path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -6,7 +13,7 @@
 }
 
 .item {
-    margin: 20px;
+    margin: 50px;
 }
 
 .logo {
@@ -14,35 +21,95 @@
     max-width: 350px;
 }
 
+div.tagline {
+    color: #FFF;
+    font-feature-settings: 'liga' off, 'clig' off;
+    text-shadow: 0px 4px 10px rgba(17, 38, 60, 0.07);
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 30px; /* 125% */
+}
+
+div.tagline .highlight {
+    color: #F46405;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 30px;
+}
+
 .login {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 345px;
+    border-radius: 40px;
+    background: #F6F6F9;
+    padding: 30px; /* Adiciona espaçamento interno */
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
+    align-items: center; /* Centraliza os elementos */
+    gap: 20px; /* Espaçamento uniforme entre os elementos */
+}
+
+.login h1 {
+    color: var(--Azul-IDV-1, #0027DB);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px; /* Adiciona espaço abaixo do título */
+    text-align: center;
 }
 
 .box-user {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ocupa toda a largura disponível */
+    gap: 5px; /* Espaçamento entre o label e o input */
+}
+
+.box-user label {
+    color: var(--Azul-IDV-1, #0027DB);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%; /* Faz o input ocupar toda a largura */
+    height: 40px;
+    border-radius: 7px;
+    background: rgba(0, 39, 189, 0.10);
+    border: none; /* Remove a borda */
+    padding: 5px 10px; /* Adiciona espaçamento interno */
 }
 
 .btn_login {
-    background-color: #6c757d;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
+    width: 146.917px;
+    height: 40.351px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    color: white; /* Altera a cor do texto para branco */
+    background: var(--Azul-IDV-1, #0027DB);
+    outline: none; /* Remove a linha preta ao redor */
+    border: none;  /* Certifique-se de que não há borda */
 }
 
-.btn_login:hover {
-    background-color: #5a6268;
+.btn_login:focus {
+    outline: none; /* Remove o contorno no estado de foco */
+    box-shadow: none; /* Remove qualquer sombra adicional */
 }
 
-.text-center a {
-    color: #007bff;
+.link-cadastro {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px; /* Espaço acima do link */
+}
+
+.link-cadastro a {
+    color: var(--Azul-IDV-1, #0027DB);
     text-decoration: none;
 }
 
-.text-center a:hover {
-    text-decoration: underline;
+.btn_login:hover {
+    background: var(--Azul-IDV-2, #001dab);
 }

@@ -1,8 +1,13 @@
 {% extends 'global/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center">Cadastrar novo evento</h1>
+
+<link rel="stylesheet" href="{% static 'global/css/cadastrar_evento.css' %}">
+
+<!-- Div com padding para evitar sobreposição -->
+<div class="content-cadastro"> 
+    <h1>Cadastrar novo evento</h1>
     
     <form method="post">
         {% csrf_token %}
@@ -13,6 +18,12 @@
                     <label for="titulo"><strong>*Título do evento:</strong></label>
                     {{ form.titulo }}
                 </div>
+
+                <div class="form-group">
+                    <label for="tipo">*Tipo de Evento:</label>
+                    {{ form.tipo }}
+                </div>
+
                 <div class="form-group">
                     <label for="local"><strong>*Local do evento (Campus, prédio...):</strong></label>
                     {{ form.local }}
@@ -68,9 +79,19 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="vagas">Vagas:</label>
-                    {{ form.vagas }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="vagas"><strong>Total de vagas:</strong></label>
+                            {{ form.vagas }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="status_inscricoes">*Status das Inscrições:</label>
+                            {{ form.status_inscricoes }}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -93,52 +114,27 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="tipo">Tipo de Evento:</label>
-                    {{ form.tipo }}
+                    <label for="tags">Tags do evento:</label>
+                    <div id="tags-container">
+                        <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
                 </div>
 
                 <div class="form-group">
                     <label for="participantes">Participantes convidados:</label>
-                    {{ form.participantes }}
+                    <div id="participantes-convidados">
+                        <input type="text" name="participantes[]" class="form-control mt-2" placeholder="Nome do participante">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-participante">+</button>
                 </div>
-                <button type="button" class="btn btn-secondary">+</button>
             </div>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-3">Publicar evento</button>
+            <button type="submit" class="btn-publicar-evento">Publicar evento</button>
         </div>
     </form>
 </div>
 
-<script>
-    //JavaScript para Controlar a Exibição do campo de entrada de palestrante
-
-    function togglePalestranteInput() {
-        const opcaoNome = document.getElementById('opcaoNome');
-        const inputPalestrante = document.getElementById('palestrante-input');
-
-        // Mostra o campo de entrada se "Informar nome" for selecionado, caso contrário esconde
-        if (opcaoNome.checked) {
-            inputPalestrante.style.display = 'inline-block'; // Mantém visível
-        } else {
-            inputPalestrante.style.display = 'none'; // Esconde
-            inputPalestrante.value = ''; // Limpa o campo ao escolher "Indefinido"
-        }
-    }
-    // JavaScript para Controlar a Exibição do campo de entrada de instituição
-
-    function toggleInstituicaoInput() {
-        const opcaoInstituicaoNome = document.getElementById('opcaoInstituicaoNome');
-        const inputInstituicao = document.getElementById('instituicao-input');
-
-        // Mostra o campo de entrada se "Outro" for selecionado, caso contrário esconde
-        if (opcaoInstituicaoNome.checked) {
-            inputInstituicao.style.display = 'inline-block'; // Mantém visível
-        } else {
-            inputInstituicao.style.display = 'none'; // Esconde
-            inputInstituicao.value = ''; // Limpa o campo ao escolher outra opção
-        }
-    }
-</script>
 {% endblock %}

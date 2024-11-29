@@ -1,0 +1,7 @@
+.corpo {
+    width: 100vw; /* Ocupa 100% da largura da viewport */
+    height: 100vh; /* Ocupa 100% da altura da viewport */
+    overflow-y: auto; /* Permite rolagem vertical se necessário */
+    overflow: hidden;
+    background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
+}

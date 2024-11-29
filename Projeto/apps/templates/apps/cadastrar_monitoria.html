@@ -1,0 +1,166 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Cadastrar Monitoria</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Campos de Monitoria -->
+        <div class="form-group">
+            <label for="titulo"><strong>*Título do Programa:</strong></label>
+            {{ form.titulo }}
+        </div>
+        <div class="form-group">
+            <label for="descricao"><strong>*Descrição:</strong></label>
+            {{ form.descricao }}
+        </div>
+        <div class="form-group">
+            <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
+            {{ form.status_inscricoes }}
+        </div>
+        <div class="form-group">
+            <label for="professor_orientador"><strong>Professor Orientador:</strong></label>
+            {{ form.professor_orientador }}
+        </div>
+        <div class="form-group">
+            <label for="disciplina"><strong>Disciplina:</strong></label>
+            {{ form.disciplina }}
+        </div>
+        <div class="form-group">
+            <label for="inicio_evento"><strong>Início do Evento:</strong></label>
+            {{ form.inicio_evento }}
+        </div>
+        <div class="form-group">
+            <label for="fim_evento"><strong>Fim do Evento:</strong></label>
+            {{ form.fim_evento }}
+        </div>
+        <div class="form-group">
+            <label for="carga_horaria"><strong>Carga Horária:</strong></label>
+            {{ form.carga_horaria }}
+        </div>
+        <div class="form-group">
+            <label for="link_inscricao"><strong>Link para Inscrição:</strong></label>
+            {{ form.link_inscricao }}
+        </div>
+
+        <!-- Campo para adicionar requisitos -->
+        <div class="form-group">
+            <label for="requisitos">Requisitos:</label>
+            <div id="requisitos-container">
+                <input type="text" name="requisitos[]" class="form-control mt-2" placeholder="Digite um requisito">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-requisito">+</button>
+        </div>
+
+        <!-- Campo para adicionar cadeiras requeridas -->
+        <div class="form-group">
+            <label for="cadeiras_requeridas">Cadeiras Requeridas:</label>
+            <div id="cadeiras-container">
+                <input type="text" name="cadeiras_requeridas[]" class="form-control mt-2" placeholder="Digite uma cadeira">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-cadeira">+</button>
+        </div>
+
+        <!-- Campo para adicionar tags -->
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <div id="tags-container">
+                <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+        </div>
+
+        <!-- Novos Campos: Links, Periodicidade, Responsável e Tema -->
+        <div class="form-group">
+            <label for="links"><strong>Links Relacionados:</strong></label>
+            {{ form.links }}
+        </div>
+        <div class="form-group">
+            <label for="periodicidade"><strong>Periodicidade:</strong></label>
+            {{ form.periodicidade }}
+        </div>
+        <div class="form-group">
+            <label for="responsavel"><strong>Responsável pelo Programa:</strong></label>
+            {{ form.responsavel }}
+        </div>
+        <div class="form-group">
+            <label for="tema"><strong>Tema do Programa:</strong></label>
+            {{ form.tema }}
+        </div>
+
+        <!-- Hidden Inputs to capture dynamic values -->
+        <input type="hidden" name="tags_input" id="tags_input">
+        <input type="hidden" name="cadeiras_requeridas_input" id="cadeiras_requeridas_input">
+        <input type="hidden" name="requisitos_input" id="requisitos_input">
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Publicar Monitoria</button>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript to handle dynamic fields -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const maxItems = 5;
+        let tagsCount = 1;
+        let cadeirasCount = 1;
+        let requisitosCount = 1;
+
+        const addTagBtn = document.getElementById("add-tag");
+        const addCadeiraBtn = document.getElementById("add-cadeira");
+        const addRequisitoBtn = document.getElementById("add-requisito");
+
+        addTagBtn.addEventListener("click", () => {
+            if (tagsCount < maxItems) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "tags[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma tag";
+                document.getElementById("tags-container").appendChild(input);
+                tagsCount++;
+            }
+        });
+
+        addCadeiraBtn.addEventListener("click", () => {
+            if (cadeirasCount < maxItems) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "cadeiras_requeridas[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite uma cadeira";
+                document.getElementById("cadeiras-container").appendChild(input);
+                cadeirasCount++;
+            }
+        });
+
+        addRequisitoBtn.addEventListener("click", () => {
+            if (requisitosCount < maxItems) {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.name = "requisitos[]";
+                input.className = "form-control mt-2";
+                input.placeholder = "Digite um requisito";
+                document.getElementById("requisitos-container").appendChild(input);
+                requisitosCount++;
+            }
+        });
+
+        // Before form submission, collect the input values from dynamic fields
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function() {
+            const tags = Array.from(document.getElementsByName("tags[]")).map(input => input.value).join(',');
+            const cadeiras = Array.from(document.getElementsByName("cadeiras_requeridas[]")).map(input => input.value).join(',');
+            const requisitos = Array.from(document.getElementsByName("requisitos[]")).map(input => input.value).join(',');
+
+            document.getElementById("tags_input").value = tags;
+            document.getElementById("cadeiras_requeridas_input").value = cadeiras;
+            document.getElementById("requisitos_input").value = requisitos;
+        });
+    });
+</script>
+
+{% endblock %}

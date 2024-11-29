@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{% if form.instance.pk %}Editar{% else %}Criar{% endif %} Programa</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+    <a href="{% url 'programa_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}

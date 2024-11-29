@@ -1,0 +1,564 @@
+body {
+    width: calc(1440px - 80px); /* Adjust width to account for sidebar */
+    height: calc(900px - 70px); /* Adjust height to account for top bar */
+    position: relative;
+    background: #292D3C;
+    left: 50px; /* Sidebar width */
+}
+
+#botao_1 {
+    width: 190px;
+    height: 226px;
+    left: 140px;
+    top: 164px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_1 span {
+    position: absolute;
+    top: 49px;
+    left: 15px;
+}
+
+#botao_1 #mala {
+    position: absolute;
+    bottom: 8px;
+    left: 54px;
+}
+
+#botao_2 {
+    width: 191px;
+    height: 102px;
+    left: 349px;
+    top: 161px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#botao_2 svg {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#botao_2 .top-left-text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_3 {
+    width: 191px;
+    height: 102px;
+    left: 349px;
+    top: 282px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_3 #ic {
+    position: absolute;
+    bottom: 58px;
+    left: 10px;
+    top: 12px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_3 #ic_svg {
+    position: absolute;
+    bottom: 10px;
+    left: 108px;
+}
+
+#botao_4 {
+    width: 86px;
+    height: 102px;
+    left: 558px;
+    top: 161px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_4 #Eventos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_5 {
+    width: 86px;
+    height: 102px;
+    left: 558px;
+    top: 282px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_5 #Artigos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_6 {
+    width: 192px;
+    height: 102px;
+    left: 663px;
+    top: 161px;
+    position: relative;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#botao_6 svg {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#botao_6 .top-left-text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_7 {
+    width: 192px;
+    height: 102px;
+    left: 663px;
+    top: 284px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_7 #Cursos {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_8 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 161px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#botao_8 svg {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#botao_8 .top-left-text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+#botao_9 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 238px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+
+#botao_10 {
+    width: 191px;
+    height: 69px;
+    left: 873px;
+    top: 315px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_11 {
+    width: 87px;
+    height: 225px;
+    left: 1083px;
+    top: 161px;
+    position: absolute;
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+#card_12 {
+    width: 192px;
+    height: 220px;
+    left: 1188px;
+    top: 164px;
+    position: absolute;
+    background: var(--Cards-escuros, #424655);
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#botao_13 {
+    width: 242px;
+    height: 57px;
+    left: 138px;
+    top: 471px;
+    position: absolute;
+    background: var(--Cores-novas-Laranja-IDV, #F46405);
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_13 .span {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+#botao_14 {
+    width: 242px;
+    height: 57px;
+    left: 403px;
+    top: 472px;
+    position: absolute;
+    background: var(--Verde-escurecido, #2F872F);    
+    border: none;
+    border-radius: 10px;
+}
+
+#botao_15 {
+    width: 242px;
+    height: 57px;
+    left: 663px;
+    top: 470px;
+    position: absolute;
+    background: var(--cores-novas-azul-alta-01-cor-principal, #3A5DE2);    
+    border: none;
+    border-radius: 10px;
+}
+
+#card_17 {
+    width: 192px;
+    height: 367px;
+    left: 1188px;
+    top: 470px;
+    position: absolute;
+    border: none;
+    border-radius: 10px;
+}
+
+#card_18 {
+    width: 295px;
+    height: 221px;
+    left: 140px;
+    top: 616px;
+    position: absolute;
+    background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
+    border: none;
+    border-radius: 10px;
+    border: 2px solid var(--Alta-Azul-01, #3352CA);;
+}
+
+#botao_19 {
+    width: 298px;
+    height: 221px;
+    left: 452px;
+    top: 616px;
+    position: absolute;
+    background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
+    border: none;
+    border-radius: 10px;
+    border: 2px solid #2F872F;
+}
+
+#botao_20 {
+    width: 402px;
+    height: 221px;
+    left: 768px;
+    top: 616px;
+    position: absolute;
+    background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
+    border: none;
+    border-radius: 10px;
+    border: 2px solid #2F872F;
+}
+
+#atividades-complementares {
+    left: 140px;
+    top: 120px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#iniciativas-estudantis {
+    left: 140px;
+    top: 160px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#eventech {
+    left: 771px;
+    top: 584px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#beneficios-email {
+    width: 230px;
+    left: 1155px;
+    top: 431px;
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#atividades-atuais {
+    left: 140px;
+    top: 432px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#grupos-estudos {
+    left: 140px;
+    top: 584px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#criar {
+    width: 87px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 400;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#botao_2 .top-left-text,
+#botao_6 .top-left-text,
+#botao_8 .top-left-text {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Add the specified styles to the text inside the buttons */
+#botao_13 span,
+#botao_14 span,
+#botao_15 span {
+    color: #FFF;
+    text-align: right;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px; /* 185.714% */
+}
+
+#botao_19 {
+    background-image: url('../../imgs/recnplay.png'); 
+    background-size: cover; 
+    background-position: center; 
+}
+
+#botao_20 {
+    background-image: url('../../imgs/websummit.png'); 
+    background-size: cover; 
+    background-position: center; 
+}
+
+#card_12 svg {
+    position: absolute;
+    left: 18px;
+    bottom: 56px;
+}
+
+#card_17 svg {
+    margin-bottom: 22px;
+}
+
+#botao_3 #atomo {
+    position: absolute;
+    bottom: 5px;
+    left: 108px;
+}
+
+#botao_9 svg	{
+    position: absolute;
+    bottom: 10px;
+    left: 139px;
+}
+
+#botao_9 .top-left-text {
+    position: absolute;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    left: 11px;
+}
+
+#botao_10 #programadeextensao {
+    position: absolute;
+    bottom: 10px;
+    left: 139px;
+}
+
+#botao_10 #extensao {
+    position: absolute;
+    left: 11px;
+    bottom: 17px;
+    color: #2A2D3C;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+#card_18 #inscricoes {
+    top: 20px;
+    left: 20px;
+    position: absolute;
+    text-align: right;
+    color: #fff;
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 26px;
+    word-wrap: break-word;
+}
+
+#card_18, #grupo1, #grupo2, #grupo3 {
+    font-family: Poppins;
+    color: #fff;
+
+}
+
+#card_12 #vermais{
+    position: absolute;
+    width: 73px;
+    height: 30px;
+    left: 18px;
+    bottom: 13px;
+    background-color: #3A5DE2;
+    border-radius: 7px;
+    border: none;
+    font-family: Poppins;
+    color: #fff;
+    font-size: 12px;
+}
+
+#card_12 #cadastrar{
+    position: absolute;
+    width: 73px;
+    height: 30px;
+    left: 105px;
+    bottom: 13px;
+    background-color: #3A5DE2;
+    border-radius: 7px;
+    border: none;
+    font-family: Poppins;
+    color: #fff;
+    font-size: 12px;
+}
+

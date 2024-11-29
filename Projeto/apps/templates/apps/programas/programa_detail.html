@@ -1,0 +1,18 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ programa.nome }}</h2>
+    <p>{{ programa.tema }} - {{ programa.periodicidade }}</p>
+    <p>{{ programa.responsavel }}</p>
+    <p>{{ programa.descricao }}</p>
+    {% if programa.links %}
+    <p><a href="{{ programa.links }}" target="_blank">Acessar links relacionados</a></p>
+    {% endif %}
+    {% if user.is_superuser %}
+    <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">Excluir</a>
+    {% endif %}
+    <a href="{% url 'programa_list' %}" class="btn btn-secondary mt-3">Voltar para a lista</a>
+</div>
+{% endblock %}

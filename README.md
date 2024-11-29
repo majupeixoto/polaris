@@ -93,7 +93,7 @@ Para mais informações sobre nosso projeto, entre em contato com nossa equipe:
       <a href="https://github.com/aguiarth">
         <img src="https://avatars.githubusercontent.com/aguiarth" width="100px;" alt="Foto de Thaís"/><br>
         <sub>
-          <b>Thaís H. Aguiar</b>
+          <b>Thaís Aguiar</b>
         </sub>
       </a>
     </td>

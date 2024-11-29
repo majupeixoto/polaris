@@ -17,6 +17,24 @@
             <p><strong>Dias de Reunião:</strong> {{ grupo.dias_reuniao }}</p>
             <p><strong>Hora da Reunião:</strong> {{ grupo.hora_reuniao }}</p>
             <p><strong>Descrição:</strong> {{ grupo.descricao }}</p>
+
+            <!-- Bloco de tags com <span> -->
+            <h3>Tags:</h3>
+            <div class="tags-container">
+                {% for tag in grupo.tags %}
+                    <span class="tag">{{ tag|safe }}</span>
+                {% empty %}
+                    <span class="tag">Nenhuma tag disponível</span>
+                {% endfor %}
+            </div>
+            <!--
+            {% if user.is_superuser or user == grupo.usuario_criador %}
+            <div class="btn-group mt-3">
+                <a href="{% url 'alterar_grupo' grupo.id %}" class="btn btn-warning">Alterar Grupo</a>
+                <a href="{% url 'excluir_grupo' grupo.id %}" class="btn btn-danger">Excluir Grupo</a>
+            </div>
+            {% endif %}
+            -->
         </div>
     </div>
 </div>

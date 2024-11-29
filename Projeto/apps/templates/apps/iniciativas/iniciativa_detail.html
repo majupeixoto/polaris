@@ -1,0 +1,29 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<h1>{{ object.titulo }}</h1>
+<p>{{ object.descricao }}</p>
+<p>Status das Inscrições: {{ object.status_inscricoes }}</p>
+<p>Tags: 
+    {% if object.tags %}
+        <ul>
+            {% for tag in object.tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        Nenhuma tag definida.
+    {% endif %}
+</p>
+
+<p>Objetivo: {{ object.objetivo }}</p>
+<p>Docente Supervisor: {{ object.docente_supervisor }}</p>
+<p><a href="{{ object.site }}" target="_blank">Site da Iniciativa</a></p>
+
+{% if user.is_superuser %}
+    <a href="{% url 'iniciativa_update' object.pk %}">Editar</a>
+    <a href="{% url 'iniciativa_delete' object.pk %}">Excluir</a>
+{% endif %}
+
+<a href="{% url 'iniciativa_list' %}" class="btn btn-secondary">Voltar para a lista</a>
+{% endblock %}

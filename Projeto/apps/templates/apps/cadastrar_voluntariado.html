@@ -1,0 +1,66 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Cadastrar Voluntariado</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Campos de Voluntariado -->
+        <div class="form-group">
+            <label for="titulo"><strong>*Título do Programa:</strong></label>
+            {{ form.titulo }}
+        </div>
+        <div class="form-group">
+            <label for="descricao"><strong>*Descrição:</strong></label>
+            {{ form.descricao }}
+        </div>
+        <div class="form-group">
+            <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
+            {{ form.status_inscricoes }}
+        </div>
+        <div class="form-group">
+            <label for="inicio_evento"><strong>*Data de Início do Evento:</strong></label>
+            {{ form.inicio_evento }}
+        </div>
+        <div class="form-group">
+            <label for="fim_evento"><strong>*Data de Término do Evento:</strong></label>
+            {{ form.fim_evento }}
+        </div>
+        <div class="form-group">
+            <label for="carga_horaria"><strong>*Carga Horária:</strong></label>
+            {{ form.carga_horaria }}
+        </div>
+        <div class="form-group">
+            <label for="link_inscricao"><strong>Link para Inscrição:</strong></label>
+            {{ form.link_inscricao }}
+        </div>
+        <div class="form-group">
+            <label for="local_trabalho"><strong>Local de Trabalho:</strong></label>
+            {{ form.local_trabalho }}
+        </div>
+        <div class="form-group">
+            <label for="organizacao_parceira"><strong>Organização Parceira:</strong></label>
+            {{ form.organizacao_parceira }}
+        </div>
+        
+        <!-- Campo de Tags -->
+        <div class="form-group">
+            <label for="tags"><strong>Tags (separadas por vírgula):</strong></label>
+            {{ form.tags }}
+        </div>
+
+        <!-- Campo de Habilidades -->
+        <div class="form-group">
+            <label for="habilidades_requeridas"><strong>Habilidades Requeridas (separadas por vírgula):</strong></label>
+            {{ form.habilidades_requeridas }}
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Publicar Voluntariado</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

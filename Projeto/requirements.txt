@@ -16,3 +16,4 @@ djangorestframework
 # Para algunas comandos
 
 Pillow 
+unidecode
