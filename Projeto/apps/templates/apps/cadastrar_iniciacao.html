@@ -16,7 +16,7 @@
     <form method="post">
         {% csrf_token %}
         
-        <!-- Campos de Iniciação Científica -->
+        <!-- Campos do modelo Oportunidade -->
         <div class="form-group">
             <label for="titulo"><strong>*Título do Programa:</strong></label>
             {{ form.titulo }}
@@ -29,6 +29,51 @@
             <label for="status_inscricoes"><strong>Status das Inscrições:</strong></label>
             {{ form.status_inscricoes }}
         </div>
+
+        <!-- Campo de tags -->
+        <div class="form-group">
+            <label for="tags"><strong>Tags:</strong></label>
+            <div id="tags-container">
+                <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
+        </div>
+
+        <!-- Campos do modelo ProgramaOficial -->
+        <div class="form-group">
+            <label for="inicio_evento"><strong>Data de Início:</strong></label>
+            {{ form.inicio_evento }}
+        </div>
+        <div class="form-group">
+            <label for="fim_evento"><strong>Data de Fim:</strong></label>
+            {{ form.fim_evento }}
+        </div>
+        <div class="form-group">
+            <label for="carga_horaria"><strong>Carga Horária:</strong></label>
+            {{ form.carga_horaria }}
+        </div>
+        <div class="form-group">
+            <label for="tema"><strong>Tema:</strong></label>
+            {{ form.tema }}
+        </div>
+        <div class="form-group">
+            <label for="periodicidade"><strong>Periodicidade:</strong></label>
+            {{ form.periodicidade }}
+        </div>
+        <div class="form-group">
+            <label for="responsavel"><strong>Responsável:</strong></label>
+            {{ form.responsavel }}
+        </div>
+        <div class="form-group">
+            <label for="links"><strong>Links:</strong></label>
+            {{ form.links }}
+        </div>
+        <div class="form-group">
+            <label for="link_inscricao"><strong>Link de Inscrição:</strong></label>
+            {{ form.link_inscricao }}
+        </div>
+
+        <!-- Campos exclusivos do modelo Iniciação Científica -->
         <div class="form-group">
             <label for="duracao"><strong>Duração (em meses):</strong></label>
             {{ form.duracao }}
@@ -40,15 +85,6 @@
         <div class="form-group">
             <label for="bolsa_pesquisa"><strong>Bolsa de Pesquisa:</strong></label>
             {{ form.bolsa_pesquisa }}
-        </div>
-
-        <!-- Campo para adicionar tags -->
-        <div class="form-group">
-            <label for="tags">Tags:</label>
-            <div id="tags-container">
-                <input type="text" name="tags[]" class="form-control mt-2" placeholder="Digite uma tag">
-            </div>
-            <button type="button" class="btn btn-secondary mt-2" id="add-tag">+</button>
         </div>
 
         <div class="text-center">
