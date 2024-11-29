@@ -70,8 +70,8 @@ class Oportunidade(models.Model):
         ('fechadas', 'Fechadas'),
     ]
     
-    titulo = models.CharField(max_length=255, default="Título não especificado")
-    descricao = models.TextField(default="Não especificado")
+    titulo = models.CharField(max_length=255, default="")
+    descricao = models.TextField(default="")
     status_inscricoes = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,

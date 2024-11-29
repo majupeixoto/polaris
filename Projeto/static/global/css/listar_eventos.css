@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .corpo {
     overflow-y: auto; /* Permite rolagem vertical se necessário */
+    font-family: 'Poppins';
 }
-
 .content-wrapper {
     padding: 10vh 5vw 0 10vw; /* Espaços: topo, direita, baixo, esquerda */
     position: relative;
@@ -16,13 +18,13 @@ h3 {
 
 .card {
     border: 1px solid #ddd; /* Borda discreta */
-    border-radius: 8px; /* Bordas arredondadas */
+    border-radius: 20px; /* Bordas arredondadas */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
     background-color: #fff; /* Fundo branco */
     margin: 0; /* Espaço ao redor do card */
     padding: 15px; /* Espaço interno */
     transition: box-shadow 0.3s ease; /* Suaviza o efeito de hover */
-    margin-right: 2.20px;
+    position: relative; /* Para posicionar elementos internos */
 }
 
 .card-link {
@@ -40,13 +42,16 @@ h3 {
     font-weight: bold; /* Negrito */
     color: #424655;
     text-align: center; /* Centralizar título */
+    margin-top: 20px;
 }
 
 .card-subtitle {
-    font-size: 0.9rem; /* Menor que o título */
+    font-size: 0.9rem; /* Tamanho pequeno */
     color: #88939E; /* Cinza claro */
-    text-align: right; /* Alinhado à direita */
-    margin-bottom: 10px;
+    position: absolute; /* Posiciona de forma absoluta dentro do card */
+    top: 10px; /* Próximo ao topo */
+    right: 10px; /* Próximo ao canto direito */
+    margin: 0; /* Remove margens extras */
 }
 
 .text-muted {
