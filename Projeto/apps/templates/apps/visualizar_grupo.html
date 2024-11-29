@@ -27,12 +27,14 @@
                     <span class="tag">Nenhuma tag disponível</span>
                 {% endfor %}
             </div>
+            <!--
             {% if user.is_superuser or user == grupo.usuario_criador %}
             <div class="btn-group mt-3">
                 <a href="{% url 'alterar_grupo' grupo.id %}" class="btn btn-warning">Alterar Grupo</a>
                 <a href="{% url 'excluir_grupo' grupo.id %}" class="btn btn-danger">Excluir Grupo</a>
             </div>
             {% endif %}
+            -->
         </div>
     </div>
 </div>
