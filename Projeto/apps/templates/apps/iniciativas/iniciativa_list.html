@@ -3,37 +3,39 @@
 {% block content %}
 <div class="content-wrapper">
     <h3>Iniciativas Estudantis</h3>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2"> <!-- g-2 para espaçamento menor -->
-        {% if iniciativa %}
+    {% if user.is_staff %}
+        <a href="{% url 'iniciativa_create' %}" class="btn-cadastrar-iniciativa">Criar Nova Iniciativa</a>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+        {% if iniciativas %}
             {% for iniciativa in iniciativas %}
             <div class="col">
-                <!-- Card específico agora é clicável -->
                 <div class="card shadow-sm" style="width: 18rem; margin-bottom: 1rem;">
                     <a href="{% url 'iniciativa_detail' iniciativa.id %}" class="card-link">
                         <div class="card-body">
-                            <!-- descrição no canto superior direito -->
-                            <h6 class="card-subtitle text-end text-muted mb-2">{{ iniciativa.descricao }}</h6>
-                            <!-- Título centralizado -->
                             <h5 class="card-title text-center">{{ iniciativa.titulo }}</h5>
+                            <h6 class="card-subtitle text-end text-muted mb-2">{{ iniciativa.descricao }}</h6>
+                            
+                            {% if user.is_staff %}
+                                <a href="{% url 'iniciativa_detail' iniciativa.id %}" class="card-link">
+                                <a href="{% url 'iniciativa_update' iniciativa.id %}">Editar</a> 
+                                <a href="{% url 'iniciativa_delete' iniciativa.id %}">Excluir</a>
                         </div>
                     </a>
                 </div>
             </div>
+                
+        {% endif %}
             {% endfor %}
-    </div>
-    {% else %}
-            <p>Nenhum evento encontrado.</p>
+        </div>
+        {% else %}
+            <p>Nenhuma iniciativa encontrada.</p>
         {% endif %}
 
-        {% if user.is_superuser %}
-        <a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
-        <ul>
-            {% for iniciativa in iniciativas %}
-            <li>{{ iniciativa.titulo }} - <a href="{% url 'iniciativa_update' iniciativa.id %}">Editar</a> | <a href="{% url 'iniciativa_delete' iniciativa.id %}">Excluir</a></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+        
+    </div>
 </div>
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -90,7 +92,6 @@
     .card-subtitle {
         font-size: 0.9rem; /* Tamanho pequeno */
         color: #88939E; /* Cinza claro */
-        position: absolute; /* Posiciona de forma absoluta dentro do card */
         top: 10px; /* Próximo ao topo */
         right: 10px; /* Próximo ao canto direito */
         margin: 0; /* Remove margens extras */
@@ -145,7 +146,7 @@
         height: 100%;
     }
 
-    .btn-cadastrar-evento {
+    .btn-cadastrar-iniciativa {
         position: absolute; /* Posiciona em relação ao elemento pai */
         top: 10vh; /* Alinha verticalmente com o título */
         right: 5vw; /* Alinha ao lado direito do contêiner */
