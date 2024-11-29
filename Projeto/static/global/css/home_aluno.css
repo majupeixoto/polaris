@@ -505,11 +505,12 @@ body {
 }
 
 #botao_10 #extensao {
+    position: absolute;
+    left: 11px;
+    bottom: 17px;
     color: #2A2D3C;
     font-family: Poppins;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    left: 10px;
-    bottom: 17px;
 }
