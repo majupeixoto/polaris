@@ -469,8 +469,8 @@ body {
 
 #card_12 svg {
     position: absolute;
-    left: 15px;
-    bottom: 13px;
+    left: 18px;
+    bottom: 56px;
 }
 
 #card_17 svg {
@@ -533,3 +533,32 @@ body {
     color: #fff;
 
 }
+
+#card_12 #vermais{
+    position: absolute;
+    width: 73px;
+    height: 30px;
+    left: 18px;
+    bottom: 13px;
+    background-color: #3A5DE2;
+    border-radius: 7px;
+    border: none;
+    font-family: Poppins;
+    color: #fff;
+    font-size: 12px;
+}
+
+#card_12 #cadastrar{
+    position: absolute;
+    width: 73px;
+    height: 30px;
+    left: 105px;
+    bottom: 13px;
+    background-color: #3A5DE2;
+    border-radius: 7px;
+    border: none;
+    font-family: Poppins;
+    color: #fff;
+    font-size: 12px;
+}
+
