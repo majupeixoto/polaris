@@ -497,7 +497,10 @@ def faq_view(request):
         faqs = faqs.filter(Q(pergunta__icontains=query) | Q(resposta__icontains=query))
 
     return render(request, 'apps/faq.html', {'faqs': faqs, 'query': query})
-        
+
+
+def sucesso(request):
+    return render(request, 'apps/sucesso.html', {'sucesso': sucesso})
 
 @login_required
 def alterar_evento(request, evento_id):
