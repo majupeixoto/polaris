@@ -2,26 +2,37 @@
 {% load static %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    {% if eventos %}
-        {% for evento in eventos %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{ evento.titulo }}</h5>
-                    <p class="card-text">{{ evento.descricao }}</p>
-                    <p class="card-text">Início: {{ evento.inicio_evento }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{% url 'visualizar_evento' evento.id %}" class="btn btn-outline-secondary">Ver mais</a>
+
+<link rel="stylesheet" href="{% static 'global/css/listar_eventos.css' %}">
+
+<div class="content-wrapper">
+    <h3>Eventos</h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2"> <!-- g-2 para espaçamento menor -->
+        {% if eventos %}
+            {% for evento in eventos %}
+            <div class="col">
+                <!-- Card específico agora é clicável -->
+                <div class="card shadow-sm" style="width: 18rem; margin-bottom: 1rem;">
+                    <a href="{% url 'visualizar_evento' evento.id %}" class="card-link">
+                        <div class="card-body">
+                            <!-- Data no canto superior direito -->
+                            <h6 class="card-subtitle text-end text-muted mb-2">{{ evento.inicio_evento|date:"D, d/m" }}</h6>
+                            <!-- Título centralizado -->
+                            <h5 class="card-title text-center">{{ evento.titulo }}</h5>
+                            <!-- Palestrante centralizado com espaço abaixo -->
+                            <p class="text-center text-muted mb-4">com {{ evento.palestrante }}</p>
+                            <!-- Local e Início mais próximos, alinhados à esquerda -->
+                            <p class="text-start fw-bold mb-0">Local: {{ evento.local }}</p>
+                            <p class="text-start fw-bold mb-0">Início: {{ evento.horario_de_inicio|date:"H:i" }}</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>Nenhum evento encontrado.</p>
-    {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>Nenhum evento encontrado.</p>
+        {% endif %}
+    </div>
 </div>
+
 {% endblock %}
