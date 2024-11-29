@@ -1,4 +1,4 @@
-.corpo{
+.corpo {
     overflow-y: auto; /* Permite rolagem vertical se necessário */
 }
 
@@ -8,12 +8,11 @@
 }
 
 h3 {
-    color: white;  /* Deixa o texto branco */
+    color: white; /* Deixa o texto branco */
     font-size: 2rem; /* Aumenta o tamanho da fonte */
     font-weight: bold; /* Deixa o texto em negrito, se desejar */
-    margin-bottom: 30px; /* Adiciona um espaço abaixo do título, se necessário */
+    margin-bottom: 30px; /* Adiciona um espaço abaixo do título */
 }
-
 
 .card {
     border: 1px solid #ddd; /* Borda discreta */
@@ -22,6 +21,8 @@ h3 {
     background-color: #fff; /* Fundo branco */
     margin: 0; /* Espaço ao redor do card */
     padding: 15px; /* Espaço interno */
+    transition: box-shadow 0.3s ease; /* Suaviza o efeito de hover */
+    margin-right: 2.20px;
 }
 
 .card-link {
@@ -31,7 +32,7 @@ h3 {
 
 .card:hover {
     cursor: pointer; /* Mostrar o cursor de clique quando passar sobre o card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efeito de hover para indicar que é clicável */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efeito de hover mais destacado */
 }
 
 .card-title {
@@ -72,4 +73,49 @@ h3 {
 
 .card-body p.fw-bold.mb-0 {
     margin-bottom: 0.25rem; /* Diminui a margem entre local e início */
+}
+
+/* Ajustando o layout das colunas */
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cria colunas flexíveis */
+    gap: 2.5rem; /* Espaçamento entre as colunas */
+}
+
+.col {
+    padding: 0; /* Remove o preenchimento interno nas colunas */
+}
+
+.card {
+    margin-bottom: 0.5rem; /* Reduzir o espaço entre os cards */
+}
+
+/* Se for necessário mais controle sobre o card */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Alinha o conteúdo */
+    height: 100%;
+}
+
+.btn-cadastrar-evento {
+    position: absolute; /* Posiciona em relação ao elemento pai */
+    top: 10vh; /* Alinha verticalmente com o título */
+    right: 5vw; /* Alinha ao lado direito do contêiner */
+    background-color: #2F872F; /* Cor de fundo */
+    color: white; /* Texto branco */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    text-decoration: none; /* Remove sublinhado */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Suaviza transições */
+}
+
+.btn-cadastrar-evento:hover {
+    background-color: #267325; /* Cor de fundo ao passar o mouse */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+    cursor: pointer; /* Cursor de clique */
 }

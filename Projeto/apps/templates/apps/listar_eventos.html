@@ -7,6 +7,9 @@
 
 <div class="content-wrapper">
     <h3>Eventos</h3>
+    {% if user.is_superuser %}
+        <a href="{% url 'cadastrar_evento' %}" class="btn-cadastrar-evento">Cadastrar Evento</a>
+    {% endif %}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2"> <!-- g-2 para espaçamento menor -->
         {% if eventos %}
             {% for evento in eventos %}
