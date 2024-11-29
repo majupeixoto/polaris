@@ -1,42 +1,67 @@
 {% extends 'global/base.html' %}
+{% load static %}  <!-- Carregar as tags estáticas aqui -->
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center">Programas Institucionais</h1>
-    <ul class="list-group mt-4">
-        {% for programa in monitorias %}
-            <li class="list-group-item">
-                <h5>{{ programa.titulo }}</h5>
-                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
-                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
-                <a href="{% url 'programa_detail' pk=programa.pk %}">Ver Detalhes</a>
-                Detalhes do programa
-                </a>
-                            </li>
-        {% endfor %}
-        
-        {% for programa in voluntariados %}
-            <li class="list-group-item">
-                <h5>{{ programa.titulo }}</h5>
-                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
-                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
-                <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}">
-                    Detalhes do Programa
-                </a>
-            </li>
-        {% endfor %}
+<link rel="stylesheet" href="{% static 'global/css/listar_eventos.css' %}">
 
-        {% for programa in iniciacoes_cientificas %}
-            <li class="list-group-item">
-                <h5>{{ programa.titulo }}</h5>
-                <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
-                <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
-                <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}">
-                    Detalhes do Programa
-                </a>
-            </li>
-        {% endfor %}
+<div class="content-wrapper">
+    <h3>Programas Institucionais</h3>
+    {% if user.is_superuser %}
+        <a href="{% url 'cadastrar_programa' %}" class="btn-cadastrar-evento">Cadastrar Programa</a>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+        {% if monitorias %}
+            {% for programa in monitorias %}
+            <div class="col">
+                <div class="card shadow-sm" style="width: 18rem; margin-bottom: 1rem;">
+                    <a href="{% url 'programa_detail' pk=programa.pk %}" class="card-link">
+                        <div class="card-body">
+                            <h6 class="card-subtitle text-end text-muted mb-2">Categoria: Monitoria</h6>
+                            <h5 class="card-title text-center">{{ programa.titulo }}</h5>
+                            <p class="text-center text-muted mb-4">{{ programa.descricao }}</p>
+                            <p class="text-start fw-bold mb-0">Categoria: {{ programa.categoria }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
         
-    </ul>
+        {% if voluntariados %}
+            {% for programa in voluntariados %}
+            <div class="col">
+                <div class="card shadow-sm" style="width: 18rem; margin-bottom: 1rem;">
+                    <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}" class="card-link">
+                        <div class="card-body">
+                            <h6 class="card-subtitle text-end text-muted mb-2">Categoria: Voluntariado</h6>
+                            <h5 class="card-title text-center">{{ programa.titulo }}</h5>
+                            <p class="text-center text-muted mb-4">{{ programa.descricao }}</p>
+                            <p class="text-start fw-bold mb-0">Categoria: {{ programa.categoria }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% if iniciacoes_cientificas %}
+            {% for programa in iniciacoes_cientificas %}
+            <div class="col">
+                <div class="card shadow-sm" style="width: 18rem; margin-bottom: 1rem;">
+                    <a href="{% if programa.tipo %}{% url 'detalhes_programa' tipo=programa.tipo id=programa.id %}{% else %}# {% endif %}" class="card-link">
+                        <div class="card-body">
+                            <h6 class="card-subtitle text-end text-muted mb-2">Categoria: Iniciação Científica</h6>
+                            <h5 class="card-title text-center">{{ programa.titulo }}</h5>
+                            <p class="text-center text-muted mb-4">{{ programa.descricao }}</p>
+                            <p class="text-start fw-bold mb-0">Categoria: {{ programa.categoria }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+    </div>
 </div>
+
 {% endblock %}
