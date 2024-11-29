@@ -109,10 +109,11 @@ class EventoForm(forms.ModelForm):
         label="Nome do palestrante",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nome...', 'id': 'palestrante-input', 'style': 'display:none;'})
     )
-    participantes = forms.CharField(
+    participantes = forms.ModelMultipleChoiceField(
+        queryset=Perfil.objects.all(),  # Adiciona a lista de Perfis
         required=False,
         label="Participantes",
-        widget=forms.HiddenInput()
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
     )
     tags = forms.CharField(
         required=False,
@@ -140,17 +141,17 @@ class EventoForm(forms.ModelForm):
         cleaned_data = super().clean()
         opcao = cleaned_data.get('opcao_palestrante')
         nome = cleaned_data.get('palestrante')
-        participantes = cleaned_data.get('participantes', '')
+        participantes = cleaned_data.get('participantes', [])
         tags = cleaned_data.get('tags', '')
 
         # Validação para garantir que o nome seja preenchido quando a opção "nome" for escolhida
         if opcao == 'nome' and not nome:
             self.add_error('palestrante', 'Este campo é obrigatório quando "Informar nome" é selecionado.')
 
-        cleaned_data['participantes'] = [p.strip() for p in participantes.split(',') if p.strip()]
+        # Processa as tags, separando por vírgula e removendo espaços extras
         cleaned_data['tags'] = [t.strip() for t in tags.split(',') if t.strip()]
 
-        return cleaned_data
+        return cleaned_data 
         
 class VoluntariadoForm(forms.ModelForm):
     class Meta:

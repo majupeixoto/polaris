@@ -135,7 +135,8 @@ class Evento(Oportunidade):
         choices=[('nome', 'Informar nome'), ('indefinido', 'Indefinido / não informar')],
         default='indefinido'
     )
-    participantes = models.JSONField(blank=True, default=list)
+    #participantes = models.JSONField(blank=True, default=list)
+    participantes = models.ManyToManyField('Perfil', related_name='eventos', blank=True)
     vagas = models.IntegerField()
     tipo = models.CharField(
         max_length=10,

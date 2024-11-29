@@ -70,7 +70,7 @@ def cadastro_grupo_estudo(request):
         form = GrupoEstudoForm()
     
     return render(request, 'apps/cadastro_grupo_estudo.html', {'form': form})
-
+'''
 @login_required
 def cadastrar_evento(request):
     user = request.user
@@ -93,6 +93,47 @@ def cadastrar_evento(request):
             evento.participantes.set(form.cleaned_data['participantes'])  # Caso seja ManyToManyField
             evento.tags.set(form.cleaned_data['tags'])  # Caso seja ManyToManyField
             evento.save()  # Salva o evento com os dados completos
+            messages.success(request, "Evento cadastrado com sucesso!")
+            return redirect('visualizar_evento', evento_id=evento.id)
+        else:
+            messages.error(request, "Erro ao cadastrar evento. Verifique os dados e tente novamente.")
+    else:
+        form = EventoForm()
+
+    return render(request, 'apps/cadastrar_evento.html', {'form': form})
+'''
+@login_required
+def cadastrar_evento(request):
+    user = request.user
+    try:
+        usuario = Perfil.objects.get(email=user.email)
+    except Perfil.DoesNotExist:
+        messages.error(request, "Usuário não encontrado.")
+        return redirect('login')
+
+    # Verifica se o usuário é superusuário antes de permitir o cadastro do evento
+    if not user.is_superuser:  # Se não for superusuário, redireciona
+        messages.warning(request, "Você precisa ser um superusuário para acessar esta página.")
+        return redirect('login')
+
+    if request.method == 'POST':
+        form = EventoForm(request.POST)
+        if form.is_valid():
+            # Cria o evento sem os campos ManyToMany
+            evento = form.save(commit=False)
+            evento.save()  # Salva o evento para gerar o ID necessário
+            
+            # Associar os campos ManyToMany
+            if 'participantes' in form.cleaned_data:
+                participantes = form.cleaned_data['participantes']
+                if participantes:
+                    evento.participantes.set(participantes)
+
+            # Atualizar o campo tags diretamente
+            if 'tags' in form.cleaned_data:
+                evento.tags = ', '.join(form.cleaned_data['tags'])  # Converte a lista de tags em uma string separada por vírgulas
+                evento.save()  # Salva o evento novamente para garantir que a associação seja persistida
+
             messages.success(request, "Evento cadastrado com sucesso!")
             return redirect('visualizar_evento', evento_id=evento.id)
         else:
