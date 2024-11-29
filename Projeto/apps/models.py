@@ -123,6 +123,22 @@ class Oportunidade(models.Model):
             self.tags = tags
         self.save()
 
+class ProgramaOficial(Oportunidade):
+    inicio_evento = models.DateTimeField(default=timezone.now)
+    fim_evento = models.DateTimeField(default=timezone.now)
+    carga_horaria = models.IntegerField(default=0)
+    tema = models.CharField(max_length=255, blank=True, null=True)
+    periodicidade = models.CharField(max_length=100, blank=True, null=True)
+    responsavel = models.CharField(max_length=255, blank=True, null=True)
+    links = models.URLField(max_length=500, blank=True, null=True)
+    link_inscricao = models.URLField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
+    
+    class Meta:
+        pass # abstract = True
+
 class Evento(Oportunidade):
     local = models.CharField(max_length=200)
     inicio_evento = models.DateField(default=timezone.now)
@@ -184,22 +200,7 @@ class GrupoEstudo(Oportunidade):
 
     def __str__(self):
         return self.titulo
-    
-class ProgramaOficial(Oportunidade):
-    inicio_evento = models.DateTimeField(default=timezone.now)
-    fim_evento = models.DateTimeField(default=timezone.now)
-    carga_horaria = models.IntegerField(default=0)
-    tema = models.CharField(max_length=255, blank=True, null=True)
-    periodicidade = models.CharField(max_length=100, blank=True, null=True)
-    responsavel = models.CharField(max_length=255, blank=True, null=True)
-    links = models.URLField(max_length=500, blank=True, null=True)
-    link_inscricao = models.URLField(max_length=500, blank=True, null=True)
 
-    def __str__(self):
-        return self.titulo
-    
-    class Meta:
-        pass # abstract = True
         
 class Voluntariado(ProgramaOficial):
     local_trabalho = models.CharField(max_length=100)
