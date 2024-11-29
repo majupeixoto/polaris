@@ -1,136 +1,15 @@
 {% extends 'global/base.html' %}
+{% load static %}
 
 {% block content %}
 
-<!-- CSS embutido diretamente na página -->
-<style>
-/* Global styles */
-html, body {
-    height: 100%;  /* Garante que o body ocupe toda a altura da tela */
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
-    overflow-x: hidden;  /* Impede rolagem horizontal */
-}
-
-/* Contêiner principal */
-.container {
-    border-radius: 8px;
-    padding: 30px;
-    border: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    max-width: 800px;
-    margin: 30px auto;
-    overflow: auto; /* Garante que o conteúdo dentro da container tenha rolagem se necessário */
-}
-
-/* Heading */
-h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Form elements */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Form Group */
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Labels */
-label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #7f8c8d;
-}
-
-/* Input fields */
-input[type="text"], input[type="url"], select, textarea {
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #dcdfe1;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-    resize: vertical; /* Permite que o campo de texto seja redimensionado verticalmente */
-}
-
-/* Input fields on focus */
-input[type="text"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
-    border-color: #3498db;
-    outline: none;
-}
-
-/* Error messages */
-.text-danger {
-    font-size: 12px;
-    color: #e74c3c;
-    margin-top: 5px;
-}
-
-/* Button */
-button[type="submit"] {
-    padding: 12px 20px;
-    background-color: #3498db;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-/* Button hover */
-button[type="submit"]:hover {
-    background-color: #2980b9;
-}
-
-/* Button active */
-button[type="submit"]:active {
-    background-color: #1d6fa5;
-}
-
-/* Media query for responsiveness */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    .form-group label {
-        font-size: 12px;
-    }
-
-    input[type="text"], input[type="url"], select, textarea {
-        font-size: 12px;
-    }
-
-    button[type="submit"] {
-        font-size: 14px;
-    }
-}
-</style>
+<!-- Link to external CSS file -->
+<link rel="stylesheet" type="text/css" href="{% static 'global/css/iniciativa_form.css' %}">
 
 <!-- Conteúdo da página -->
 <div class="container mt-5">
     <h2>{% if form.instance.pk %}Editar{% else %}Cadastrar{% endif %} Iniciativa Estudantil</h2>
-    
+
     <form method="post">
         {% csrf_token %}
         
