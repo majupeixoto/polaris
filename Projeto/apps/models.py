@@ -199,7 +199,7 @@ class ProgramaOficial(Oportunidade):
         return self.titulo
     
     class Meta:
-        abstract = True
+        pass # abstract = True
         
 class Voluntariado(ProgramaOficial):
     local_trabalho = models.CharField(max_length=100)
