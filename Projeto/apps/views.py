@@ -274,18 +274,13 @@ class ProgramaDetailView(DetailView):
     model = ProgramaOficial
     template_name = 'apps/visualizar_programa.html'
     context_object_name = 'programa'
-    def get_queryset(self):
-        # Return the queryset for the program, you can filter or customize here
-        return ProgramaOficial.objects.filter(id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
-        # Chama o contexto básico da DetailView
         context = super().get_context_data(**kwargs)
 
-        # Recupera o objeto ProgramaOficial
         programa = context['programa']
 
-        # Determina o tipo e as informações específicas
+        # tipo e informações específicas
         if hasattr(programa, 'voluntariado'):
             tipo = 'voluntariado'
             programa_especifico = programa.voluntariado
@@ -307,20 +302,16 @@ class ProgramaDetailView(DetailView):
     
 @login_required
 def visualizar_evento(request, evento_id):
-    # Obtém o evento pelo ID
+    
     evento = get_object_or_404(Evento, id=evento_id)
-
-    # Obtém o tipo de conteúdo do modelo Evento
     evento_content_type = ContentType.objects.get_for_model(Evento)
 
-    # Verifica se o evento está nos favoritos do usuário atual
     favoritado = Favorito.objects.filter(
         user=request.user,
         content_type=evento_content_type,
         object_id=evento.id
     ).exists()
 
-    # Adiciona a propriedade favoritado ao evento
     evento.favoritado = favoritado
 
     return render(request, 'apps/visualizar_evento.html', {'evento': evento})
@@ -497,7 +488,10 @@ def faq_view(request):
         faqs = faqs.filter(Q(pergunta__icontains=query) | Q(resposta__icontains=query))
 
     return render(request, 'apps/faq.html', {'faqs': faqs, 'query': query})
-        
+
+
+def sucesso(request):
+    return render(request, 'apps/sucesso.html', {'sucesso': sucesso})
 
 @login_required
 def alterar_evento(request, evento_id):

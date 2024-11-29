@@ -9,6 +9,7 @@ from .views import (
     IniciativaEstudantilDeleteView,
     FavoritoListView,
     faq_view,
+    sucesso,
 )
 
 urlpatterns = [
@@ -50,4 +51,5 @@ urlpatterns = [
     path('programas/excluir/<int:pk>/', views.ProgramaDeleteView.as_view(), name='programa_delete'),
     path('grupos/<int:grupo_id>/alterar/', views.alterar_grupo, name='alterar_grupo'),
     path('grupos/<int:grupo_id>/excluir/', views.excluir_grupo, name='excluir_grupo'),
+    path('sucesso/', views.sucesso, name='sucesso'),
 ]
