@@ -3,9 +3,9 @@
 {% block content %}
 <div class="content-wrapper">
     <h3>Iniciativas Estudantis</h3>
-    {% if user.is_staff %}
-        <a href="{% url 'iniciativa_create' %}" class="btn-cadastrar-iniciativa">Criar Nova Iniciativa</a>
-    {% endif %}
+    
+    <a href="{% url 'iniciativa_create' %}" class="btn-cadastrar-iniciativa">Cadastrar Iniciativa</a>
+    
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
         {% if iniciativas %}
             {% for iniciativa in iniciativas %}
