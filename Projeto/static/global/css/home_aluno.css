@@ -515,7 +515,7 @@ body {
     font-weight: 700;
 }
 
-#card_18 #inscricoes{
+#card_18 #inscricoes {
     top: 20px;
     left: 20px;
     position: absolute;
@@ -528,14 +528,8 @@ body {
     word-wrap: break-word;
 }
 
-#card_18 #curso1, #curso2, #curso3 {
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    color: #fff;
-    font-size: 16px;
+#card_18, #grupo1, #grupo2, #grupo3 {
     font-family: Poppins;
-    font-weight: 600;
-    line-height: 26px;
-    word-wrap: break-word;
+    color: #fff;
+
 }
