@@ -153,6 +153,9 @@ class EventoForm(forms.ModelForm):
 
         return cleaned_data 
         
+from django import forms
+from .models import Voluntariado
+
 class VoluntariadoForm(forms.ModelForm):
     class Meta:
         model = Voluntariado
@@ -168,8 +171,18 @@ class VoluntariadoForm(forms.ModelForm):
             'link_inscricao': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link para inscrição'}),
             'local_trabalho': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Local de Trabalho'}),
             'organizacao_parceira': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Organização Parceira'}),
-            'habilidades_requeridas': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Habilidades requeridas'}),
+            'habilidades_requeridas': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Habilidades requeridas (separadas por vírgula)'}),
         }
+
+    def clean_tags(self):
+        # Converte as tags em uma lista separada por vírgula
+        tags = self.cleaned_data.get('tags', '')
+        return [tag.strip() for tag in tags.split(',')] if tags else []
+
+    def clean_habilidades_requeridas(self):
+        # Converte as habilidades em uma lista separada por vírgula
+        habilidades = self.cleaned_data.get('habilidades_requeridas', '')
+        return [habilidade.strip() for habilidade in habilidades.split(',')] if habilidades else []
 
 class MonitoriaForm(forms.ModelForm):
     tags = forms.CharField(
@@ -180,21 +193,16 @@ class MonitoriaForm(forms.ModelForm):
 
     requisitos = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control', 
-            'placeholder': 'Digite requisitos e pressione Enter'
-        }),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite requisitos e pressione Enter'}),
         label="Requisitos"
     )
 
     cadeiras_requeridas = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control', 
-            'placeholder': 'Digite uma cadeira e pressione Enter'
-        }),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite uma cadeira e pressione Enter'}),
         label="Cadeiras"
     )
+
     class Meta:
         model = Monitoria
         fields = [
@@ -208,7 +216,7 @@ class MonitoriaForm(forms.ModelForm):
             'status_inscricoes': forms.Select(attrs={'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tags separadas por vírgula'}),
             'cadeiras_requeridas': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Cadeiras Requeridas'}),
-            'requisitos':forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requisitos separados por vírgula'}),
+            'requisitos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requisitos separados por vírgula'}),
             'inicio_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'fim_evento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'carga_horaria': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carga horária'}),
@@ -220,6 +228,27 @@ class MonitoriaForm(forms.ModelForm):
             'responsavel': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Responsável pelo programa'}),
             'tema': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tema do programa'})
         }
+
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        # Verifica se as tags são passadas como uma string separada por vírgula
+        if isinstance(tags, str):
+            tags = [tag.strip() for tag in tags.split(',') if tag.strip()]
+        return tags
+
+    def clean_cadeiras_requeridas(self):
+        cadeiras_requeridas = self.cleaned_data['cadeiras_requeridas']
+        # Divide as cadeiras por vírgula
+        if isinstance(cadeiras_requeridas, str):
+            cadeiras_requeridas = [cadeira.strip() for cadeira in cadeiras_requeridas.split(',') if cadeira.strip()]
+        return cadeiras_requeridas
+
+    def clean_requisitos(self):
+        requisitos = self.cleaned_data['requisitos']
+        # Divide os requisitos por vírgula
+        if isinstance(requisitos, str):
+            requisitos = [requisito.strip() for requisito in requisitos.split(',') if requisito.strip()]
+        return requisitos
 
 class IniciacaoCientificaForm(forms.ModelForm):
     class Meta:

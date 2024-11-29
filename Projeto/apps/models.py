@@ -215,8 +215,8 @@ class Voluntariado(ProgramaOficial):
 class Monitoria(ProgramaOficial):
     professor_orientador = models.CharField(max_length=100)
     disciplina = models.CharField(max_length=100)
-    cadeiras_requeridas = models.JSONField(default=list, blank=True)
-    requisitos = models.JSONField(default=list, blank=True)
+    cadeiras_requeridas = models.JSONField(blank=True, default=list)
+    requisitos = models.JSONField(blank=True, default=list)
 
     def cadastrar(self, dados):
         self.professor_orientador = dados.get('professor_orientador')

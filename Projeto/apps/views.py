@@ -219,13 +219,16 @@ def cadastrar_voluntariado(request):
     if request.method == 'POST':
         form = VoluntariadoForm(request.POST)
         if form.is_valid():
-            form.save()
+            voluntariado = form.save()  # Salva o voluntariado e obtém a instância criada
             messages.success(request, 'Voluntariado cadastrado com sucesso!')
+
+            # Redireciona para a página de detalhes do voluntariado recém-criado
             return redirect('listar_programas')
         else:
             messages.error(request, 'Erro ao cadastrar o voluntariado. Verifique os dados.')
     else:
         form = VoluntariadoForm()
+
     return render(request, 'apps/cadastrar_voluntariado.html', {'form': form})
 
 def cadastrar_monitoria(request):
@@ -273,7 +276,7 @@ class ProgramaDetailView(DetailView):
     context_object_name = 'programa'
     def get_queryset(self):
         # Return the queryset for the program, you can filter or customize here
-        return Programa.objects.filter(id=self.kwargs['pk'])
+        return ProgramaOficial.objects.filter(id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         # Chama o contexto básico da DetailView
