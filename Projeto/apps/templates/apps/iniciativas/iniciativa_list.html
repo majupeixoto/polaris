@@ -20,18 +20,16 @@
                                 <a href="{% url 'iniciativa_detail' iniciativa.id %}" class="card-link">
                                 <a href="{% url 'iniciativa_update' iniciativa.id %}">Editar</a> 
                                 <a href="{% url 'iniciativa_delete' iniciativa.id %}">Excluir</a>
+                            {% endif %}
                         </div>
                     </a>
                 </div>
             </div>
-                
-        {% endif %}
             {% endfor %}
-        </div>
         {% else %}
             <p>Nenhuma iniciativa encontrada.</p>
         {% endif %}
-
+        </div>
         
     </div>
 </div>
