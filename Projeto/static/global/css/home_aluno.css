@@ -218,14 +218,6 @@ body {
     padding: 10px;
 }
 
-#botao_9 .top-left-text {
-    position: static;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-}
-
 #botao_10 {
     width: 191px;
     height: 69px;
@@ -362,8 +354,8 @@ body {
 }
 
 #iniciativas-estudantis {
-    left: 1188px;
-    top: 120px;
+    left: 140px;
+    top: 160px;
     position: absolute;
     text-align: right;
     color: #fff;
@@ -442,9 +434,7 @@ body {
 
 #botao_2 .top-left-text,
 #botao_6 .top-left-text,
-#botao_8 .top-left-text,
-#botao_9 .top-left-text,
-#botao_10 .top-left-text {
+#botao_8 .top-left-text {
     font-family: Poppins;
     font-size: 14px;
     font-weight: 600;
@@ -487,3 +477,39 @@ body {
     margin-bottom: 22px;
 }
 
+#botao_3 #atomo {
+    position: absolute;
+    bottom: 5px;
+    left: 108px;
+}
+
+#botao_9 svg	{
+    position: absolute;
+    bottom: 10px;
+    left: 139px;
+}
+
+#botao_9 .top-left-text {
+    position: absolute;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    left: 11px;
+}
+
+#botao_10 #programadeextensao {
+    position: absolute;
+    bottom: 10px;
+    left: 139px;
+}
+
+#botao_10 #extensao {
+    color: #2A2D3C;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    left: 10px;
+    bottom: 17px;
+}
