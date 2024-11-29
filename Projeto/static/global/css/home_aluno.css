@@ -308,7 +308,6 @@ body {
     left: 1188px;
     top: 470px;
     position: absolute;
-    background: var(--Cards-escuros, #424655);
     border: none;
     border-radius: 10px;
 }
@@ -322,7 +321,7 @@ body {
     background: linear-gradient(0deg, rgba(0, 39, 189, 0.10) 0%, rgba(0, 39, 189, 0.10) 100%), linear-gradient(249deg, #333 0%, #222 100%);
     border: none;
     border-radius: 10px;
-    border: 2px solid orange;
+    border: 2px solid var(--Alta-Azul-01, #3352CA);;
 }
 
 #botao_19 {
@@ -482,5 +481,9 @@ body {
     position: absolute;
     left: 15px;
     bottom: 13px;
+}
+
+#card_17 svg {
+    margin-bottom: 22px;
 }
 
