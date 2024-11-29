@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from unidecode import unidecode
 from django.core.paginator import Paginator
+from django.http import HttpResponseForbidden
 
 def login_view(request):
     if request.method == 'POST':
@@ -555,3 +556,26 @@ def search_favorites(request):
         'obj_type': obj_type,
     }
     return render(request, 'favorites_search_results.html', context)
+
+@login_required
+def alterar_grupo(request, grupo_id):
+    grupo = get_object_or_404(GrupoEstudo, id=grupo_id)  # Obtém o grupo de estudo
+
+    if request.method == 'POST':
+        form = GrupoEstudoForm(request.POST, instance=grupo)  # Preenche o formulário com os dados existentes
+        if form.is_valid():
+            form.save()  # Salva as alterações no grupo de estudo
+            return redirect('visualizar_grupo', grupo_id=grupo.id)  # Redireciona para a página de visualização após salvar
+    else:
+        form = GrupoEstudoForm(instance=grupo)  # Cria o formulário com os dados existentes do grupo
+
+    return render(request, 'apps/cadastrar_grupo_estudo.html', {'form': form, 'grupo': grupo})@login_required
+def excluir_grupo(request, grupo_id):
+    grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
+
+    # Certificando-se de que o usuário tem permissão para excluir (se necessário)
+    if request.user == grupo.usuario_criador or request.user.is_superuser:
+        grupo.delete()  # Exclui o grupo
+        return redirect('listar_grupos_estudo')  # Redireciona para a lista de grupos após a exclusão
+    else:
+        return HttpResponseForbidden("Você não tem permissão para excluir este grupo.")

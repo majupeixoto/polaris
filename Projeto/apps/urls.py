@@ -12,7 +12,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', views.login_view, name='login'),
+    #path('', views.login_view, name='login'),
+    path('accounts/login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('cadastro_grupo_estudo/', views.cadastro_grupo_estudo, name='cadastro_grupo_estudo'), 
     path('cadastro_usuario/', views.cadastro_usuario, name='cadastro_usuario'),
@@ -48,4 +49,6 @@ urlpatterns = [
     path('programas/criar/', views.ProgramaCreateView.as_view(), name='programa_create'),
     path('programas/editar/<int:pk>/', views.ProgramaUpdateView.as_view(), name='programa_edit'),  # Rota de atualização
     path('programas/excluir/<int:pk>/', views.ProgramaDeleteView.as_view(), name='programa_delete'),
+    path('grupos/<int:grupo_id>/alterar/', views.alterar_grupo, name='alterar_grupo'),
+    path('grupos/<int:grupo_id>/excluir/', views.excluir_grupo, name='excluir_grupo'),
 ]
