@@ -37,9 +37,11 @@
     </svg>
 
     <div class="perfil">
-        <a id="boasvindas">Olá, {{ user.nome }}</a>
-        <a href="{% url 'logout' %}">Sair</a>
+        {% if user.is_authenticated %}
+            <a id="boasvindas" href="{% url 'perfil' %}" >Olá, {{ user.nome }}!</a>
+        {% endif %}
     </div>
+
 
     {% else %} <!-- NAV FUNCIONÁRIO -->
     <div class="menu">
