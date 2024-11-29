@@ -25,7 +25,6 @@ urlpatterns = [
     path('listar_grupos_estudo/', views.listar_grupos_estudo, name='listar_grupos_estudo'),
     path('listar_programas/', views.listar_programas, name='listar_programas'),
     path('grupos/<int:grupo_id>/', views.visualizar_grupo, name='visualizar_grupo'),
-    path('programa/<str:tipo>/<int:id>/', views.visualizar_programa, name='detalhes_programa'),
     path('selecionar_programa/', views.selecionar_tipo_programa, name='selecionar_programa'),
     path('cadastrar_voluntariado/', views.cadastrar_voluntariado, name='cadastrar_voluntariado'),
     path('cadastrar_monitoria/', views.cadastrar_monitoria, name='cadastrar_monitoria'),

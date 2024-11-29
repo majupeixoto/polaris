@@ -9,8 +9,10 @@
                 <h5>{{ programa.titulo }}</h5>
                 <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
                 <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
-                <a href="{% url 'detalhes_programa' programa.id %}">Detalhes do Programa</a>
-            </li>
+                <a href="{% url 'programa_detail' pk=programa.pk %}">Ver Detalhes</a>
+                Detalhes do programa
+                </a>
+                            </li>
         {% endfor %}
         
         {% for programa in voluntariados %}

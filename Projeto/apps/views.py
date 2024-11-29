@@ -70,7 +70,7 @@ def cadastro_grupo_estudo(request):
         form = GrupoEstudoForm()
     
     return render(request, 'apps/cadastro_grupo_estudo.html', {'form': form})
-'''
+
 @login_required
 def cadastrar_evento(request):
     user = request.user
@@ -101,7 +101,7 @@ def cadastrar_evento(request):
         form = EventoForm()
 
     return render(request, 'apps/cadastrar_evento.html', {'form': form})
-'''
+
 @login_required
 def cadastrar_evento(request):
     user = request.user
@@ -174,8 +174,6 @@ def home_funcionario(request):
         return render(request, 'apps/home_funcionario.html', {'eventos': eventos})
     else:
         return redirect('login')  # Se o usuário não estiver autenticado, redireciona para login
-
-
 
 @login_required
 def listar_eventos(request):
@@ -268,29 +266,41 @@ def cadastrar_iniciacao_cientifica(request):
         form = IniciacaoCientificaForm()
     return render(request, 'apps/cadastrar_iniciacao.html', {'form': form})
 
-@login_required
-def visualizar_programa(request, programa_id):
-    programa = get_object_or_404(ProgramaOficial, id=programa_id)
+class ProgramaDetailView(DetailView):
+    model = ProgramaOficial
+    template_name = 'apps/visualizar_programa.html'
+    context_object_name = 'programa'
+    def get_queryset(self):
+        # Return the queryset for the program, you can filter or customize here
+        return Programa.objects.filter(id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        # Chama o contexto básico da DetailView
+        context = super().get_context_data(**kwargs)
+
+        # Recupera o objeto ProgramaOficial
+        programa = context['programa']
+
+        # Determina o tipo e as informações específicas
+        if hasattr(programa, 'voluntariado'):
+            tipo = 'voluntariado'
+            programa_especifico = programa.voluntariado
+        elif hasattr(programa, 'monitoria'):
+            tipo = 'monitoria'
+            programa_especifico = programa.monitoria
+        elif hasattr(programa, 'iniciacaocientifica'):
+            tipo = 'iniciacao_cientifica'
+            programa_especifico = programa.iniciacaocientifica
+        else:
+            tipo = 'desconhecido'
+            programa_especifico = None
+
+        # Adiciona ao contexto
+        context['programa_especifico'] = programa_especifico
+        context['tipo'] = tipo
+
+        return context
     
-    if hasattr(programa, 'voluntariado'):
-        tipo = 'voluntariado'
-        programa_especifico = programa.voluntariado
-    elif hasattr(programa, 'monitoria'):
-        tipo = 'monitoria'
-        programa_especifico = programa.monitoria
-    elif hasattr(programa, 'iniciacaocientifica'):
-        tipo = 'iniciacao_cientifica'
-        programa_especifico = programa.iniciacaocientifica
-    else:
-        tipo = 'desconhecido'
-        programa_especifico = None
-
-    return render(request, 'apps/visualizar_programa.html', {
-        'programa': programa,
-        'programa_especifico': programa_especifico,
-        'tipo': tipo
-    })
-
 @login_required
 def visualizar_evento(request, evento_id):
     # Obtém o evento pelo ID

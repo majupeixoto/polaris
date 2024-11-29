@@ -1,53 +1,43 @@
 {% extends 'global/base.html' %}
-{% load static %}
 
-<title>{% block title %}Detalhes do Programa: {{ programa.titulo }}{% endblock %}
-
-<link rel="stylesheet" href="{% static 'global/css/visualizar_programa.css' %}">
+{% block title %}Detalhes do Programa: {{ programa.titulo }}{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12 text-start">
-            <h1>{{ programa.titulo }}</h1>
-            
-            <!-- Exibir as informações principais do programa -->
-            <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
-            <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
+    <h1>{{ programa.titulo }}</h1>
 
-            {% if tipo == 'voluntariado' %}
-                <h3>Detalhes do Voluntariado</h3>
-                <p><strong>Horas de Voluntariado:</strong> {{ programa_especifico.horas }}</p>
-                <p><strong>Requisitos:</strong> {{ programa_especifico.requisitos }}</p>
-            {% elif tipo == 'monitoria' %}
-                <h3>Detalhes da Monitoria</h3>
-                <p><strong>Disciplina:</strong> {{ programa_especifico.disciplina }}</p>
-                <p><strong>Professor Orientador:</strong> {{ programa_especifico.professor_orientador }}</p>
-                <p><strong>Vagas Disponíveis:</strong> {{ programa_especifico.vagas }}</p>
-            {% elif tipo == 'iniciacao_cientifica' %}
-                <h3>Detalhes da Iniciação Científica</h3>
-                <p><strong>Orientador:</strong> {{ programa_especifico.orientador }}</p>
-                <p><strong>Área de Pesquisa:</strong> {{ programa_especifico.area_pesquisa }}</p>
-                <p><strong>Período de Início:</strong> {{ programa_especifico.periodo_inicio }}</p>
-            {% else %}
-                <p><strong>Tipo de Programa Desconhecido.</strong></p>
-            {% endif %}
+    <p><strong>Categoria:</strong> {{ programa.categoria }}</p>
+    <p><strong>Descrição:</strong> {{ programa.descricao }}</p>
 
-            <!-- Bloco de tags com <span> -->
-            <h3>Tags:</h3>
-            <div class="tags-container">
-                {% for tag in programa.tags.all %}
-                    <span class="tag">{{ tag.nome }}</span>
-                {% empty %}
-                    <span class="tag">Nenhuma tag disponível</span>
-                {% endfor %}
-            </div>
+    {% if tipo == 'voluntariado' %}
+        <h3>Detalhes do Voluntariado</h3>
+        <p><strong>Horas de Voluntariado:</strong> {{ programa_especifico.horas }}</p>
+        <p><strong>Requisitos:</strong> {{ programa_especifico.requisitos }}</p>
+    {% elif tipo == 'monitoria' %}
+        <h3>Detalhes da Monitoria</h3>
+        <p><strong>Disciplina:</strong> {{ programa_especifico.disciplina }}</p>
+        <p><strong>Professor Orientador:</strong> {{ programa_especifico.professor_orientador }}</p>
+        <p><strong>Vagas Disponíveis:</strong> {{ programa_especifico.vagas }}</p>
+    {% elif tipo == 'iniciacao_cientifica' %}
+        <h3>Detalhes da Iniciação Científica</h3>
+        <p><strong>Orientador:</strong> {{ programa_especifico.orientador }}</p>
+        <p><strong>Área de Pesquisa:</strong> {{ programa_especifico.area_pesquisa }}</p>
+        <p><strong>Período de Início:</strong> {{ programa_especifico.periodo_inicio }}</p>
+    {% else %}
+        <p><strong>Tipo de Programa Desconhecido.</strong></p>
+    {% endif %}
 
-            <!-- Informações adicionais -->
-            <h3>Outras Informações</h3>
-            <p><strong>Data de Início:</strong> {{ programa.data_inicio }}</p>
-            <p><strong>Data de Término:</strong> {{ programa.data_termino }}</p>
-        </div>
+    <h3>Tags:</h3>
+    <div class="tags-container">
+        {% for tag in programa.tags.all %}
+            <span class="tag">{{ tag.nome }}</span>
+        {% empty %}
+            <span class="tag">Nenhuma tag disponível</span>
+        {% endfor %}
     </div>
+
+    <h3>Outras Informações</h3>
+    <p><strong>Data de Início:</strong> {{ programa.data_inicio }}</p>
+    <p><strong>Data de Término:</strong> {{ programa.data_termino }}</p>
 </div>
 {% endblock %}
