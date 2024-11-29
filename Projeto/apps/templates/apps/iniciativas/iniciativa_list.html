@@ -3,7 +3,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'global/css/iniciativa.css' %}">
-<h1>Iniciativas Estudantis</h1>
+<h1 style="color: #FFF; font-size: 40px; margin-top: 100px; margin-left: 200px;">Iniciativas Estudantis</h1>
 {% if user.is_superuser %}
 <a href="{% url 'iniciativa_create' %}">Criar Nova Iniciativa</a>
 {% endif %}
@@ -12,4 +12,5 @@
     <li>{{ iniciativa.titulo }} - <a href="{% url 'iniciativa_update' iniciativa.id %}">Editar</a> | <a href="{% url 'iniciativa_delete' iniciativa.id %}">Excluir</a></li>
     {% endfor %}
 </ul>
+
 {% endblock %}

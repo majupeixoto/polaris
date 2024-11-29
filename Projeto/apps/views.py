@@ -138,7 +138,6 @@ def home_funcionario(request):
 
 @login_required
 def listar_eventos(request):
-    
     eventos = Evento.objects.all()
     context = {
         'eventos': eventos,
