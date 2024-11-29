@@ -1,0 +1,17 @@
+{% extends 'global/base.html' %}
+{% load static %}
+
+<title>{% block title %}Alterar Grupo de Estudo{% endblock %}
+
+<link rel="stylesheet" href="{% static 'global/css/cadastrar_grupo_estudo.css' %}">
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Alterar Grupo de Estudo</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+{% endblock %}
