@@ -564,25 +564,50 @@ def search_favorites(request):
     }
     return render(request, 'favorites_search_results.html', context)
 
+
+
 @login_required
 def alterar_grupo(request, grupo_id):
-    grupo = get_object_or_404(GrupoEstudo, id=grupo_id)  # Obtém o grupo de estudo
+    user = request.user
+    if not user.is_superuser:  # Apenas superusuários podem alterar eventos
+        messages.warning(request, "Você precisa ser um superusuário para alterar este evento.")
+        return redirect('visualizar_grupo', id=grupo_id)
 
+    grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
+    
+    
     if request.method == 'POST':
-        form = GrupoEstudoForm(request.POST, instance=grupo)  # Preenche o formulário com os dados existentes
+        form = GrupoEstudoForm(request.POST, instance=grupo)
         if form.is_valid():
-            form.save()  # Salva as alterações no grupo de estudo
-            return redirect('visualizar_grupo', grupo_id=grupo.id)  # Redireciona para a página de visualização após salvar
+            # Antes de salvar, garante que as tags serão tratadas corretamente
+            grupo_estudo = form.save(commit=False)
+            grupo_estudo.tags = form.cleaned_data.get('tags', [])  # Aqui você pega as tags limpas do formulário
+            grupo_estudo.save()
+            messages.success(request, "Grupo de estudo alterado com sucesso!")
+            return redirect('visualizar_grupo', grupo_id=grupo.id)
+        else:
+            messages.error(request, "Erro ao alterar o grupo de estudo.")
     else:
-        form = GrupoEstudoForm(instance=grupo)  # Cria o formulário com os dados existentes do grupo
+        form = GrupoEstudoForm(instance=grupo)
 
-    return render(request, 'apps/cadastrar_grupo_estudo.html', {'form': form, 'grupo': grupo})@login_required
+    return render(request, 'apps/alterar_grupo.html', {'form': form, 'grupo': grupo})
+
+@login_required
 def excluir_grupo(request, grupo_id):
+    user = request.user
+    if not user.is_superuser:  # Apenas superusuários podem excluir eventos
+        messages.warning(request, "Você precisa ser um superusuário para excluir este grupo.")
+        return redirect('visualizar_grupo', id=grupo_id)
     grupo = get_object_or_404(GrupoEstudo, id=grupo_id)
 
-    # Certificando-se de que o usuário tem permissão para excluir (se necessário)
-    if request.user == grupo.usuario_criador or request.user.is_superuser:
-        grupo.delete()  # Exclui o grupo
-        return redirect('listar_grupos_estudo')  # Redireciona para a lista de grupos após a exclusão
-    else:
-        return HttpResponseForbidden("Você não tem permissão para excluir este grupo.")
+    
+
+    if request.method == 'POST':
+        grupo.delete()
+        messages.success(request, "Grupo excluído com sucesso!")
+        return redirect('listar_grupos_estudo')
+
+    return render(request, 'apps/excluir_grupo.html', {'grupo': grupo})
+    
+
+

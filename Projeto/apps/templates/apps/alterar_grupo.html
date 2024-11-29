@@ -7,11 +7,177 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Alterar Grupo de Estudo</h1>
+    <h1 class="text-center">Alterar Grupo de Estudo</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        
+        {% if messages %}
+            <div class="container mt-4">
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="titulo">Nome do grupo de estudos</label>
+                    {{ form.titulo }}
+                </div>
+                <div class="form-group">
+                    <label for="tema">Área de estudo do grupo</label>
+                    {{ form.tema }}
+                </div>
+                <div class="form-group">
+                    <label for="numero_integrantes">Número de membros:</label>
+                    {{ form.numero_integrantes }}
+                </div>
+                <div class="form-group">
+                    <label for="professor_orientador">Professor orientador:</label>
+                    {{ form.professor_orientador }}
+                </div>
+                <div class="form-group">
+                    <label for="carga_horaria_semanal">Carga horária semanal (horas):</label>
+                    {{ form.carga_horaria_semanal }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="status_inscricoes">Status das inscrições</label>
+                    {{ form.status_inscricoes }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="dias_reuniao">Dias de reunião:</label>
+                    <div id="dias-reuniao">
+                        <label><input type="checkbox" name="dias_reuniao" value="Segunda" {% if "Segunda" in grupo.dias_reuniao %}checked{% endif %}> Segunda</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Terca" {% if "Terca" in grupo.dias_reuniao %}checked{% endif %}> Terça</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Quarta" {% if "Quarta" in grupo.dias_reuniao %}checked{% endif %}> Quarta</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Quinta" {% if "Quinta" in grupo.dias_reuniao %}checked{% endif %}> Quinta</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Sexta" {% if "Sexta" in grupo.dias_reuniao %}checked{% endif %}> Sexta</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Sabado" {% if "Sabado" in grupo.dias_reuniao %}checked{% endif %}> Sábado</label>
+                        <label><input type="checkbox" name="dias_reuniao" value="Domingo" {% if "Domingo" in grupo.dias_reuniao %}checked{% endif %}> Domingo</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="hora_reuniao">Hora da reunião:</label>
+                    {{ form.hora_reuniao }}
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    {{ form.descricao }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mt-4">
+            <label for="tags">Tags:</label>
+            <div id="tags-container">
+                <input type="text" id="tag-input" placeholder="Digite uma tag" class="form-control">
+                <button type="button" id="add-tag" class="btn btn-secondary">+</button>
+            </div>
+            <div id="tag-list" class="tag-list mt-2">
+                <!-- Preenchendo as tags existentes com as tags já associadas ao grupo -->
+                {% for tag in grupo.tags %}
+                    <span class="tag-item">{{ tag }}<button class="remove-tag">x</button></span>
+                {% endfor %}
+            </div>
+            <!-- Campo oculto para armazenar a lista de tags como JSON -->
+            <input type="hidden" name="tags" id="tags-hidden" value="{{ grupo.tags|safe }}">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
+        </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tagInput = document.getElementById("tag-input");
+        const tagList = document.getElementById("tag-list");
+        const tagsHidden = document.getElementById("tags-hidden");
+        const addTagButton = document.getElementById("add-tag");
+    
+        const updateTagsHiddenInput = () => {
+            const tags = Array.from(tagList.children).map(tagElement => tagElement.innerText.replace("\\nx", "").trim());
+            tagsHidden.value = JSON.stringify(tags);
+            console.log("Conteúdo de tagsHidden antes do envio:", tagsHidden.value);  // Verificação final
+        };
+    
+        addTagButton.addEventListener("click", () => {
+            const tag = tagInput.value.trim();
+            if (tag) {
+                const tagElement = document.createElement("span");
+                tagElement.className = "tag-item";
+                tagElement.innerText = tag;
+                
+                const removeButton = document.createElement("button");
+                removeButton.className = "remove-tag";
+                removeButton.innerText = "x";
+                removeButton.onclick = () => {
+                    tagList.removeChild(tagElement);
+                    updateTagsHiddenInput();
+                };
+    
+                tagElement.appendChild(removeButton);
+                tagList.appendChild(tagElement);
+    
+                tagInput.value = "";
+                updateTagsHiddenInput();
+            }
+        });
+    });
+</script>
+
+<style>
+#tags-container {
+    display: flex;
+    align-items: center;
+}
+
+#tag-input {
+    flex: 1;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.remove-tag {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#dias-reuniao {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+#dias-reuniao label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+</style>
+
 {% endblock %}

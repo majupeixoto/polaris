@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Excluir Grupo de Estudo</h2>
+    <p>Tem certeza de que deseja excluir o grupo de estudo <strong>{{ grupo.titulo }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+        <a href="{% url 'visualizar_grupo' grupo.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
