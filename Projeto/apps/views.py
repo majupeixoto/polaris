@@ -116,7 +116,7 @@ def home_aluno(request):
     
     # Se for um aluno e o usuário estiver autenticado, carrega os eventos
     eventos = Evento.objects.all()
-    return render(request, 'apps/home_aluno.html', {'eventos': eventos})
+    return render(request, 'apps/home_aluno.html', {'eventos': eventos, 'user': user})
 
 
 @login_required

@@ -1,14 +1,3 @@
-.form-control {
-    width: 1063px;
-    color: var(--Cores-novas-White-T1, #FFF);
-    font-family: Poppins;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    font-feature-settings: 'liga' off, 'clig' off;
-}
-
 .h1{
     width: 1063px;
     color: var(--Cores-novas-White-T1, #FFF);

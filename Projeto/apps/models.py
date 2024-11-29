@@ -63,8 +63,6 @@ class Perfil(AbstractBaseUser):
         """Retorna True se o usuário tem permissão para acessar o módulo específico."""
         return self.is_superuser
 
-from django.db import models
-
 class Oportunidade(models.Model):
     STATUS_CHOICES = [
         ('abertas', 'Abertas'),

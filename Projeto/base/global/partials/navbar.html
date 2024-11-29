@@ -37,10 +37,8 @@
     </svg>
 
     <div class="perfil">
-        <a id="boasvindas">Olá, </a>
-        <a href="">
-            
-        </a>
+        <a id="boasvindas">Olá, {{ user.nome }}</a>
+        <a href="{% url 'logout' %}">Sair</a>
     </div>
 
     {% else %} <!-- NAV FUNCIONÁRIO -->
