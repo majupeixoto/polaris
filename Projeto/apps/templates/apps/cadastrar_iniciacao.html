@@ -4,6 +4,15 @@
 <div class="container mt-5">
     <h1 class="text-center">Cadastrar Iniciação Científica</h1>
 
+    <!-- Bloco para exibir mensagens de sucesso ou erro -->
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
         

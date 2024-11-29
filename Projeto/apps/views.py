@@ -223,6 +223,8 @@ def cadastrar_voluntariado(request):
             form.save()
             messages.success(request, 'Voluntariado cadastrado com sucesso!')
             return redirect('listar_programas')
+        else:
+            messages.error(request, 'Erro ao cadastrar o voluntariado. Verifique os dados.')
     else:
         form = VoluntariadoForm()
     return render(request, 'apps/cadastrar_voluntariado.html', {'form': form})
@@ -231,13 +233,28 @@ def cadastrar_monitoria(request):
     if request.method == 'POST':
         form = MonitoriaForm(request.POST)
         if form.is_valid():
-            form.save()
+            monitoria = form.save(commit=False)  # Salva sem persistir no BD ainda
+
+            # Converter 'cadeiras_requeridas' e 'requisitos' para listas (dividindo a string por vírgula)
+            cadeiras_input = form.cleaned_data.get('cadeiras_requeridas', '')
+            requisitos_input = form.cleaned_data.get('requisitos', '')
+            
+            # Se houver valores, transforma em lista separando por vírgula
+            monitoria.cadeiras_requeridas = [cadeira.strip() for cadeira in cadeiras_input.split(',')] if cadeiras_input else []
+            monitoria.requisitos = [requisito.strip() for requisito in requisitos_input.split(',')] if requisitos_input else []
+
+            # Salvar o objeto no banco
+            monitoria.save()
+
             messages.success(request, 'Monitoria cadastrada com sucesso!')
             return redirect('listar_programas')
+        else:
+            messages.error(request, 'Erro ao cadastrar a monitoria. Verifique os dados.')
     else:
         form = MonitoriaForm()
+    
     return render(request, 'apps/cadastrar_monitoria.html', {'form': form})
-
+              
 def cadastrar_iniciacao_cientifica(request):
     if request.method == 'POST':
         form = IniciacaoCientificaForm(request.POST)
@@ -245,16 +262,16 @@ def cadastrar_iniciacao_cientifica(request):
             form.save()
             messages.success(request, 'Iniciação Científica cadastrada com sucesso!')
             return redirect('listar_programas')
+        else:
+            messages.error(request, 'Erro ao cadastrar a Iniciação Científica. Verifique os dados.')
     else:
         form = IniciacaoCientificaForm()
     return render(request, 'apps/cadastrar_iniciacao.html', {'form': form})
 
 @login_required
 def visualizar_programa(request, programa_id):
-    # Obtenção do programa específico com base no ID
     programa = get_object_or_404(ProgramaOficial, id=programa_id)
     
-    # Determina o tipo de programa
     if hasattr(programa, 'voluntariado'):
         tipo = 'voluntariado'
         programa_especifico = programa.voluntariado

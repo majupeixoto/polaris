@@ -200,6 +200,7 @@ class ProgramaOficial(Oportunidade):
     
     class Meta:
         abstract = True
+        
 class Voluntariado(ProgramaOficial):
     local_trabalho = models.CharField(max_length=100)
     organizacao_parceira = models.CharField(max_length=100)
