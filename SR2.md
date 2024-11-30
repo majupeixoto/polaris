@@ -95,6 +95,39 @@ Conversa: O usuário poderá acessar a listagem dos grupos de estudo, visualizan
 Validação: 
 Vou acessar a aplicação como aluna “Marília Fernandes Silva”, e-mail mfs@cesar.school, e tentarei visualizar a listagem dos programas cadastrados. O sistema deverá exibir uma lista de programas disponíveis no momento, a saber:  o primeiro programa é de monitoria, e o sistema informará a categoria “Monitoria”, o título do programa “Monitoria de Matemática para Computação” e a descrição “Monitoria da disciplina Matemática para Computação”; o segundo programa é de voluntariado e o sistema informará a categoria “Voluntariado”, o título do programa “Rec n Play” e a descrição do programa “Voluntariado para o Rec n Play”; o último programa é de iniciação científica, e o sistema informará a categoria “Iniciação Científica”, o título do programa “Iniciação” e a descrição “Programa de Iniciação Científica para alunos da graduação”.
 
+História de Funcionário 1: Cadastro de Grupos de Estudos (Alta prioridade)
+
+Cartão: Como colaborador, eu gostaria de cadastrar um grupo de estudos para facilitar a participação de estudantes em atividades acadêmicas colaborativas.
+
+Conversa: O colaborador poderá cadastrar grupos de estudo, informando o título, descrição, tags, status das inscrições, tema, número de integrantes, professor orientador, carga horária semanal, dias da reunião e hora da reunião.
+
+Confirmação/Validação:
+Vou acessar a aplicação como colaboradora “Roberta Gomes”, e-mail rg@cesar.school. Vou tentar cadastrar “GARAGino” como “Grupo de Estudo”, com a descrição “Grupo de estudo focado em computação física”, tags “Computação Física” e “Robótica”, com status das inscrições “Aberto”, tema “´Computação Física”,  número de integrantes “25”, professor orientador “Henrique Mineiro”, carga horária semanal de “4h”, dias de reunião “Terças-feiras” e horário “15”h. Vou acessar a aplicação como aluna “Diana Medeiros”, email dm2@cesar.school. Vou tentar acessar todas as oportunidades em andamento e o “GARAGino” aparecerá como resultado das buscas.
+Vou acessar a aplicação como colaboradora “Mariana Santos”, e-mail ms@cesar.school. Vou tentar cadastrar “TechLab” como “Grupo de Estudo”, com a descrição “Grupo de estudo focado em desenvolvimento de sistemas embarcados”, tags “Sistemas Embarcados” e “Inovação”, com status das inscrições “Fechado”, tema “Desenvolvimento de Sistemas Embarcados”, número de integrantes “30”, professor orientador “João Pereira”, carga horária semanal de “3h”, dias de reunião “Quartas-feiras” e horário “10h”. Vou acessar a aplicação como aluna “Camila Souza”, email cs@cesar.school. Vou tentar acessar todas as oportunidades em andamento, e o “TechLab” não aparecerá como resultado das buscas, pois o status das inscrições está "Fechado".
+
+
+História de Funcionário 2: Cadastro de Eventos (Alta prioridade)
+
+Cartão: Como colaborador, eu gostaria de cadastrar eventos para promover a participação de estudantes em workshops, palestras e atividades extracurriculares.
+
+Conversa: O colaborador poderá cadastrar eventos, informando o nome do evento, palestrante, local, instituição organizadora, descrição, data e horário de início e término do evento, número máximo de vagas, tags e status de inscrição (abertas, fechadas, por convite e em breve).
+
+
+Confirmação/Validação:
+Vou acessar a aplicação como colaboradora “Hannah Montana”, e-mail hm3@cesar.school. Vou tentar cadastrar “Workshop de Buzzline: Robô Seguidor de Linha open source”, com o local do evento “Campus Cesar”, com a descrição “Aprenda a montar e programar o buzzline, robô open source e de baixo custo que visa democratizar o acesso à robótica no Brasil”, com a data de início do evento “20/11/2024” e data de término do evento  “23/11/2024”, com horário de início do evento às ”12h30” e horário de término às “18h00”, atribuir como palestrante “João Guilherme”,  informar “Cesar School” como instituição que organizará o evento, com os participantes convidados “Lúcia Lopes” e “Georgia Amaral”, com as tags “Tecnologia” e “Robótica”, número máximo de vagas “50” e com a opção de inscrição “Abertas”.
+Vou acessar a aplicação como aluna “Jade Picon”, email jp5@cesar.school. Vou tentar acessar todas as oportunidades em andamento e o “Workshop de Buzzline: Robô Seguidor de Linha open source” aparecerá como resultado das buscas.
+
+História de Funcionário 3: Cadastro de Programas Oficiais (Alta prioridade)
+
+Cartão: Como colaborador, eu gostaria de cadastrar programas oficiais de recrutamento para facilitar o acesso de estudantes a oportunidades estruturadas de crescimento acadêmico ou profissional.
+
+Conversa: O colaborador poderá cadastrar programas oficiais, incluindo nome, descrição e status.
+
+Confirmação/Validação:
+Vou acessar a aplicação como colaboradora “Clarice Neves”, e-mail cn@cesar.school. Vou tentar cadastrar o evento com o título “Summer Job” como “Programa Oficial” com a descrição “ jornada de inovação aberta que conecta talentos universitários a empresas e seus desafios estratégicos”, status de inscrição “Fechado”, início do evento no dia 15/10/2025, fim do evento do dia 16/10/2025 e com carga horária de 8 horas . 
+Vou acessar a aplicação como aluna “Ana Beatriz Pontes”, email abp@cesar.school. Vou tentar acessar todas as oportunidades em andamento e o “Summer Job” aparecerá como resultado das buscas, como “Programa Oficial” com a descrição “ jornada de inovação aberta que conecta talentos universitários a empresas e seus desafios estratégicos”, status de inscrição “Fechado”, início do evento no dia 15/10/2025, fim do evento do dia 16/10/2025 e com carga horária de 8 horas . 
+
+
 ## Diagrama de Classes
 ## Diagrama de Arquitura em Camadas
 https://www.canva.com/design/DAGTux22Fdg/J9VIAffykI-NWe9P7hYfDg/edit
