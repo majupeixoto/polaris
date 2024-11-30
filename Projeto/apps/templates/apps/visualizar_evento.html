@@ -6,110 +6,104 @@
 <link rel="stylesheet" href="{% static 'global/css/visualizar_evento.css' %}">
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12 text-start">
-            <p>(<strong>Status de abertura</strong>) - (<strong>Prazo até mudança de status</strong>)</p>
-        </div>
-    </div>
-    <div class="row justify-content-between align-items-center">
-        <div class="col-md-8">
-            <h1>{{ evento.titulo }}</h1>
-            <p>{{ evento.descricao }}</p>
-            <p><strong>Local:</strong> {{ evento.local }}</p>
-            <p><strong>Status das Inscrições:</strong> {{ evento.get_status_inscricoes_display }}</p>
-            <p><strong>Data do evento:</strong>
-                {% if evento.fim_evento %}
-                    {{ evento.inicio_evento }} - {{ evento.fim_evento }}
-                {% else %}
-                    {{ evento.inicio_evento }}
-                {% endif %}
-            </p>            
-            <p><strong>Horário:</strong> {{ evento.horario_de_inicio }} - {{ evento.horario_de_termino }}</p>
-            <p><strong>Vagas:</strong> {{ evento.vagas }}</p>
-            <p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
-            <button class="btn btn-secondary mt-3">Página de inscrição</button>
-
-            <div class="btn-group">
-                {% if user.is_authenticated %}
-                    {% if evento.favoritado %}
-                        <button id="favoritar-btn" class="btn btn-lg btn-outline-secondary btn-desfavoritar" data-bs-toggle="popover" data-bs-content="Remover da lista de favoritos" data-evento-id="{{ evento.id }}" data-favoritado="true">
-                            <i class="fa-solid fa-heart"></i> Remover dos Favoritos
-                        </button>
+<div class="container mt-5 pt-5">
+    <div class="card bg-dark text-white shadow p-4" style="border-radius: 15px;">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="card-title text-warning">{{ evento.titulo }}</h1>
+                <p class="card-text">{{ evento.descricao }}</p>
+                <p class="card-text">
+                    <strong>Local:</strong> {{ evento.local }}
+                </p>
+                <p class="card-text">
+                    <strong>Status das Inscrições:</strong> {{ evento.get_status_inscricoes_display }}
+                </p>
+                <p class="card-text">
+                    <strong>Data do evento:</strong> 
+                    {% if evento.fim_evento %}
+                        {{ evento.inicio_evento }} - {{ evento.fim_evento }}
                     {% else %}
-                        <button id="favoritar-btn" class="btn btn-lg btn-outline-secondary btn-favoritar" data-bs-toggle="popover" data-bs-content="Adicionar à lista de favoritos" data-evento-id="{{ evento.id }}" data-favoritado="false">
-                            <i class="fa-regular fa-heart"></i> Adicionar aos Favoritos
-                        </button>
+                        {{ evento.inicio_evento }}
                     {% endif %}
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-lg btn-outline-secondary" data-bs-toggle="popover" data-bs-content="Faça login para adicionar aos favoritos">
-                        Faça login para Favoritar
-                    </a>
-                {% endif %}
+                </p>
+                <p class="card-text">
+                    <strong>Horário:</strong> {{ evento.horario_de_inicio }} - {{ evento.horario_de_termino }}
+                </p>
+                <p class="card-text">
+                    <strong>Vagas:</strong> {{ evento.vagas }}
+                </p>
+                <p class="card-text">
+                    <strong>Tipo:</strong> {{ evento.get_tipo_display }}
+                </p>
+                <a href="#" class="btn btn-info mt-3">
+                    <i class="bi bi-arrow-right-circle"></i> Página de inscrição
+                </a>
+
+                <div class="btn-group mt-3">
+                    {% if user.is_authenticated %}
+                        {% if evento.favoritado %}
+                            <button id="favoritar-btn" class="btn btn-lg btn-outline-light btn-desfavoritar" data-evento-id="{{ evento.id }}" data-favoritado="true">
+                                <i class="bi bi-heart-fill"></i> Remover dos Favoritos
+                            </button>
+                        {% else %}
+                            <button id="favoritar-btn" class="btn btn-lg btn-outline-light btn-favoritar" data-evento-id="{{ evento.id }}" data-favoritado="false">
+                                <i class="bi bi-heart"></i> Adicionar aos Favoritos
+                            </button>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-lg btn-outline-light">
+                            <i class="bi bi-person"></i> Faça login para Favoritar
+                        </a>
+                    {% endif %}
+                </div>
             </div>
-
+            <div class="col-md-4">
+                <div class="img-placeholder bg-secondary rounded" style="width: 100%; height: 200px;">
+                    <p class="text-center text-white pt-4">Imagem do Evento</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <div class="img-placeholder" style="width: 100%; height: 200px; background-color: #e0e0e0;"></div>
+        
+        {% if user.is_superuser %}
+        <div class="row mt-4">
+            <div class="col text-end">
+                <a href="{% url 'alterar_evento' evento.id %}" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i> Alterar Evento
+                </a>
+                <a href="{% url 'excluir_evento' evento.id %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Excluir Evento
+                </a>
+            </div>
         </div>
+        {% endif %}
     </div>
-
-    <!-- Botões para superusuários -->
-    {% if user.is_superuser %}
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <a href="{% url 'alterar_evento' evento.id %}" class="btn btn-warning">Alterar Evento</a>
-            <a href="{% url 'excluir_evento' evento.id %}" class="btn btn-danger">Excluir Evento</a>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Inicializa os popovers
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl);
-        });
-
-        // Seleciona o botão de favoritar/desfavoritar
-        var favoritarBtn = document.querySelector('.btn-favoritar, .btn-desfavoritar');
+        var favoritarBtn = document.querySelector('#favoritar-btn');
         if (favoritarBtn) {
             favoritarBtn.addEventListener('click', function(event) {
                 event.preventDefault();
-
-                // Pega os dados do evento e do estado do botão
                 var eventoId = favoritarBtn.getAttribute('data-evento-id');
                 var favoritado = favoritarBtn.getAttribute('data-favoritado') === 'true';
                 var action = favoritado ? 'desfavoritar' : 'favoritar';
 
-                // Envia a requisição AJAX para o servidor
                 fetch("{% url 'favoritar_evento' %}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
-                    body: 'evento_id=' + eventoId + '&action=' + action
+                    body: `evento_id=${eventoId}&action=${action}`
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Altera o conteúdo e a classe do botão com base no estado
-                        if (favoritado) {
-                            favoritarBtn.setAttribute('data-bs-content', 'Adicionar à lista de favoritos');
-                            favoritarBtn.innerHTML = '<i class="fa-regular fa-heart"></i> Adicionar aos Favoritos';
-                            favoritarBtn.classList.remove('btn-desfavoritar');
-                            favoritarBtn.classList.add('btn-favoritar');
-                            favoritarBtn.setAttribute('data-favoritado', 'false');
-                        } else {
-                            favoritarBtn.setAttribute('data-bs-content', 'Remover da lista de favoritos');
-                            favoritarBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Remover dos Favoritos';
-                            favoritarBtn.classList.remove('btn-favoritar');
-                            favoritarBtn.classList.add('btn-desfavoritar');
-                            favoritarBtn.setAttribute('data-favoritado', 'true');
-                        }
+                        favoritarBtn.innerHTML = favoritado 
+                            ? '<i class="bi bi-heart"></i> Adicionar aos Favoritos' 
+                            : '<i class="bi bi-heart-fill"></i> Remover dos Favoritos';
+                        favoritarBtn.setAttribute('data-favoritado', !favoritado);
                     }
                 })
                 .catch(error => console.error('Erro:', error));
@@ -117,5 +111,4 @@
         }
     });
 </script>
-
 {% endblock %}
