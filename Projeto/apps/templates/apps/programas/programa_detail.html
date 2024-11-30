@@ -1,29 +1,60 @@
 {% extends 'global/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>{{ programa.nome }}</h2>
-    <p>{{ programa.tema }} - {{ programa.periodicidade }}</p>
-    <p>{{ programa.responsavel }}</p>
-    <p>{{ programa.descricao }}</p>
+<div class="container mt-5 pt-5">
+    <div class="card bg-dark shadow p-4 text-white" style="border-radius: 15px; margin-left: 150px;">
+        <div class="card-body">
+            <h2 class="card-title text-warning">{{ programa.nome }}</h2>
+            <p class="card-text">
+                <strong>Tema:</strong> {{ programa.tema }} <br>
+                <strong>Periodicidade:</strong> {{ programa.periodicidade }}
+            </p>
+            <p class="card-text">
+                <strong>Responsável:</strong> {{ programa.responsavel }}
+            </p>
+            <p class="card-text">
+                <strong>Descrição:</strong> {{ programa.descricao }}
+            </p>
 
-    {% if programa.links %}
-        <p><a href="{{ programa.links }}" target="_blank">Acessar links relacionados</a></p>
-    {% endif %}
+            {% if programa.links %}
+                <p class="card-text">
+                    <strong>Links relacionados:</strong> 
+                    <a href="{{ programa.links }}" target="_blank" class="text-decoration-none text-info">
+                        Acessar
+                    </a>
+                </p>
+            {% endif %}
 
-    {% comment %} Debugging block {% endcomment %}
-    <p>Tipo de programa: {{ tipo }}</p>
-    {% if programa_especifico %}
-        <p>Detalhes específicos: {{ programa_especifico }}</p>
-    {% else %}
-        <p>Sem detalhes específicos para este programa.</p>
-    {% endif %}
+            <hr class="text-secondary">
 
-    {% if user.is_superuser %}
-        <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning">Editar</a>
-        <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">Excluir</a>
-    {% endif %}
-    <a href="{% url 'programa_list' %}" class="btn btn-secondary mt-3">Voltar para a lista</a>
+            <p class="card-text">
+                <strong>Tipo de programa:</strong> {{ tipo }}
+            </p>
+            {% if programa_especifico %}
+                <p class="card-text">
+                    <strong>Detalhes específicos:</strong> {{ programa_especifico }}
+                </p>
+            {% else %}
+                <p>Sem detalhes específicos para este programa.</p>
+            {% endif %}
+
+            {% if user.is_superuser %}
+                <div class="mt-4">
+                    <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning me-2">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="mt-4">
+                <a href="{% url 'listar_programas' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Voltar para a lista
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

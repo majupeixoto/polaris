@@ -1,29 +1,68 @@
 {% extends "global/base.html" %}
 
 {% block content %}
-<h1>{{ object.titulo }}</h1>
-<p>{{ object.descricao }}</p>
-<p>Status das Inscrições: {{ object.status_inscricoes }}</p>
-<p>Tags: 
-    {% if object.tags %}
-        <ul>
-            {% for tag in object.tags %}
-                <li>{{ tag }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        Nenhuma tag definida.
-    {% endif %}
-</p>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="card-title text-primary mb-4">{{ object.titulo }}</h1>
+            
+            <p class="card-text">
+                <strong>Descrição:</strong> {{ object.descricao }}
+            </p>
+            
+            <p class="card-text">
+                <strong>Status das Inscrições:</strong> 
+                <span class="badge {% if object.status_inscricoes == 'Aberto' %}bg-success{% else %}bg-danger{% endif %}">
+                    {{ object.status_inscricoes }}
+                </span>
+            </p>
+            
+            <p class="card-text">
+                <strong>Tags:</strong>
+                {% if object.tags %}
+                    <ul class="list-inline">
+                        {% for tag in object.tags %}
+                            <li class="list-inline-item badge bg-secondary">{{ tag }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span class="text-muted">Nenhuma tag definida.</span>
+                {% endif %}
+            </p>
+            
+            <p class="card-text">
+                <strong>Objetivo:</strong> {{ object.objetivo }}
+            </p>
+            
+            <p class="card-text">
+                <strong>Docente Supervisor:</strong> 
+                <span class="text-primary">{{ object.docente_supervisor }}</span>
+            </p>
+            
+            <p class="card-text">
+                <strong>Site:</strong> 
+                <a href="{{ object.site }}" target="_blank" class="text-decoration-none">
+                    {{ object.site }}
+                </a>
+            </p>
 
-<p>Objetivo: {{ object.objetivo }}</p>
-<p>Docente Supervisor: {{ object.docente_supervisor }}</p>
-<p><a href="{{ object.site }}" target="_blank">Site da Iniciativa</a></p>
+            {% if user.is_superuser %}
+            <div class="mt-4">
+                <a href="{% url 'iniciativa_update' object.pk %}" class="btn btn-warning me-2">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </a>
+                <a href="{% url 'iniciativa_delete' object.pk %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Excluir
+                </a>
+            </div>
+            {% endif %}
 
-{% if user.is_superuser %}
-    <a href="{% url 'iniciativa_update' object.pk %}">Editar</a>
-    <a href="{% url 'iniciativa_delete' object.pk %}">Excluir</a>
-{% endif %}
-
-<a href="{% url 'iniciativa_list' %}" class="btn btn-secondary">Voltar para a lista</a>
+            <div class="mt-4">
+                <a href="{% url 'iniciativa_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Voltar para a lista
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
