@@ -129,6 +129,8 @@ Vou acessar a aplicação como aluna “Ana Beatriz Pontes”, email abp@cesar.s
 
 
 ## Diagrama de Classes
+![my_project_visualized](https://github.com/user-attachments/assets/a96bec84-657c-4e78-a106-47dd62b43bf2)
+
 ## Diagrama de Arquitura em Camadas
 https://www.canva.com/design/DAGTux22Fdg/J9VIAffykI-NWe9P7hYfDg/edit
 ![image](https://github.com/user-attachments/assets/1fccd5ab-e758-4a27-a9f7-43f8be151f27)
