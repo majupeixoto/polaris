@@ -2,19 +2,23 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center">Selecione o Tipo de Programa</h1>
-    
-    <form method="get" id="programaForm">
-        <div class="form-group">
-            <label for="tipo_programa"><strong>Tipo de Programa:</strong></label>
-            <select id="tipo_programa" name="tipo_programa" class="form-control" onchange="redirecionarFormulario()">
-                <option value="">Selecione</option>
-                <option value="voluntariado">Voluntariado</option>
-                <option value="monitoria">Monitoria</option>
-                <option value="iniciacao_cientifica">Iniciação Científica</option>
-            </select>
-        </div>
-    </form>
+    <div class="card shadow-lg p-4" style="border-radius: 15px; background-color: #f8f9fa;">
+        <h1 class="text-center text-primary mb-4">Selecione o Tipo de Programa</h1>
+        
+        <form method="get" id="programaForm">
+            <div class="form-group">
+                <label for="tipo_programa" class="form-label text-secondary">
+                    <strong>Tipo de Programa:</strong>
+                </label>
+                <select id="tipo_programa" name="tipo_programa" class="form-control form-select" onchange="redirecionarFormulario()">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="voluntariado">Voluntariado</option>
+                    <option value="monitoria">Monitoria</option>
+                    <option value="iniciacao_cientifica">Iniciação Científica</option>
+                </select>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>

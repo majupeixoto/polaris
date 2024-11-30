@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from unidecode import unidecode
 from django.core.paginator import Paginator
 from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
 
 def login_view(request):
     if request.method == 'POST':
@@ -418,13 +419,14 @@ class ProgramaCreateView(CreateView):
     model = ProgramaOficial
     form_class = ProgramaOficialForm
     template_name = 'apps/programas/programa_form.html'
-    success_url = 'apps/sucesso.html'
+    success_url = reverse_lazy('programa_list')  # Certifique-se de que 'programa_list' exista no urls.py
 
 class ProgramaUpdateView(UpdateView):
     model = ProgramaOficial
     form_class = ProgramaOficialForm
     template_name = 'apps/programas/programa_form.html'
-    success_url = 'apps/sucesso.html'
+    success_url = reverse_lazy('programa_list')  # Certifique-se de que 'programa_list' exista no urls.py
+
 
 class ProgramaDeleteView(DeleteView):
     model = ProgramaOficial

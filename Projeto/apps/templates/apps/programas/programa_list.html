@@ -1,7 +1,7 @@
 {% extends 'global/base.html' %}
 
 {% block content %}
-<div class="container mt-5 pt-5 text-white" style="margin-left: 150px;">
+<div class="container mt-5 pt-5 text-white" style="margin-left: 1px;">
     <h2>Programas</h2>
     {% if user.is_superuser %}
     <a href="{% url 'programa_create' %}" class="btn btn-primary mb-3">Criar Novo Programa</a>

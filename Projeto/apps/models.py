@@ -46,7 +46,7 @@ class Perfil(AbstractBaseUser):
 
     is_staff = models.BooleanField(default=False)  # Permissão para acessar o admin
     is_superuser = models.BooleanField(default=False)     
-
+ 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome'] # 'email' é tratado por USERNAME_FIELD, e a senha é gerenciada por AbstractBaseUser
 

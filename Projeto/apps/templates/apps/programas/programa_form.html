@@ -1,13 +1,89 @@
 {% extends 'global/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>{% if form.instance.pk %}Editar{% else %}Criar{% endif %} Programa</h2>
+
+<!-- Link to external CSS file -->
+<link rel="stylesheet" type="text/css" href="{% static 'global/css/cadastrar_evento.css' %}">
+
+<!-- Div com padding para evitar sobreposição -->
+<div class="content-cadastro">
+    <h1>{% if form.instance.pk %}Editar{% else %}Cadastrar{% endif %} Programa Oficial</h1>
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <div class="row">
+            <!-- Coluna 1 (esquerda) -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="titulo"><strong>*Título do Programa:</strong></label>
+                    {{ form.titulo }}
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao"><strong>*Descrição do Programa:</strong></label>
+                    {{ form.descricao }}
+                </div>
+
+                <div class="form-group">
+                    <label for="tema"><strong>*Tema:</strong></label>
+                    {{ form.tema }}
+                </div>
+
+                <div class="form-group">
+                    <label for="periodicidade"><strong>*Periodicidade:</strong></label>
+                    {{ form.periodicidade }}
+                </div>
+            </div>
+
+            <!-- Coluna 2 (central) -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="status_inscricoes"><strong>*Status das Inscrições:</strong></label>
+                    {{ form.status_inscricoes }}
+                </div>
+
+                <div class="form-group">
+                    <label for="inicio_evento"><strong>*Início do Evento:</strong></label>
+                    {{ form.inicio_evento }}
+                </div>
+
+                <div class="form-group">
+                    <label for="fim_evento">Fim do Evento:</label>
+                    {{ form.fim_evento }}
+                </div>
+
+                <div class="form-group">
+                    <label for="carga_horaria"><strong>*Carga Horária:</strong></label>
+                    {{ form.carga_horaria }}
+                </div>
+            </div>
+
+            <!-- Coluna 3 (direita) -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="responsavel"><strong>*Responsável:</strong></label>
+                    {{ form.responsavel }}
+                </div>
+
+                <div class="form-group">
+                    <label for="tags"><strong>Tags:</strong></label>
+                    {{ form.tags }}
+                </div>
+
+                <div class="form-group">
+                    <label for="links">Links relacionados:</label>
+                    {{ form.links }}
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn-publicar-evento">
+                {% if form.instance.pk %}Atualizar{% else %}Criar{% endif %} Programa
+            </button>
+        </div>
     </form>
-    <a href="{% url 'programa_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
 </div>
+
 {% endblock %}
