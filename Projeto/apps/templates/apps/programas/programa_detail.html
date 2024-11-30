@@ -43,9 +43,12 @@
                     <a href="{% url 'programa_update' programa.pk %}" class="btn btn-warning me-2">
                         <i class="bi bi-pencil-square"></i> Editar
                     </a>
-                    <a href="{% url 'programa_delete' programa.pk %}" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Excluir
-                    </a>
+                    <form method="post" action="{% url 'programa_delete' programa.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza de que deseja excluir este programa?')">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </form>
                 </div>
             {% endif %}
 

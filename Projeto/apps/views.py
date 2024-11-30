@@ -14,6 +14,7 @@ from unidecode import unidecode
 from django.core.paginator import Paginator
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 
 def login_view(request):
     if request.method == 'POST':
@@ -427,12 +428,16 @@ class ProgramaUpdateView(UpdateView):
     template_name = 'apps/programas/programa_form.html'
     success_url = reverse_lazy('programa_list')  # Certifique-se de que 'programa_list' exista no urls.py
 
+class ProgramaDeleteView(SuccessMessageMixin, DeleteView):
+    model = ProgramaOficial
+    template_name = 'apps/programas/programa_confirm_delete.html'
+    success_url = reverse_lazy('listar_programas')  # Redireciona para a lista de programas
+    success_message = "Programa excluído com sucesso!"
 
 class ProgramaDeleteView(DeleteView):
     model = ProgramaOficial
     template_name = 'apps/programas/programa_confirm_delete.html'
     success_url = reverse_lazy('programa_list')
-
 
 def search_results(request):
     query = request.GET.get('q', '').strip()

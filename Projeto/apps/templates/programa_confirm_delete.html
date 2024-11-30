@@ -1,0 +1,64 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card bg-dark shadow p-5 text-white" style="border-radius: 15px; max-width: 500px; width: 100%;">
+        <div class="card-body text-center">
+            <h2 class="card-title text-danger mb-4">Excluir Programa</h2>
+            <p class="card-text fs-5">Tem certeza de que deseja excluir o programa <strong>{{ object.titulo }}</strong>?</p>
+            <p class="text-muted mb-4">Esta ação não poderá ser desfeita.</p>
+            
+            <form method="post" class="d-flex justify-content-around">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger px-4">Excluir</button>
+                <a href="{% url 'programa_detail' object.pk %}" class="btn btn-secondary px-4">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+  body {
+    background-color: #121212 !important; /* Fundo escuro */
+}
+
+.container {
+    min-height: 100vh !important; /* Faz com que a página ocupe toda a altura */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.card {
+    max-width: 500px !important; /* Limita a largura do card */
+    width: 100% !important;
+    background-color: #1c1c1e !important; /* Fundo do card mais escuro */
+    border: none !important;
+}
+
+.card-title {
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+    color: #ff4d4d !important; /* Vermelho para o título */
+}
+
+.btn-danger {
+    background-color: #ff4d4d !important;
+    border: none !important;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000 !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+    border: none !important;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268 !important;
+}
+
+</style>
+{% endblock %}
